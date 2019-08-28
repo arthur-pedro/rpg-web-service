@@ -1,0 +1,53 @@
+<div class="row content-wrapper animated fadeInDown">
+  <div class="offset-md-3 col-md-6 grid-margin stretch-card">
+    <div class="card box-shadow">
+      <div class="card-body">
+        <h3 class="mb-4">
+          <span><img src="https://cf.quizizz.com/img/gears_icon.png" alt=""> Nova Publicação <span class="pull-right display-5 pointer text-primary"><p><a routerLink="/main/board">voltar</a></p></span></span>
+        </h3>
+        <form class="needs-validation" novalidate [formGroup]="publicationForm">
+            <div class="form-row">
+              <div class="col-md-12 mb-3 mt-2">
+                <p>Título</p>
+                <input placeholder="Escolha um título para sua publicação" formControlName="title" type="text" class="form-control mb-3">
+                <p>Descrição</p>
+                <textarea rows="4"  placeholder="Escolha uma descrição para sua publicação" formControlName="description" type="text" class="form-control mb-3"></textarea>
+                <p>Tags</p>
+                <ng-select formControlName="tags" (search)="listTag()" (click)="tip('tag')" class="form-control form-control-fixed"
+                  [items]="search$ | async"
+                  [addTag]="loggedUser.manager"
+                  bindLabel="title"
+                  [multiple]="true"
+                  [hideSelected]="true"
+                  [trackByFn]="trackByFn"
+                  [loading]="searchLoading"
+                  [typeahead]="searchInput$"
+                  placeholder="Selecione uma tag"
+                  [(ngModel)]="selectedTags">>
+                </ng-select>
+              </div>
+            </div>
+            <button [disabled]="loading" (click)="create()" class="btn btn-success btn-block mt-3 mb-2">
+                <span *ngIf="!loading">Criar</span>
+                <span *ngIf="loading"><i class=" mdi mdi-loading mdi-spin"></i></span>
+              </button>
+              <div *ngIf="isCreated" class="alert alert-success alert-dismissible fade show" role="alert" style="font-size: 13px">
+                <strong>Sucesso!</strong> Sua publicação foi criada com sucesso.
+                <button (click)="isCreated = false" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div *ngIf="hasServerError" class="alert alert-danger alert-dismissible fade show" role="alert"  style="font-size:13px">
+                <strong>Erro!</strong> Erro inesperado no servidor: <i>{{hasServerError?.name}}</i>
+                <button (click)="hasServerError = null" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div *ngIf="publicationForm.invalid && submitted" class="alert alert-danger fade show" role="alert" style="font-size:13px">
+                <strong>Cuidado!</strong> Campos obrigatórios
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

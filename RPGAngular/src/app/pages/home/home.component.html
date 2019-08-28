@@ -1,0 +1,308 @@
+  <div class="content-wrapper animated fadeIn">
+    <div style="display:none" class="row">
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+        <div class="card card-statistics">
+          <div class="card-body ">
+            <div class="clearfix">
+              <div class="float-left">
+                <i class="mdi mdi-xbox-controller text-danger icon-lg"></i>
+              </div>
+              <div class="float-right">
+                <p class="mb-0 text-right">Meus prontos</p>
+                <div class="fluid-container">
+                  <h3 *ngIf="user" class="font-weight-medium text-right mb-0">{{user?.status?.score}}</h3>
+                </div>
+              </div>
+            </div>
+            <p class="text-muted mt-3 mb-0">
+              <span *ngIf="user"><i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Pontos do 1º lugar: 0</span>
+              <span *ngIf="!user"><i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Erro na conexão</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+        <div class="card card-statistics">
+          <div class="card-body">
+            <div class="clearfix">
+              <div class="float-left">
+                <i class="mdi mdi-lightbulb text-primary icon-lg"></i>
+              </div>
+              <div class="float-right">
+                <p class="mb-0 text-right">XP</p>
+                <div class="fluid-container">
+                  <h3 class="font-weight-medium text-right mb-0">{{user?.status?.xp}}</h3>
+                </div>
+              </div>
+            </div>
+            <p class="text-muted mt-3 mb-0">
+              <span *ngIf="user"><i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Próximo lvl: 10</span>
+              <span *ngIf="!user"><i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Erro na conexão</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+        <div class="card card-statistics">
+          <div class="card-body">
+            <div class="clearfix">
+              <div class="float-left">
+                <i class="mdi mdi-trophy text-success icon-lg"></i>
+              </div>
+              <div class="float-right">
+                <p class="mb-0 text-right">Ranking</p>
+                <div class="fluid-container">
+                  <h3 class="font-weight-medium text-right mb-0">{{user?.status?.ranking}}</h3>
+                </div>
+              </div>
+            </div>
+            <p class="text-muted mt-3 mb-0">
+              <span *ngIf="user"><i class="mdi mdi-trending-neutral mr-1" aria-hidden="true"></i> Subiu 0 posições</span>
+              <span *ngIf="!user"><i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Erro na conexão</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+        <div class="card card-statistics">
+          <div class="card-body">
+            <div class="clearfix">
+              <div class="float-left">
+                <i class="mdi mdi-sword text-info icon-lg"></i>
+              </div>
+              <div class="float-right">
+                <p class="mb-0 text-right">Lvl</p>
+                <div class="fluid-container">
+                  <h3 class="font-weight-medium text-right mb-0">{{user?.status?.level}}</h3>
+                </div>
+              </div>
+            </div>
+            <p class="text-muted mt-3 mb-0">
+              <span *ngIf="user"><i class="mdi mdi-trending-neutral mr-1" aria-hidden="true"></i> Subiu 0 niveis</span>
+              <span *ngIf="!user"><i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Erro na conexão</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- //NOTICIAS -->
+    <div class="row">
+      <div class="col-lg-7 col-md-7">
+        <div *ngIf="newsList.length == 0">
+          <div class="card scroll box-shadow">
+            <div class="card-body">
+              <h4 class="card-title">Notícias</h4>
+              <p class="card-description text-muted">Notícias da sua universidade</p>
+              <div *ngIf="loading">
+                  <div class="display-3 text-center mt-5 pt-5 text-muted">
+                    <i class=" mdi mdi-loading mdi-spin text-muted"></i>
+                  </div>
+              </div>
+              <div *ngIf="!loading" class="display-3 text-center mt-5 pt-5 text-muted">
+                <span><i class="mdi mdi-flag"></i></span><br>
+                <label for="">Nenhuma notícia</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!loading && newsList.length > 0" id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div style="border-radius: 6px;" class="carousel-inner box-shadow">
+            <div *ngFor="let news of newsList;  let i = index" class="carousel-item" [ngClass]="{'active' : i == 0}">
+                <div  class="card scroll">
+                  <div class="card-body">
+                    <div class="weather-date-location">
+                      <h3>{{news?.title}}</h3>
+                      <p class="text-gray">
+                        <span class="weather-date">25 de fevereiro de 2019</span>
+                      </p>
+                    </div>
+                    <div class="weather-data d-flex">
+                      <div class="mr-auto">
+                        <br>
+                        <br>
+                        <br>
+                        <h4 class="display-3">{{news?.description}}</h4>
+                        <p>{{news?.body}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Próximo</span>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-5 col-md-5">
+        <div class="card scroll box-shadow">
+          <div class="card-body">
+            <h4 class="card-title">Eventos</h4>
+            <p class="card-description text-muted">Eventos disponíveis na sua universidade</p>
+            <div *ngIf="loading">
+              <div class="display-3 text-center mt-5 pt-5 text-muted">
+                <i class=" mdi mdi-loading mdi-spin text-muted"></i>
+              </div>
+            </div>
+            <div *ngIf="!loading">  
+              <div *ngIf="newsList.length == 0">
+                <div class="display-3 text-center mt-5 pt-5 text-muted">
+                  <span><i class="mdi mdi-calendar"></i></span><br>
+                  <label for="">Nenhum evento</label>
+                </div>
+              </div>
+              <div *ngIf="eventList && eventList.length > 0" class="mb-2">
+                <!-- <ul class="list-group list-group-flush"> -->
+                  <!-- <li *ngFor="let event of eventList" class="text-left p-0 pb-3 pt-3 list-group-item pointer"> -->
+                      <p *ngFor="let event of eventList" class="mb-4 mt-0">  
+                        <span><i class="mdi mdi-calendar-clock"></i> {{event?.title}}</span> 
+                        <span class=""><i class="mdi mdi-map-marker"></i> Poli, Recife PE</span>
+                        <span class="pull-right">12 <i class="mdi mdi-flag"></i> 23 <i class="mdi mdi-eye"></i></span>
+                      </p>     
+                  <!-- </li> -->
+                <!-- </ul> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row pt-4">
+      <div class="col-lg-12">
+        <div class="card box-shadow">
+          <div class="card-body">
+            <h4 class="card-title">Ranking</h4>
+            <div class="table-responsive">
+            <div *ngIf="loading">
+                <div class="display-3 text-center mt-5 pt-5 text-muted">
+                  <i class=" mdi mdi-loading mdi-spin text-muted"></i>
+                </div>
+              </div>
+              <table *ngIf="!loading && ((pod && pod.length > 0))" class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>
+                      #
+                    </th>
+                    <th>
+                      Nome
+                    </th>
+                    <th>
+                      Level
+                    </th>
+                    <th>
+                      Pontos
+                    </th>
+                    <th class="text-center">
+                      Histórico
+                    </th>
+                    <th class="text-center">
+                      Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="!loading">
+                  <tr *ngFor="let user of pod;  let i = index">
+                      <td class="font-weight-medium">
+                        {{i + 1}}
+                      </td>
+                      <td>
+                        {{user?.firstName}} {{user?.lastName}}
+                      </td>
+                      <td>
+                        <div class="progress">
+                          <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+                            aria-valuemax="100"> 
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        {{user?.points}}
+                      </td>
+                      <td class="text-success text-center"> 1
+                        <i class="mdi mdi-arrow-up"></i>
+                      </td>
+                      <td class="text-center">
+                          <label class="badge badge-success">Ativo</label>
+                      </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="loading">
+                  <tr *ngFor="let skt of skeleton">
+                      <td class="font-weight-medium">
+                        <div class="progress">
+                          <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="progress">
+                          <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="progress">
+                          <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="progress">
+                          <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </td>
+                      <td class="text-success text-center">
+                        <div class="progress">
+                          <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <div class="progress">
+                          <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </td>
+                    </tr>
+                </tbody>
+              </table>
+              <div *ngIf="!loading && ((pod && pod.length == 0) || !pod)">
+                <div class="display-3 text-center mt-4 pt-4 text-muted">
+                  <span><i class="mdi mdi-account-off"></i></span><br>
+                  <label for="">Não há nada aqui</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detalhes da turma</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="font-weight-bold">Nome</p>
+          <p>{{selectedClass?.name}}</p>
+          <p class="font-weight-bold">Descrição</p>
+          <p>{{selectedClass?.description}}</p>
+          <p class="font-weight-bold">Membros</p>
+          <div *ngFor="let user of selectedClass?.userList">
+            
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>

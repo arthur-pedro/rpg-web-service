@@ -1,0 +1,189 @@
+<div class="header">
+  <div class="row content-wrapper">
+    <div class="col-md-8">
+      <div class="form-group">
+        <input type="text" class="form-control" [(ngModel)]="filter" placeholder="Pesquiser turma...">
+      </div>
+    </div>
+    <div class="col-md-4 text-right">
+      <div class="btn-group mr-4" role="group">
+        <button *ngIf="!showingMyClass"  type="button" (click)="showMyClass(showingMyClass)" class="btn btn-sm btn-warning"><i class="mdi mdi-account-multiple"></i>  Minhas turmas</button>
+        <button *ngIf="showingMyClass"  type="button" (click)="showMyClass(showingMyClass)" class="btn btn-sm btn-danger"><i class="mdi mdi-close"></i>  Voltar</button>
+        <button routerLink="./form" *ngIf="user?.manager && !showingMyClass" type="button" class="btn btn-sm btn-success"><i class="mdi mdi-plus"></i>  Nova turma</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row content-wrapper">
+  <div [ngClass]="{'col-lg-12': maxmize, 'col-lg-8': !maxmize }" class="col-md-12 col-lg-8 grid-margin stretch-card">
+    <div class="card scroll box-shadow">
+      <div class="card-body">
+        <h4 class="card-title">
+          <span *ngIf="!showingMyClass">Turmas abertas</span>
+          <span *ngIf="showingMyClass">Minhas turmas</span>
+          <span><i (click)="maxmizeCard()" class=" mdi mdi-arrow-expand text-muted pointer float-right"></i></span>
+          <span><i (click)="listClass()" class=" mdi mdi-replay text-muted pointer float-right pr-2"></i></span>
+        </h4>
+        <p class="card-description text-muted">Todas as turmas disponíveis no seu período estão aqui!</p>
+        <div *ngIf="!showingMyClass" class="fluid-container pt-4 animated fadeIn">
+          <!-- LOADING -->
+          <div *ngIf="loading">
+            <div *ngFor="let skt of skeleton" class="row ticket-card pb-2 border-bottom pb-3 mb-3">
+              <div class="col-md-1 mb-3"> 
+                <div class="progress">
+                  <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              <div class="col-md-10 mb-3"> 
+                <div class="progress">
+                  <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              <div class="col-md-1 mb-3"> 
+                <div class="progress">
+                  <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- LOADING -->
+          <div *ngIf="!loading && classList.length > 0">
+            <div *ngFor="let class of classList | filter: filter; let i = index" class="row ticket-card pb-2 border-bottom pb-3 mb-3">
+              <div class="ticket-details col-md-10">
+                <div class="d-flex ellipsis">
+                  <p class="text-primary mr-1 mb-0">[#{{class?.code}}]</p>
+                  <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">{{class?.name}} </p>
+                  <!-- <p class="mb-0 ellipsis">{{class?.name}}</p> -->
+                </div>
+                <p class="text-gray ellipsis mb-0">{{class?.description}}.</p>
+                <div class="row text-gray d-md-flex d-none">
+                  <div class="col-6 d-flex">
+                    <small class="mb-0 mr-2 text-muted text-muted">Criado em :</small>
+                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{class?.createdOn | date }}</small>
+                  </div>
+                  <div class="col-6 d-flex">
+                    <small class="mb-0 mr-2 text-muted text-muted">Membros :</small>
+                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{class?.members}}</small>
+                  </div>
+                </div>
+              </div>
+              <div class="ticket-actions text-right col-md-2">
+                <div class="btn-group dropdown">
+                  <button (click)="isMember()" type="button" class="btn btn-dark dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="mdi mdi-information-outline"></i>
+                  </button>
+                  <div class="dropdown-menu">
+                    <a *ngIf="class?.member" class="dropdown-item" routerLink="./detail/{{class?.id}}">
+                      <i class="fa fa-reply fa-fw"></i>Ir para
+                    </a>
+                    <div *ngIf="class?.member" class="dropdown-divider"></div>
+                    <a *ngIf="!class?.member"  class="dropdown-item pointer" (click)="enter(class)">
+                      <i class="fa fa-check text-success fa-fw"></i>Entrar
+                    </a>
+                    <a *ngIf="class?.member" class="dropdown-item pointer" (click)="exit(class)">
+                      <i class="fa fa-times text-danger fa-fw"></i>Sair
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!loading && classList.length == 0" class="row ticket-card mt-5 pb-2 pb-3 mb-3 animated fadeIn">
+            <div *ngIf="hasServerError">
+              <h4 class="mt-5 text-muted pointer"><i class="mdi mdi-link-variant-off" aria-hidden="true"></i></h4>
+              <p class="text-muted pointer">Tentar reconectar</p>
+            </div>
+            <div *ngIf="!hasServerError">
+              <h4 class="mt-5 text-muted pointer"><i class="mdi mdi-earth" aria-hidden="true"></i></h4>
+              <p class="text-muted pointer">Não há nada aqui</p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="showingMyClass" class="fluid-container mt-5 animated fadeIn">
+          <!-- LOADING -->
+          <div *ngIf="loading">
+            <div *ngFor="let skt of skeleton" class="row ticket-card pb-2 border-bottom pb-3 mb-3">
+              <div class="col-md-1 mb-3"> 
+                <div class="progress">
+                  <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              <div class="col-md-10 mb-3"> 
+                <div class="progress">
+                  <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              <div class="col-md-1 mb-3"> 
+                <div class="progress">
+                  <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- LOADING -->
+          <div *ngIf="!loading && myClassList.length > 0">
+            <div *ngFor="let class of myClassList | filter: filter; let i = index" class="row ticket-card pb-2 border-bottom pb-3 mb-3">
+              <div class="ticket-details col-md-10">
+                <div class="d-flex">
+                  <p class="text-primary mr-1 mb-0">[#{{class?.code}}]</p>
+                  <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">{{class?.name}} </p>
+                  <!-- <p class="mb-0 ellipsis">{{class?.name}}</p> -->
+                </div>
+                <p class="text-gray ellipsis mb-0">{{class?.description}}.</p>
+                <div class="row text-gray d-md-flex d-none">
+                  <div class="col-6 d-flex">
+                    <small class="mb-0 mr-2 text-muted text-muted">Criado em :</small>
+                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{class?.createdOn | date }}</small>
+                  </div>
+                  <div class="col-6 d-flex">
+                    <small class="mb-0 mr-2 text-muted text-muted">Membros :</small>
+                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{class?.members}}</small>
+                  </div>
+                </div>
+              </div>
+              <div class="ticket-actions col-md-2 text-right">
+                <div class="btn-group dropdown">
+                  <button (click)="isMember()" type="button" class="btn btn-dark dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="mdi mdi-information-outline"></i>
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" routerLink="./detail/{{class?.id}}">
+                      <i class="fa fa-reply fa-fw"></i>Ir para
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <button *ngIf="user?.id == class?.creatorId" (click)="delete(class)" class="dropdown-item pointer">
+                        <i class="fa fa-trash text-danger fa-fw"></i>Deletar
+                    </button>
+                    <a  *ngIf="user?.id != class?.creatorId" class="dropdown-item pointer" (click)="exit(class)">
+                      <i class="fa fa-times text-danger fa-fw"></i>Sair
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!loading && myClassList.length == 0" class="row text-center mt-5 pb-2 pb-3 mb-3">
+            <div class="display-4 mt-5 pt-5 text-muted">
+              <span><i class="mdi mdi-account-off"></i></span><br>
+              <span>Não há nada aqui</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!maxmize" [ngClass]="{'fadeOut': maxmize, 'fadeInDown': !maxmize }" class="col-md-4 max-heigth-400 grid-margin stretch-card animated">
+    <div>
+      <div class="alert alert-info animated fadeIn fast" role="alert">
+        <h4 class="alert-heading">Turma? o que é isso?</h4>
+        <p>Uma turma é um lugar onde você pode interagir com seu professor, e colegas de sala. Nas turmas, você pode visualizar notícias e responder atividades propostas pelo seu professor.</p>
+        <hr>
+        <p class="mb-0">Entregar atividades é ótimo para ganhar pontos, upar e chegar ainda mais longe no ranking!</p>
+        <hr>
+        <p class="mb-0">Aqui tambem é possível, visualziar as notícias da sua turma, como data de provas, trabalhos, etc...</p>
+        <hr>
+        <p class="mb-0">Se ainda tiver dúvidas de como usar as turmas, <a href="">clique aqui</a>.</p>
+      </div>
+    </div>
+  </div>
+</div>

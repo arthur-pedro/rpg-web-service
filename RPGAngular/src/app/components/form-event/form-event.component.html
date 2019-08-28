@@ -1,0 +1,71 @@
+<form class="needs-validation" novalidate [formGroup]="eventForm">
+  <div class="form-row">
+    <div class="col-md-8 mb-3 mt-2">
+      <label>Título</label>
+      <input (focus)="getTip('title')" placeholder="Digite o título do evento" formControlName="title" type="text" class="form-control mb-3">
+      <div class="form-row">
+        <div *ngIf="!classId" class="col-md-6">
+          <label>Pública</label>
+          <select formControlName="publicEvent" class="form-control form-control-fixed">
+            <option value="" disabled selected>Selecione uma opção</option>
+            <option>Sim</option>
+            <option>Não</option>
+          </select>
+        </div>
+        <div [ngClass]="{'col-md-12': classId, 'col-md-6': !classId}">
+          <label>Expira em</label>
+          <input formControlName="expireDate" type="date" placeholder="Seleciona uma data de entrega" name="bday" max="3000-12-31" min="2019-01-01" class="form-control form-control-fixed mb-3">
+        </div>
+      </div>
+      <div *ngIf="eventForm.value.publicNews == 'Não'" class="form-row">
+        <div class="col-md-12">
+          <label>Publicar para</label>
+          <input (focus)="getTip('publicTo')" placeholder="Adicione uma turma" type="text" class="form-control mb-3">
+        </div>
+      </div>
+      <textarea (click)="getTip('description')" [froalaEditor]='options' [(froalaModel)]="froadaDescription" [froalaEditor] class="mb-3"></textarea>
+      <!-- <textarea (focus)="getTip('body')" rows="4" placeholder="Digite sua notícia aqui" formControlName="body" type="text" class="form-control mb-3"></textarea> -->
+      <button (click)="createEvent()" class="btn btn-success mt-3">Criar</button>
+    </div>
+    <div class="col-md-4 mt-4">
+      <div *ngIf="tip && (isCreated || hasServerError)">
+        <div class="alert alert-warning animated fadeIn fast" role="alert">
+          <h4 class="alert-heading">O que é um evento?</h4>
+          <p>Sua pergunta é sobre programação?  Preferimos perguntas que podem ser respondidas, ao invés de 
+            debatidas. Dê detalhes. Diga o que você já tentou..</p>
+          <hr>
+          <p class="mb-0">Se não souber como fazer uma pergunta, Visite a central de ajuda »</p>
+        </div>
+      </div>
+      <div *ngIf="eventTip && (isCreated || hasServerError)">
+        <div class="alert alert-warning animated fadeIn fast" role="alert">
+          <h4 class="alert-heading">O que colocar no título?</h4>
+          <p>Sua pergunta é sobre programação?  Preferimos perguntas que podem ser respondidas, ao invés de 
+            debatidas. Dê detalhes. Diga o que você já tentou..</p>
+          <hr> 
+          <p class="mb-0">Se não souber como fazer uma pergunta, Visite a central de ajuda »</p>
+        </div>
+      </div>
+      <div *ngIf="isCreated" class="alert alert-success alert-dismissible fade show" role="alert" style="font-size: 13px">
+        <strong>Sucesso!</strong> Seu evento foi criado com sucesso!
+        <button (click)="isCreated = false" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="hasServerError" class="alert alert-danger alert-dismissible fade show" role="alert"  style="font-size:13px">
+        <strong>Erro!</strong> Erro inesperado no servidor: <i>{{hasServerError?.name}}</i>
+        <button (click)="hasServerError = null" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-8 mb-3 mt-4">
+      
+    </div>
+    <div class="col-md-4 mt-5">
+      
+    </div>
+  </div>
+</form>

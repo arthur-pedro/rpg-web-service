@@ -1,0 +1,74 @@
+<form class="needs-validation" novalidate [formGroup]="newsForm">
+  <div class="form-row">
+    <div class="col-md-8 mb-3 mt-2">
+      <!-- <label class="ml-0 mb-2 title-header">Nova notícia</label> -->
+      <label>Título</label>
+      <input (focus)="getTip('title')" placeholder="Digite o título da notícia" formControlName="title" type="text" class="form-control mb-3">
+      <!-- <label>Descrição</label>
+      <input (focus)="getTip('description')" placeholder="Digite a descrição da notícia (opcional)" formControlName="description" type="text" class="form-control mb-3"> -->
+      <div class="form-row">
+        <div *ngIf="!classId" class="col-md-6">
+          <label>Pública</label>
+          <select formControlName="publicNews" class="form-control form-control-fixed">
+            <option value="" disabled selected>Selecione uma opção</option>
+            <option>Sim</option>
+            <option>Não</option>
+          </select>
+        </div>
+        <div [ngClass]="{'col-md-12': classId, 'col-md-6': !classId}">
+          <label>Expira em</label>
+          <input formControlName="expireDate" type="date" placeholder="Seleciona uma data de entrega" name="bday" max="3000-12-31" min="2019-01-01" class="form-control form-control-fixed mb-3">
+        </div>
+      </div>
+      <div *ngIf="newsForm.value.publicNews == 'Não' && !classId" class="form-row">
+        <div class="col-md-12">
+          <label>Publicar para</label>
+          <input (focus)="getTip('publicTo')" placeholder="Adicione uma turma" type="text" class="form-control mb-3">
+        </div>
+      </div>
+      <textarea (click)="getTip('description')" [froalaEditor]='options' [(froalaModel)]="newsForm.value.description" [froalaEditor] formControlName="description" class="mb-3"></textarea>
+      <!-- <textarea (focus)="getTip('body')" rows="4" placeholder="Digite sua notícia aqui" formControlName="body" type="text" class="form-control mb-3"></textarea> -->
+      <button [disabled]="loading" (click)="createNews()" class="btn btn-success mt-3">
+        <span *ngIf="!loading">Criar</span>
+        <span *ngIf="loading">Criando...</span>
+      </button>
+    </div>
+    <div class="col-md-4 mt-4">
+      <div *ngIf="newsForm.invalid && submitted" class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size:13px">
+        <strong>Cuidado!</strong> Campos obrigatórios
+        <button (click)="submitted = false" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="isCreated" class="alert alert-success alert-dismissible fade show" role="alert" style="font-size: 13px">
+        <strong>Sucesso!</strong> Sua notícia foi criada com sucesso.
+        <button (click)="isCreated = false" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="hasServerError && submitted" class="alert alert-danger alert-dismissible fade show" role="alert"  style="font-size:13px">
+        <strong>Erro!</strong> Erro inesperado no servidor: <i>{{hasServerError?.name}}</i>
+        <button (click)="hasServerError = null" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="newsTip">
+        <div class="alert alert-warning animated fadeIn fast" role="alert">
+          <h4 class="alert-heading">Como criar a notícia?</h4>
+          <p>Sua pergunta é sobre programação?  Preferimos perguntas que podem ser respondidas, ao invés de 
+            debatidas. Dê detalhes. Diga o que você já tentou..</p>
+          <hr>
+          <p class="mb-0">Se não souber como fazer uma pergunta, Visite a central de ajuda »</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-8 mb-3 mt-4">
+      
+    </div>
+    <div class="col-md-4 mt-5">
+      
+    </div>
+  </div>
+</form>

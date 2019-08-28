@@ -1,0 +1,32 @@
+<div class="header">
+    <div class="row" style="margin-top: -16px">
+      <div class="col-md-6"><label class="title-header ml-4">Importação de Usuários</label></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-4 text-right">
+        <div class="btn-group mr-4" role="group">
+          <button routerLink="/main/manager/user" type="button" class="btn btn-sm btn-danger"><i class="mdi mdi-chevron-left"></i>  Voltar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="animated fadeIn content-wrapper grid-margin stretch-card"> 
+    <div class="col-md-8">
+        <dropzone id="dropzone" [config]="config" [message]="'Clique ou arraste para importar usuários'" (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></dropzone>
+    </div>
+    <div class="col-md-4">
+      <div class="alert alert-info animated fadeIn fast" role="alert">
+        <h4 class="alert-heading">Importação? o que é isso?</h4>
+        <p>Você pode inserir usuários no sistema, importando atravéz de uma planilha exel. Caso você ainda não tenha 
+          o formato padrão, <a href="">clique aqui.</a>
+        </p>
+        <hr>
+        <p class="mb-0">Requisitos</p>
+        <ul>
+          <li>A planilha precisa estar no formato .xlsx</li>
+          <li>Tamanho máximo: 20MB</li>
+        </ul>
+        <hr>
+        <p class="mb-0">Se ainda tiver dúvidas sobre a importação de usuários, <a href="">ver mais <i class="mdi mdi-12px mdi-information-outline"></i></a>.</p>
+      </div>
+    </div>
+</div>

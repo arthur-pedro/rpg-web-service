@@ -1,0 +1,27 @@
+<a *ngIf="!noLink" routerLink="/main/profile/{{user?.id}}">
+  <ng-container *ngTemplateOutlet="internalBlock"></ng-container>
+</a>
+<a *ngIf="noLink">
+  <ng-container *ngTemplateOutlet="internalBlock"></ng-container>
+</a>
+<ng-template #internalBlock>
+  <div class="row ticket-card border-bottom">
+    <div class="col-md-1">
+      <img class="img-sm rounded-circle mb-4 mb-md-0" src="http://bicholigado.com/_app/img/perfilServico/fotoPerfil/semFoto.jpg" alt="profile image">
+    </div>
+    <div class="ticket-details col-md-8">
+      <div class="d-flex">
+        <p class="text-dark font-weight-semibold mr-2 ml-2 mb-0 no-wrap">{{user?.firstName}} {{user?.lastName}}</p>
+      </div>
+      <p class="text-gray ellipsis mb-2 ml-2">{{user?.email}} : {{user?.code}}</p>
+    </div>
+    <div class="ticket-details col-md-3 text-right">
+        <p class="text-success mb-0 ellipsis font-weight-semibold">
+          <span *ngIf="!user?.manager">Aluno</span>
+          <span *ngIf="user?.manager">Gestor</span>
+        </p>
+        <p class="font-weight-semibold" *ngIf="!user?.manager">Level {{user?.level}}</p>
+        <p class="font-weight-semibold" *ngIf="user?.manager">Level Máx</p>
+    </div>
+  </div>
+</ng-template>

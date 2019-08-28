@@ -1,0 +1,144 @@
+<div class="animated fadeIn fast container"> 
+  <form class="needs-validation" novalidate [formGroup]="questionForm">
+    <div class="form-row">
+      <div class="col-md-8 mb-3 mt-2">
+        <label>Título</label>
+        <input (focus)="getTip('title')" placeholder="Escolha um título para sua pergunta" formControlName="title" type="text" class="form-control mb-3">
+        <label>Tags</label>
+        <input (focus)="getTip('tag')" placeholder="Escolha um título para sua pergunta" formControlName="title" type="text" class="form-control mb-3">
+        <label>Expira em</label>
+        <input type="date" placeholder="Seleciona uma data de entrega" name="bday" max="3000-12-31" min="2019-01-01" class="form-control form-control-fixed mb-3">
+        <textarea (focus)="getTip('body')" [froalaEditor]='options' [(froalaModel)]="questionForm.body" [froalaEditor] formControlName="body" class="mb-3"></textarea>
+      </div>
+      <div class="col-md-4 mt-5">
+        <div *ngIf="titleTip">
+          <div class="alert alert-warning animated fadeIn fast" role="alert">
+            <h4 class="alert-heading">Como perguntar</h4>
+            <p>Sua pergunta é sobre programação?  Preferimos perguntas que podem ser respondidas, ao invés de 
+              debatidas. Dê detalhes. Diga o que você já tentou..</p>
+            <hr>
+            <p class="mb-0">Se não souber como fazer uma pergunta, Visite a central de ajuda »</p>
+          </div>
+        </div>
+        <div *ngIf="bodyTip">
+          <div class="alert alert-warning animated fadeIn fast" role="alert">
+            <h4 class="alert-heading">Well done!</h4>
+            <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+            <hr>
+            <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-8 mb-3 mt-4">
+        <div *ngIf="questionForm.body" [froalaView]="questionForm.body"></div>
+        <div *ngIf="!questionForm.body" class="text-muted"><span>Sua pergunta aparecerá aqui...</span></div>
+        <hr>
+      </div>
+      <div class="col-md-4">
+        <div *ngIf="tagTip">
+          <div class="alert alert-warning animated fadeIn fast" role="alert">
+            <h4 class="alert-heading">Tag? o que é isso?</h4>
+            <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+            <hr>
+            <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button (click)="showQuestion = false" class="btn btn-danger mt-3 mr-2">Voltar</button>
+    <button (click)="createQuestion()" class="btn btn-success mt-3">Criar</button>
+  </form>
+</div>
+<!-- <div *ngIf="showImport" class="animated fadeInRight fast" class="container"> 
+  <form class="needs-validation" novalidate [formGroup]="importForm">
+    <div class="form-row">
+      <div class="col-md-8 offset-md-2 mb-3 mt-5">
+        <div class="form-group">
+          <dropzone id="dropzone" class="myDropzone" formControlName="file" [config]="config" [message]="'Clique ou arraste para importar sua atividade'" (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></dropzone>
+        </div>
+        <button (click)="showImport = false" class="btn btn-danger mt-3 mr-2">Voltar</button>
+        <button (click)="importFile()" class="btn btn-success mt-3">Criar</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div *ngIf="showQuiz" class="animated fadeInRight fast container"> 
+  <form class="needs-validation" novalidate [formGroup]="quizForm">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-row row">
+          <label>1º Pergunta</label>
+          <textarea formControlName="title" rows="5" type="text" class="form-control mb-3"  placeholder="Digite sua pergunta..." required></textarea>
+          <label>Digite suas respostas</label>
+          <div class="input-group mb-3">
+            <input formControlName="answer1" type="text" class="form-control" placeholder="Digite a resposta númeero um">
+            <div class="input-group-prepend">
+              <button (click)="addAnswer(1)" class="btn" [ngClass]="{'btn-success': quizForm.value.rightAnswer == 1}"><i class="mdi" [ngClass]="{'mdi-check': quizForm.value.rightAnswer == 1, 'mdi-close': quizForm.value.rightAnswer != 1}"></i></button>
+            </div>
+          </div>
+          <div class="input-group  mb-3">
+            <input formControlName="answer2" type="text" class="form-control" placeholder="Digite a resposta númeero dois">
+            <div class="input-group-prepend">
+              <button (click)="addAnswer(2)" class="btn" [ngClass]="{'btn-success': quizForm.value.rightAnswer == 2}"><i class="mdi" [ngClass]="{'mdi-check': quizForm.value.rightAnswer == 2, 'mdi-close': quizForm.value.rightAnswer != 2}"></i></button>
+            </div>
+          </div>
+          <div class="input-group  mb-3">
+            <input formControlName="answer3" type="text" class="form-control" placeholder="Digite a resposta númeero três">
+            <div class="input-group-prepend">
+              <button (click)="addAnswer(3)" class="btn" [ngClass]="{'btn-success': quizForm.value.rightAnswer == 3}"><i class="mdi" [ngClass]="{'mdi-check': quizForm.value.rightAnswer == 3, 'mdi-close': quizForm.value.rightAnswer != 3}"></i></button>
+            </div>
+          </div>
+          <div class="input-group  mb-3">
+            <input formControlName="answer4" type="text" class="form-control" placeholder="Digite a resposta númeero quatro">
+            <div class="input-group-prepend">
+              <button (click)="addAnswer(4)" class="btn" [ngClass]="{'btn-success': quizForm.value.rightAnswer == 4}"><i class="mdi" [ngClass]="{'mdi-check': quizForm.value.rightAnswer == 4, 'mdi-close': quizForm.value.rightAnswer != 4}"></i></button>
+            </div>
+          </div>
+          <button (click)="showQuiz = false" class="btn btn-danger mt-3 mr-2">Voltar</button>
+          <button class="btn btn-warning mt-3 mr-2">Nova pergunta</button>
+          <button (click)="create(Quiz)" class="btn btn-success mt-3">Criar</button>  
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="alert alert-success alert-dismissible fade show mt-1 fadeIn bottom" role="alert" style="font-size: 13px">
+          <strong>Sua pergunta </strong> foi criada com sucesso.
+          <button  type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-success alert-dismissible fade show mt-1 fadeIn bottom" role="alert" style="font-size: 13px">
+          <strong>Sua pergunta </strong> foi criada com sucesso.
+          <button  type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-success alert-dismissible fade show mt-1 fadeIn bottom" role="alert" style="font-size: 13px">
+          <strong>Sua pergunta </strong> foi criada com sucesso.
+          <button  type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-success alert-dismissible fade show mt-1 fadeIn bottom" role="alert" style="font-size: 13px">
+          <strong>Sua pergunta </strong> foi criada com sucesso.
+          <button  type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-success alert-dismissible fade show mt-1 fadeIn bottom" role="alert" style="font-size: 13px">
+          <strong>Seu Quiz </strong> foi criado com sucesso.
+          <button  type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div> -->
+
+
+<!-- <h4 class="card-title">Você esta criando um quiz! <a href="">saber mais >></a></h4>
+<div class="progress mb-0">
+  <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+</div> -->

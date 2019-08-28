@@ -1,0 +1,290 @@
+<div class="header">
+  <div class="row" style="margin-top: -16px">
+    <div class="col-md-3">
+      <label class="title-header ml-4">
+        <span *ngIf="selectedClass?.name">{{selectedClass?.name}}</span>
+        <span *ngIf="!selectedClass?.name">Carregando...</span>
+      </label>
+    </div>
+    <div class="col-md-5">
+      <div class="form-group">
+        <input type="text" class="form-control mr-2" [(ngModel)]="filter" placeholder="Pesquiser turma...">
+      </div>
+    </div>
+    <div class="col-md-4 text-right mt-2px">
+      <div class="btn-group mr-4" role="group" aria-label="Basic example">
+        <button *ngIf="!creating" routerLink="/main/class" type="button" class="btn btn-sm btn-danger"><i class="mdi mdi-chevron-left"></i>  Voltar</button>
+        <button *ngIf="creating" (click)="creating = false" type="button" class="btn btn-sm btn-danger"><i class="mdi mdi-close"></i>  cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!creating" class="content-wrapper animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-7 grid-margin stretch-card">
+      <div class="card scroll">
+        <div class="card-body">
+          <h4 class="card-title">
+            <span>Atividades</span>
+            <span><i (click)="createTask()" class="mdi mdi-plus text-muted pointer float-right"></i></span>
+            <span><i class="mdi mdi-arrow-expand text-muted pointer float-right pr-2"></i></span>
+            <span><i class="mdi mdi-replay text-muted pointer float-right pr-2"></i></span>
+          </h4>
+          <p class="card-description text-muted">Concluir atividades ajudará você a subir no ranking!</p>
+          <div *ngIf="!loading">
+            <label *ngIf="selectedClass && selectedClass?.taskList.length == 0">Nenhuma Atividade</label>
+            <label *ngIf="hasServerError" class="mt-5 text-muted"><i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Erro na conexão.</label>
+            <div *ngIf="selectedClass?.taskList?.length > 0">
+              <div *ngFor="let task of selectedClass?.taskList; let i = index">
+                <div class="row mb-2">
+                  <div class="ticket-details col-md-10">
+                    <div class="d-flex">
+                      <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">{{task?.title}}</p>
+                    </div>
+                    <p class="text-gray ellipsis mb-2">{{task?.description}}</p>
+                  </div>
+                  <div class="ticket-actions text-right col-md-2">
+                    <div class="btn-group dropdown">
+                      <button type="button" class="btn btn-dark dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="mdi mdi-information-outline"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item pointer">
+                          <i class="fa fa-history fa-fw"></i>Detalhes
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item pointer">
+                          <i class="fa fa-check text-success fa-fw"></i>Entregar
+                        </a>
+                        <a (click)="deleteTask(task)" class="dropdown-item pointer">
+                          <i class="fa fa-trash text-danger fa-fw"></i>Deletar
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+            </div>
+          </div>
+          <!-- LOADING -->
+          <div *ngIf="loading" class="mt-5">
+              <div *ngFor="let skt of skeleton6" class="row ticket-card pb-2 border-bottom pb-3 mb-3">
+                <div class="col-md-1 mb-3"> 
+                  <div class="progress">
+                    <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <div class="col-md-10 mb-3"> 
+                  <div class="progress">
+                    <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <div class="col-md-1 mb-3"> 
+                  <div class="progress">
+                    <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- LOADING -->
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5 grid-margin stretch-card">
+      <div class="row">
+        <div class="col-md-12 mb-4">
+          <div class="card">
+            <div class="card-body card-size-250">
+              <h4 class="card-title">  
+                <span>Notícias</span>
+                <span><i (click)="createTask()" class="mdi mdi-plus text-muted pointer float-right"></i></span>
+                <span><i class="mdi mdi-arrow-expand text-muted pointer float-right pr-2"></i></span>
+                <span><i class="mdi mdi-replay text-muted pointer float-right pr-2"></i></span>
+              </h4>
+              <p class="card-description text-muted">Notícias da sua turma</p>
+              <div *ngIf="!loading" class="table-responsive">
+                <label *ngIf="selectedClass && selectedClass?.newsList.length == 0">Nenhuma notícia</label>
+                <label *ngIf="hasServerError" class="mt-5 text-muted"><i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Erro na conexão.</label>
+                <div *ngIf="selectedClass?.newsList.length > 0">
+                  <ul class="list-group list-group-flush">
+                    <li *ngFor="let news of selectedClass?.newsList" class="text-left ml-0 list-group-item list-group-item-action pointer">
+                        <p class="mb-0 mt-0">  
+                          <span><i class="status-indicator online text-success"></i></span>
+                          <span> {{news?.title}}</span> 
+                          <span><i class="mdi mdi-map-marker"></i> Poli, Recife PE</span>
+                          <span class="pull-right"> 23 <i class="mdi mdi-eye"></i></span>
+                        </p>     
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- LOADING -->
+              <div *ngIf="loading" class="mt-5">
+                <div *ngFor="let skt of skeleton2" class="row ticket-card pb-2 border-bottom pb-3 mb-3">
+                  <div class="col-md-1 mb-3"> 
+                    <div class="progress">
+                      <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-10 mb-3"> 
+                    <div class="progress">
+                      <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-1 mb-3"> 
+                    <div class="progress">
+                      <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- LOADING -->
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body card-size-250">
+              <h4 class="card-title">   
+                <span>Eventos</span>
+                <span><i (click)="createTask()" class="mdi mdi-plus text-muted pointer float-right"></i></span>
+                <span><i class="mdi mdi-arrow-expand text-muted pointer float-right pr-2"></i></span>
+                <span><i class="mdi mdi-replay text-muted pointer float-right pr-2"></i></span>  
+              </h4>
+              <p class="card-description text-muted">Eventos disponíveis na sua turma</p>
+              <div *ngIf="!loading">  
+                <label *ngIf="selectedClass?.eventList.length == 0">Nenhum evento</label>
+                <label *ngIf="hasServerError" class="mt-5 text-muted"><i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Erro na conexão.</label>
+                <div *ngIf="selectedClass?.eventList.length > 0">
+                  <ul class="list-group list-group-flush">
+                    <li *ngFor="let event of selectedClass?.eventList" class="text-left p-0 pb-2 pt-2 list-group-item list-group-item-action pointer">
+                        <p class="mb-0 mt-0">  
+                          <span><i class="mdi mdi-calendar-clock"></i> {{event?.title}}</span> 
+                          <span class=""><i class="mdi mdi-map-marker"></i> Poli, Recife PE</span>
+                          <span class="pull-right">12 <i class="mdi mdi-flag"></i> 23 <i class="mdi mdi-eye"></i></span>
+                        </p>     
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- LOADING -->
+              <div *ngIf="loading" class="mt-5">
+                <div *ngFor="let skt of skeleton2" class="row ticket-card pb-2 border-bottom pb-3 mb-3">
+                  <div class="col-md-1 mb-3"> 
+                    <div class="progress">
+                      <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-10 mb-3"> 
+                    <div class="progress">
+                      <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-1 mb-3"> 
+                    <div class="progress">
+                      <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- LOADING -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Membros da turma</h4>
+          <label *ngIf="selectedClass?.userList.length == 0">Nenhuma usuário</label>
+          <label *ngIf="hasServerError" class="mt-5 text-muted"><i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Erro na conexão.</label>
+          <div *ngIf="selectedClass?.userList.length > 0" class="table-responsive">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>
+                      Usuário
+                    </th>
+                    <th>
+                      Nome
+                    </th>
+                    <th>
+                      Level
+                    </th>
+                    <th>
+                      Points
+                    </th>
+                    <th>
+                      Ranking
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of selectedClass?.userList">
+                    <td class="py-1">
+                      <img src="{{profileUrl}}" alt="image" />
+                    </td>
+                    <td>
+                      {{user?.firstName}} {{user?.lastName}}
+                    </td>
+                    <td>
+                      <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                    <td>
+                      {{user?.points}}
+                    </td>
+                    <td>
+                      {{user?.ranking}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="creating" class="content-wrapper animated fadeInRight fast"  style="height: 100% !important">
+  <div *ngIf="isTask">
+    <app-form-task></app-form-task>
+  </div>
+  <div *ngIf="isNews">
+    <app-form-news></app-form-news>
+  </div>
+  <div *ngIf="isEvent">
+    <app-form-event></app-form-event>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalhes da turma</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="font-weight-bold">Nome</p>
+        <p>{{selectedClass?.name}}</p>
+        <p class="font-weight-bold">Descrição</p>
+        <p>{{selectedClass?.description}}</p>
+        <p class="font-weight-bold">Membros</p>
+        <div *ngFor="let user of selectedClass?.userList">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
