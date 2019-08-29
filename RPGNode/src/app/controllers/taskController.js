@@ -1,17 +1,22 @@
 'use strict';
 
 const { Task } = require('../models');
+const TaskService = require('../service/taskService')
+
 var express = require('express');
 var router = express.Router();
 
+var  taskService = new TaskService();
+
 /* Get one user */
-router.get('/getById/:id', function (req, res, next) {
+router.get('/get/:id', function (req, res, next) {
   try{
-    Task.findOne({ where: {id: req.params.id} }).then(user => {
-      if(user)
-        res.json(user)
-      else
+    taskService.get(req.params.id).then( task => {
+      if(task)
+        res.json(task);
+      else{
         res.status(500).send({ error: 'Task not found' });
+      }
     });
   }catch(err){
     res.status(500).send({ error: 'Internal server error' });
@@ -19,7 +24,7 @@ router.get('/getById/:id', function (req, res, next) {
 })
 
 /* Get all user */
-router.get('/list/all', function (req, res) {
+router.get('/list', function (req, res) {
   try{
     Task.findAll().then(listUser => {
       if(listUser)
@@ -33,10 +38,10 @@ router.get('/list/all', function (req, res) {
 })
 
 /* Create user */
-router.post('/createUpdate', function (req, res) {
+router.post('/', function (req, res) {
   try{
     
-    /*  Criar regra de negócio para inserir usuário */
+    /*  Criar regra de negócio para inserir task */
     
     Task.findOrCreate({where: {id: req.body.id}, defaults: req.body}).then(([user, created]) => {
       if(created)
@@ -50,7 +55,7 @@ router.post('/createUpdate', function (req, res) {
 })
 
 /* Delete user by id */
-router.delete('/deleteById/:id', function (req, res) {
+router.delete('/delete/:id', function (req, res) {
   try{
     Task.destroy({where: {id: req.params.id}}).then(deleted => {
       if(deleted)

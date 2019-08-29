@@ -1,31 +1,31 @@
 'use strict';
 
-
-const View = require('../views/utilBusiness')
+const UtilService = require('../service/utilService')
 
 var express = require('express');
-var router = express.Router();
 const jwt = require('jsonwebtoken');
 
-var business = new View();
+var router = express.Router();
+
+var utilService = new UtilService();
 
 /* authentication */
 router.post('/login',  (req, res) => {
-  let login = req.params.login;
-  let password = req.params.password;
+  let login = req.body.login;
+  let password = req.body.password;
   if(!login || !password){
     res.status(401).send({ auth: false, error: "Invalid credentials" });
     return;
   }
-  business.authenticateUser(login, password).then(([logged, user]) => {
-    if(logged){
+  utilService.authenticateUser(login, password).then(user => {
+    if(user){
       const id = user.id;
       var token = jwt.sign({ id }, process.env.SECRET, {
-        expiresIn: 3000 /*  300 =  5min */
+        expiresIn: 3600 /*  3600 =  1h */
       });
-      res.status(200).send({ auth: true, access_token: token });
+      return res.status(200).send({ auth: true, access_token: token });
     }
-    res.status(401).send({ auth: false, error: "Invalid credentials" });
+    return res.status(401).send({ auth: false, error: "Invalid credentials" });
   });
 });
  

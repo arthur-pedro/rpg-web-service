@@ -1,21 +1,23 @@
 'use strict';
 
 const { User } = require('../models');
-const View = require('../views/userBusiness')
+const UserService = require('../service/userService')
+
+const verifyJWT = require('../../auth/auth');
 
 var express = require('express');
 var router = express.Router();
-const verifyJWT = require('../../auth/auth');
 
-var business = new View();
+
+var userService = new UserService();
 
 /* Get one user */
 router.get('/get/:id', verifyJWT, (req, res, next) => {
   try{
-    business.get(req.params.id).then( user => {
-      if(user)
+    userService.get(req.params.id).then( user => {
+      if(user){
         res.json(user);
-      else{
+      }else{
         res.status(500).send({ error: 'User not found' });
       }
     });
@@ -27,7 +29,7 @@ router.get('/get/:id', verifyJWT, (req, res, next) => {
 /* Get all user */
 router.get('/list', verifyJWT, (req, res) => {
   try{
-    business.list().then( users => {
+    userService.list().then( users => {
       if(users)
         res.json(users)
       else
@@ -39,7 +41,7 @@ router.get('/list', verifyJWT, (req, res) => {
 })
 
 /* Create user */
-router.post('/createUpdate', verifyJWT, (req, res) => {
+router.post('/', verifyJWT, (req, res) => {
   try{
     
     /*  Criar regra de negócio para inserir usuário */
@@ -58,7 +60,7 @@ router.post('/createUpdate', verifyJWT, (req, res) => {
 /* Delete user by id */
 router.delete('/delete/:id', verifyJWT, (req, res) => {
   try{
-    business.delete(req.params.id).then( deleted => {
+    userService.delete(req.params.id).then( deleted => {
       if(deleted)
         res.status(200).send({ message: 'Deleted user' });
       else

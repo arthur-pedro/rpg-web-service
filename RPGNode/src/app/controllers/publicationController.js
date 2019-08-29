@@ -1,78 +1,67 @@
 'use strict';
 
-const { Publication, Tag } = require('../models');
+const PublicationService = require('../service/publicationService')
+
+const verifyJWT = require('../../auth/auth');
+
 var express = require('express');
 var router = express.Router();
 
+var publicationService = new PublicationService();
+
 /* Get one publication */
-router.get('/get/:id', function (req, res, next) {
-  try{
-    var relationships = [
-        {
-            model: Tag,
-            as: 'tags',
-            through: { attributes: [] },
-        },
-    ];
-    Publication.findOne({ where: {id: req.params.id} }, {include: relationships}).then(publication => {
-      if(publication)
-        res.json(publication)
-      else
-        res.status(500).send({ error: 'Publication not found' });
-    });
-  }catch(err){
-    res.status(500).send({ error: 'Internal server error' });
-  }
+router.get('/get/:id', verifyJWT, function (req, res, next) {
+    try{
+      publicationService.get(req.params.id).then( publication => {
+        if(publication)
+          res.json(publication);
+        else{
+          res.status(500).send({ error: 'Publication not found' });
+        }
+      });
+    }catch(err){
+      res.status(500).send({ error: 'Internal server error' });
+    }
 })
 
-/* Get all user */
-router.get('/list', function (req, res) {
+/* Get all publications */
+router.get('/list', verifyJWT, function (req, res) {
   try{
-    var relationships = [
-        {
-            model: Tag,
-            as: 'tags',
-            through: { attributes: [] },
-        },
-    ];
-    Publication.findAll({ include: relationships }).then(publications => {
+    publicationService.list().then( publications => {
       if(publications)
-        res.json(publications)
-      else
+        res.json(publications);
+      else{
         res.status(500).send({ error: 'Publications not found' });
+      }
     });
   }catch(err){
     res.status(500).send({ error: 'Internal server error' });
   }
 })
 
-/* Create user */
-router.post('/createUpdate', function (req, res) {
+/* Create publication */
+router.post('/', verifyJWT, function (req, res) {
   try{
-    
-    /*  Criar regra de negócio para inserir usuário */
-    
-    Publication.findOrCreate({where: {id: req.body.id}, defaults: req.body}).then(([user, created]) => {
-      if(created)
-        res.status(200).send({ success: 'Create successfull' });
+    publicationService.createUpdate(req.body).then( data => {
+      if(data)
+        res.status(200).send({ message: 'Updated success' });
       else
-        res.status(200).send(user.get({ plain: true  }));
-    })
+        res.status(200).send({ message: 'Created success' });
+    });
   }catch(err){
     res.status(500).send({ error: 'Internal server error' });
   }
-})
+});
 
-/* Delete user by id */
+/* Delete publcation by id */
 router.delete('/delete/:id', function (req, res) {
   try{
-    Publication.destroy({where: {id: req.params.id}}).then(deleted => {
+    publicationService.delete(req.params.id).then( deleted => {
       if(deleted)
-        res.status(200).send({ success: 'Publication deleted' });
-      else{
+        res.status(200).send({ message: 'Deleted publication' });
+      else
         res.status(500).send({ error: 'Internal server error' });
-      }
-    }); 
+    });
   }catch(err){
     res.status(500).send({ error: 'Internal server error' });
   }

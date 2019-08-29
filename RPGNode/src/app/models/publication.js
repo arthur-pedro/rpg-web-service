@@ -21,6 +21,12 @@ module.exports = (sequelize, DataTypes) => {
             as: 'tags',
             foreignkey:  'publicationId'
       });
+
+      Publication.belongsTo(models.User, { 
+        as: 'creator',
+        foreignkey:  'creatorId', 
+        targetKey: 'id',
+      });
     };
 
     return Publication;
