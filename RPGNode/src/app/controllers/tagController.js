@@ -1,21 +1,21 @@
 'use strict';
 
-const PublicationService = require('../service/publicationService');
+const TagService = require('../service/tagService');
 const { Projection } = require('../util/projection');
 const verifyJWT = require('../../auth/auth');
 var express = require('express');
 var router = express.Router();
 
-var publicationService = new PublicationService();
+var tagService = new TagService();
 
-/* Get one publication */
+/* Get one tag */
 router.get('/get/:id', verifyJWT, function (req, res, next) {
     try{
-      publicationService.get(req.params.id).then( publication => {
-        if(publication)
-          res.json(publication);
+        tagService.get(req.params.id).then( tag => {
+        if(tag)
+          res.json(tag);
         else{
-          res.status(500).send({ error: 'Publication not found' });
+          res.status(500).send({ error: 'Tag not found' });
         }
       });
     }catch(err){
@@ -25,12 +25,15 @@ router.get('/get/:id', verifyJWT, function (req, res, next) {
 
 /* Get all publications */
 router.get('/list', verifyJWT, function (req, res) {
+let filter = req.query.filter;
+let first = null;
+let size = null;
   try{
-    publicationService.list().then( publications => {
-      if(publications)
-        res.json(publications);
+    tagService.list(filter, first, size).then( tags => {
+      if(tags)
+        res.json(tags);
       else{
-        res.status(500).send({ error: 'Publications not found' });
+        res.status(500).send({ error: 'Tags not found' });
       }
     });
   }catch(err){
@@ -41,7 +44,7 @@ router.get('/list', verifyJWT, function (req, res) {
 /* Create publication */
 router.post('/create', verifyJWT, function (req, res) {
   try{
-    publicationService.createUpdate(req.body).then( data => {
+    tagService.createUpdate(req.body).then( data => {
       if(data)
         res.status(200).send({ message: 'successfull' });
       else
@@ -55,11 +58,11 @@ router.post('/create', verifyJWT, function (req, res) {
 /* Create publication */
 router.put('/update', verifyJWT, function (req, res) {
   try{
-    publicationService.createUpdate(req.body).then( data => {
+    tagService.createUpdate(req.body).then( data => {
       if(data)
         res.status(200).send({ message: 'successful' });
       else
-        res.status(200).send({ message: 'Publication already exist' }); 
+        res.status(200).send({ message: 'Inspered error' }); 
     });
   }catch(err){
     res.status(500).send({ error: 'Internal server error' });
@@ -69,7 +72,7 @@ router.put('/update', verifyJWT, function (req, res) {
 /* Delete publcation by id */
 router.delete('/delete/:id', function (req, res) {
   try{
-    publicationService.delete(req.params.id).then( deleted => {
+    tagService.delete(req.params.id).then( deleted => {
       if(deleted)
         res.status(200).send({ message: 'Deleted publication' });
       else

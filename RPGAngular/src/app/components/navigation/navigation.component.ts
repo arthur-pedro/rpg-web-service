@@ -2,6 +2,7 @@ import { profileUrl, loggedUser } from './../../../config';
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from 'src/app/services/home/home.service';
 import { HomeComponent } from 'src/app/pages/home/home.component';
+import { UtilService } from 'src/app/services/util/util.service';
 
 @Component({
   selector: 'app-navigation',
@@ -11,7 +12,7 @@ import { HomeComponent } from 'src/app/pages/home/home.component';
 export class NavigationComponent implements OnInit {
 
   user: any;
-  loggedUser: any = loggedUser;
+  loggedUser: any;
   profileUrl: string = profileUrl;
 
   showAchievement: boolean = false;
@@ -20,9 +21,13 @@ export class NavigationComponent implements OnInit {
 
   constructor(
     private homeService: HomeService,
+    private util: UtilService,
     ) { }
 
   ngOnInit() {
+    if(this.util.hasLoggedUser)
+      this.loggedUser = this.util.getLoggedUser(JSON.parse(localStorage.getItem('jwt')).access_token)
+
     this.getUserById(loggedUser.id);
   } 
 

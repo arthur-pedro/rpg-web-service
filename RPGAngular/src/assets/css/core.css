@@ -8592,7 +8592,7 @@ pre {
   background-color: #ffffff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
-  border-radius: 2px;
+  border-radius: 4px;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
   .form-control::-ms-expand {
     background-color: transparent;
@@ -16044,8 +16044,9 @@ ul {
 /* === Landing screens === */
 /* Auth */
 .auth.auth-bg-1 {
-  /* background: url("https://backgroundcheckall.com/wp-content/uploads/2017/12/background-img-9.jpg"); */
-  background-size: cover; }
+  background: url('https://i2.wp.com/www.wahoodocks.com/wp-content/uploads/2017/05/custom-login-background.jpg');
+  background-size: cover; 
+}
 
 .auth.register-bg-1 {
   /* background: url("../images/auth/register.jpg") center center no-repeat; */

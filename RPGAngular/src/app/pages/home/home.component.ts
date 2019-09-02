@@ -2,7 +2,7 @@ import { loggedUser } from './../../../config';
 import { HomeService } from './../../services/home/home.service';
 import { Component, OnInit } from '@angular/core';
 import { profileUrl } from 'src/config';
-import { ClassService } from 'src/app/services/class/class.service';
+import { UtilService } from 'src/app/services/util/util.service';
 
 @Component({
   selector: 'app-home',
@@ -33,16 +33,24 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private homeService: HomeService,
+    private util: UtilService
   ) { 
+    
+    if(!this.util.hasLoggedUser)
+      this.util.redirectTo('/login')
+    else{
+      var jwt = JSON.parse(localStorage.getItem('jwt'));
+      this.util.getLoggedUser(jwt)
+    }
+
+    }
+  
+
+  ngOnInit() {
     this.listEvents();
     this.listNews();
     this.getPod();
     this.getUserById(loggedUser.id);
-  }
-  
-
-  ngOnInit() {
-   
   }
 
   reloadNews(){

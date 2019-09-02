@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { SERVER_URL, loggedUser } from 'src/config';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 import {
   map
 } from "rxjs/operators";
 import { delay } from 'q';
+import { Router } from '@angular/router';
 
 export interface Tag {
   id: string;
@@ -22,7 +23,9 @@ export class UtilService {
 
   searchedTags: any = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient, 
+    private router: Router) { }
 
   
   public insertUpdate(obj){
@@ -36,7 +39,7 @@ export class UtilService {
   public listTag(search: string = null): Observable<Tag[]>{
     const params = new HttpParams ().append('filter', search)
     if (search && search.length > 2) {
-      return this.http.get(SERVER_URL + "/tag/list", { params: params }).pipe(map((response)=> {
+      return this.http.get(SERVER_URL + "/api/tag/list", { params: params }).pipe(map((response)=> {
         this.searchedTags =  response;
         return  this.searchedTags;
       }, error => {
@@ -47,7 +50,20 @@ export class UtilService {
     }
   }
   
-  public getLoggedUser(){
-    return loggedUser;
+  public getLoggedUser(token){
+    const header = new HttpHeaders().append('x-access-token', token);
+    return this.http.get(SERVER_URL + "/api/util/auth/getLoggedUser", {headers: header}).pipe(map((response)=> { response}));
+  }
+
+  public hasLoggedUser(){
+    return (localStorage.getItem('jwt') != null) ? true : false;
+  }
+
+  public login(obj){
+    return this.http.post(SERVER_URL + "/api/util/auth/login", obj).pipe(map((response)=> {return response}));
+  }
+
+  public redirectTo(url: String){
+    this.router.navigate([url]);
   }
 }

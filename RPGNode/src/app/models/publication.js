@@ -7,7 +7,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       title: DataTypes.STRING,
       description: DataTypes.STRING,
-      likes: DataTypes.INTEGER,
+      likes: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
       creatorId: {
         type: DataTypes.INTEGER,
       },

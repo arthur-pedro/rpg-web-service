@@ -6,13 +6,19 @@ const { Task, User } = require('../models');
 class TaskService{
    
     get(id){
-        var relationships = [
+        return Task.findOne(
             {
-                model: User,
-                as : 'creator',
-            },
-        ];
-        return Task.findOne({ include: relationships }, { where: {id: id} });
+                include: [
+                    {
+                        model: User,
+                        as : 'creator',
+                    },
+                ],
+                where: {
+                    id: id,
+                }
+            }
+        );
     }
 
     list(){

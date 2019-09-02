@@ -1,12 +1,71 @@
-<div class="row container offset-md-5 text-center mt-5 box-login">
-    <form class="form-signin" style="width: 320px;">
-        <img class="mb-4" src="http://www.iconninja.com/files/566/940/27/rpg-icon.png" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Bem-vindo!</h1>
-        <label for="inputEmail" class="sr-only mt-2">Login</label>
-        <input type="email" id="inputEmail" class="form-control mt-2" placeholder="Digite seu email ou matrícula" required="" autofocus="">
-        <label for="inputPassword" class="sr-only mt-2">Senha</label>
-        <input type="password" id="inputPassword" class="form-control mt-2" placeholder="Digite sua senha" required="">
-        <button class="btn btn-sm theme-btn btn-block mt-2" routerLink = "/main">Logar</button>
-        <p class="mt-5 mb-3 text-muted">arthurpedro 2019</p>
-    </form>
+<div id="background-login-extern">
+    <div id="background-login">
+        <img src="https://i2.wp.com/www.wahoodocks.com/wp-content/uploads/2017/05/custom-login-background.jpg" alt="" />
+    </div>
 </div>
+<div class="container-fluid">
+    <div class="content-wrapper align-items-center auth-bg-1 auth theme-one">
+        <div class="row animated fadeInDown" style="padding-top: 50px;">
+            <div class="col-lg-4 col-md-4"></div>
+            <div class="col-lg-4 col-md-4">
+                <div class="auto-form-wrapper">
+                    <form [formGroup]="credentials">
+                        <div class="form-group">
+                            <label class="label">Login</label>
+                            <input formControlName="login" type="text" class="form-control" placeholder="Digite seu email ou nº da matricula" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="label">Senha</label>
+                            <input formControlName="password" type="password" class="form-control" placeholder="Digite sua senha" requires>
+                        </div>
+                        <div class="form-group">
+                            <button [disabled]="loading" (click)="login()" class="btn btn-success submit-btn btn-block">
+                                <span *ngIf="!loading">Entrar</span>
+                                <span *ngIf="loading"><i class=" mdi mdi-loading mdi-spin"></i></span>
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <button [disabled]="loading" class="btn btn-danger submit-btn btn-block"> 
+                                <span><i class="mdi mdi-google"></i></span> Entrar com o Google
+                            </button>
+                        </div>
+                        <div *ngIf="hasServerError" class="my-alert animated bounceInRight pointer">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size:13px">
+                                {{hasServerError?.error?.message}} <strong>Tentar novamente</strong> 
+                                <button (click)="hasServerError = null" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div *ngIf="showErrorAlert && submitted" class="my-alert animated bounceInRight pointer">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert" style="font-size:13px">
+                                Você deve preencher os <strong>campos obrigatórios</strong> 
+                                <button (click)="showErrorAlert = false" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-block text-center my-3">
+                            <span class="text-small font-weight-semibold">Ainda não tem conta?</span>
+                            <a href="#" class="text-black text-small"> Criar nova conta</a>
+                        </div>
+                    </form>
+                </div>
+                <ul class="auth-footer">
+                    <li>
+                    <a href="#">Condições</a>
+                    </li>
+                    <li>
+                    <a href="#">Ajuda</a>
+                    </li>
+                    <li>
+                    <a href="#">Termos</a>
+                    </li>
+                </ul>
+                <p class="footer-text text-center">copyright © 20198 arthurpedro. Todos os direitos reservados</p>
+            </div>
+            <div class="col-lg-4 col-md-4"></div>
+        </div>
+    </div>
+</div>
+

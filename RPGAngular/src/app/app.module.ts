@@ -41,7 +41,6 @@ import { TooltipModule } from 'ng2-tooltip-directive';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { ClassFormComponent } from './pages/class-form/class-form.component';
 import { HeaderDisplayComponent } from './components/header-display/header-display.component';
-import { NgSelect2Module } from 'ng-select2';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BoardFormComponent } from './pages/board-form/board-form.component';
 
@@ -93,7 +92,6 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     ReactiveFormsModule,
     TooltipModule,
     NgCircleProgressModule.forRoot(),
-    NgSelect2Module,
     NgSelectModule
   ],
   providers: [

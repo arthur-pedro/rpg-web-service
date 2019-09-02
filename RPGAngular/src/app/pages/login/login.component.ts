@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UtilService } from 'src/app/services/util/util.service';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,15 +10,47 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  credentials: FormGroup;
+  loading:boolean = false;
+  hasServerError: boolean = false;
+  submitted: boolean = false;
+
+  showErrorAlert: boolean = false;
+  
   constructor(
-    private router: Router
-  ) { }
+    private formGroup: FormBuilder,
+    private util: UtilService
+  ) {
+    this.credentials = this.formGroup.group({
+      login: [null, Validators.required],
+      password: [null, Validators.required],
+    })
+   }
 
   ngOnInit() {
   }
 
   login(){
-    this.router.navigate(['/main']);
+    this.submitted = true;
+    if(!this.credentials.valid){
+      this.showErrorAlert = true;
+      return;
+    }
+    this.loading = true;
+    this.credentials.disable;
+    this.util.login(this.credentials.getRawValue()).subscribe(data => {
+      this.submitted = false;
+      this.loading = false;
+      this.hasServerError = null;
+      localStorage.setItem("jwt", JSON.stringify(data));
+      this.util.redirectTo('./main');
+    },
+    error => {
+      this.credentials.enable();
+      this.hasServerError = error;
+      this.loading = false;
+    });
   }
+
 
 }

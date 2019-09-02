@@ -33,7 +33,7 @@ export class BoardFormComponent implements OnInit {
     private boardService: BoardService
   ) { 
 
-    this.loggedUser = util.getLoggedUser();
+    // this.loggedUser = util.getLoggedUser();
   }
 
   ngOnInit() {

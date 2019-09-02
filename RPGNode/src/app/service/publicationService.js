@@ -2,22 +2,35 @@
 'use strict';
 
 const { Publication, Tag, User } = require('../models');
+const UtilService = require('./utilService');
+
+var Util = new UtilService();
 
 class PublicationService{
-   
+    
+    constructor(){
+        this.publication;
+    }
+
     get(id){
-        var relationships = [
-        {
-            model: Tag,
-            as: 'tags',
-            through: { attributes: [] },
-        },
-        {
-            model: User,
-            as: 'creator',
-        }
-        ];
-        return Publication.findOne({ include: relationships }, { where: {id: id} });
+        return Publication.findOne(
+            {
+                include: [
+                    {
+                        model: Tag,
+                        as: 'tags',
+                        through: { attributes: [] },
+                    },
+                    {
+                        model: User,
+                        as: 'creator',
+                    }
+                ],
+                where: {
+                    id: id,
+                }
+            }
+        );
     }
 
     list(){
@@ -40,13 +53,42 @@ class PublicationService{
     }
 
     createUpdate(obj){
-        return Publication.findOrCreate({where: {id: obj.id}, defaults: obj}).then(([user, created]) => {
-            if(created)
-              return false;
-            else
-              return user;
-        })
+        try{
+            if(obj.id || obj.id == 0){
+                return this.get(obj.id).then((model) => {
+                    if(model){
+                        obj.updatedAt = new Date();
+
+                        /* ADD / REMOVE TAGS */
+                        if(obj.tags){
+                            const intArr = []
+                            model.tags.forEach(element => {
+                                intArr.push(element.id);
+                            });
+                            model.removeTags(Util.getIdListToRemove(obj.tags, intArr));
+                            model.addTags(obj.tags);
+                        }
+                        delete obj.tags;
+                        /* ADD / REMOVE TAGS */
+                        
+                        return  model.update(obj).then((editedModel) => { 
+                            return editedModel; 
+                        });
+                    }
+                });
+            }else{
+                obj.createdAt = new Date();
+                obj.updatedAt = new Date();
+                return Publication.create(obj).then((createdModel) => { 
+                    createdModel.addTags(obj.tags);
+                    return createdModel;
+                });
+            }
+        }catch(err){
+            return false;
+        }
     }
+
 }
 
 module.exports = PublicationService;

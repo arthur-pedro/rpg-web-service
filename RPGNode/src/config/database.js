@@ -31,7 +31,19 @@ module.exports = {
   database: 'poli',
   host: '127.0.0.1',
   dialect: 'mysql',
+  timezone: '-03:00',
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  },
+  dialectOptions: {
+    dateStrings: true,
+    typeCast: true,
+    timezone: "-03:00"
+  },
   define: {
     freezeTableName: true
-  }
+  },
 }
