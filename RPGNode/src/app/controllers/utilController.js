@@ -36,7 +36,7 @@ router.post('/auth/logout', function(req, res) {
   res.status(200).send({ auth: false, token: null });
 });
 
-router.get('/auth/getLoggedUser', verifyJWT, function(req, res) {
+router.get('/auth/getLoggedUser', function(req, res) {
   try{
     if(req.userId){
       userService.get(req.userId).then((user)=>{

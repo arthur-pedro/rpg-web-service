@@ -14,6 +14,18 @@ module.exports = (sequelize, DataTypes) => {
           as: 'publications',
           foreignkey:  'tagId'
       });
+
+      Tag.belongsToMany(models.Event, {
+          through: 'event_tag',
+          as: 'events',
+          foreignkey:  'tagId'
+      });
+
+      Tag.belongsToMany(models.News, {
+          through: 'news_tag',
+          as: 'news',
+          foreignkey:  'tagId'
+      });
     };
 
     return Tag;

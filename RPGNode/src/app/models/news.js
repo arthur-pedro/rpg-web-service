@@ -28,5 +28,20 @@ module.exports = (sequelize, DataTypes) => {
       updatedAt: DataTypes.DATE,
     });
 
+    News.associate = (models) => {
+      News.belongsToMany(models.Tag, {
+        through: 'news_tag',
+        as: 'tags',
+        foreignkey:  'newsId'
+      });     
+
+      News.belongsTo(models.User, { 
+        as: 'creator',
+        foreignkey:  'creatorId', 
+        targetKey: 'id',
+      });
+    };
+
+
     return News;
 }

@@ -30,10 +30,31 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      expireAt: DataTypes.DATE, 
+      startDate: {
+        type: DataTypes.DATE, 
+        allowNull: false,
+      },
+      endDate: {
+        type: DataTypes.DATE, 
+        allowNull: false,
+      },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     });
+
+    Event.associate = (models) => {
+      Event.belongsToMany(models.Tag, {
+        through: 'event_tag',
+        as: 'tags',
+        foreignkey:  'eventId'
+      });     
+
+      Event.belongsTo(models.User, { 
+        as: 'creator',
+        foreignkey:  'creatorId', 
+        targetKey: 'id',
+      });
+    };
 
     return Event;
 }

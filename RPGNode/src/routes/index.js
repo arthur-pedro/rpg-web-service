@@ -8,6 +8,8 @@ router.use('/publication', require('../app/controllers/publicationController'));
 
 router.use('/tag', require('../app/controllers/tagController')); 
 
+router.use('/news', require('../app/controllers/newsController')); 
+
 /* AUTHENTICATION */
 router.use('/util', require('../app/controllers/utilController')); 
 
