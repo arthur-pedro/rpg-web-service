@@ -43,6 +43,8 @@ import { ClassFormComponent } from './pages/class-form/class-form.component';
 import { HeaderDisplayComponent } from './components/header-display/header-display.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BoardFormComponent } from './pages/board-form/board-form.component';
+import { AlwaysAuthGuard } from './services/guard/AlwaysAuthGuard';
+import { OnlyLoggedInUsersGuard } from './services/guard/onlyLoggedCreator';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
    url: SERVER_URL + "/task/upload/img",
@@ -97,8 +99,10 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   providers: [
     {
       provide: DROPZONE_CONFIG,
-      useValue: DEFAULT_DROPZONE_CONFIG
-    }
+      useValue: DEFAULT_DROPZONE_CONFIG,
+    },
+    AlwaysAuthGuard,
+    OnlyLoggedInUsersGuard
   ],
   bootstrap: [AppComponent]
 })

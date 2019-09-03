@@ -1,7 +1,7 @@
 <div class="header text-center mt-5">
   <h1 class="display-3 theme-font-color">Pesquisar publicações</h1>
   <div class="row content-wrapper">
-    <div class="offset-md-2 col-md-8">
+    <div class="offset-md-1 col-md-10">
       <div class="form-group">
         <input type="text" class="form-control mr-2" [(ngModel)]="filter" placeholder="Procurar por publicações, dúvidas, vagas de emprego etc...">
       </div>
@@ -15,9 +15,9 @@
   </div>
 </div>
 <div class="row content-wrapper animated fadeInDown">
-  <div class="offset-md-2 col-md-8 grid-margin stretch-card">
-    <div class="card scroll box-shadow">
-      <div class="card-body ">
+  <div class="offset-md-1 col-md-10 grid-margin stretch-card">
+    <div class="card  box-shadow">
+      <div class="card-body">
         <h4 class="card-title">
           <span>Publicações</span>
           <button routerLink="/main/board/form" type="button" class="btn btn-xs btn-success float-right"><i class="mdi mdi-plus"></i>Criar</button>
@@ -25,7 +25,7 @@
           <!-- <span (click)="list()"><i class=" mdi mdi-replay text-muted pointer float-right"></i></span> -->
         </h4>
         <p class="card-description text-muted">Você pode publicar um artigo, uma oportunidade, extenções, etc...</p>
-        <div class="fluid-container pt-4">
+        <div class="fluid-container pt-4 scroll">
           <!-- LOADING -->
           <div *ngIf="loading">
             <div *ngFor="let skt of skeleton" class="row ticket-card pb-2 border-bottom pb-3 mb-3">

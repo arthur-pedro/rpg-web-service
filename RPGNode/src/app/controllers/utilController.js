@@ -36,17 +36,17 @@ router.post('/auth/logout', function(req, res) {
   res.status(200).send({ auth: false, token: null });
 });
 
-router.get('/auth/getLoggedUser', function(req, res) {
+router.get('/auth/getUserByToken', verifyJWT, function(req, res) {
   try{
     if(req.userId){
       userService.get(req.userId).then((user)=>{
         if(user)
           res.status(200).send(user);
         else
-          res.status(404).send({ message: 'User not found' });
+          res.status(401).send({ message: 'Access denied' });
         })
       }else{
-        res.status(500).send({ message: 'Internal server error' });
+        res.status(401).send({ message: 'Access denied' });
     }
   }catch(err){
     res.status(500).send({ message: 'Internal server error' });

@@ -5,7 +5,6 @@ const { User } = require('../models');
 const Sequelize = require('sequelize');
 
 class UtilService {
-    
 
     authenticateUser(login, password){
         return User.findOne({ 

@@ -19,9 +19,12 @@ import { ManagerQuestComponent } from './pages/manager-quest/manager-quest.compo
 import { ManagerImportComponent } from './pages/manager-import/manager-import.component';
 import { ClassFormComponent } from './pages/class-form/class-form.component';
 import { BoardFormComponent } from './pages/board-form/board-form.component';
+import { OnlyLoggedInUsersGuard } from './services/guard/onlyLoggedCreator';
+import { AlwaysAuthGuard } from './services/guard/AlwaysAuthGuard';
 
 const routes: Routes = [
   { path: 'main', component: NavigationComponent,
+  canActivate: [OnlyLoggedInUsersGuard, AlwaysAuthGuard],
     children: [
       {
         path: "",

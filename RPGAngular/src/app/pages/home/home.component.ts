@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
       this.util.redirectTo('/login')
     else{
       var jwt = JSON.parse(localStorage.getItem('jwt'));
-      this.util.getLoggedUser(jwt)
+      this.util.getUserByToken(jwt)
     }
 
     }

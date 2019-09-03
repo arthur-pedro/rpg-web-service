@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { HomeService } from 'src/app/services/home/home.service';
 import { HomeComponent } from 'src/app/pages/home/home.component';
 import { UtilService } from 'src/app/services/util/util.service';
+import {CanActivate} from "@angular/router";
 
 @Component({
   selector: 'app-navigation',
@@ -22,13 +23,24 @@ export class NavigationComponent implements OnInit {
   constructor(
     private homeService: HomeService,
     private util: UtilService,
-    ) { }
+    ) {
+
+      this.loading = true;
+      if(this.util.hasLoggedUser){
+        this.util.getUserByToken(this.util.getToken().access_token).subscribe(data => {
+          this.loggedUser = data;
+          this.loading = false;
+          this.hasServerError = null;
+        },
+        error => {
+          this.hasServerError = error;
+          this.loading = false;
+        });
+      }
+
+     }
 
   ngOnInit() {
-    if(this.util.hasLoggedUser)
-      this.loggedUser = this.util.getLoggedUser(JSON.parse(localStorage.getItem('jwt')).access_token)
-
-    this.getUserById(loggedUser.id);
   } 
 
   show(){
@@ -41,17 +53,8 @@ export class NavigationComponent implements OnInit {
 
   }
 
-  getUserById(userId){
-    this.loading = true;
-    //AQUI IRA PASSAR O ID DO USUÁRIO LOGADO
-    this.homeService.getUser(userId).subscribe(data => {
-      this.user = data;
-      this.loading = false;
-      this.hasServerError = null;
-    },
-    error => {
-      this.hasServerError = error;
-      this.loading = false;
-    });
+  loggout(){
+    localStorage.clear();
+    this.util.redirectTo("/login");
   }
 }

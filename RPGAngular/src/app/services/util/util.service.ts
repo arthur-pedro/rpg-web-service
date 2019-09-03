@@ -50,9 +50,8 @@ export class UtilService {
     }
   }
   
-  public getLoggedUser(token){
-    const header = new HttpHeaders().append('x-access-token', token);
-    return this.http.get(SERVER_URL + "/api/util/auth/getLoggedUser", {headers: header}).pipe(map((response)=> { response}));
+  public getUserByToken(token){
+    return this.http.get(SERVER_URL + "/api/util/auth/getUserByToken", this.auth()).pipe(map((response)=> { return response}));
   }
 
   public hasLoggedUser(){
@@ -66,4 +65,15 @@ export class UtilService {
   public redirectTo(url: String){
     this.router.navigate([url]);
   }
+
+  public getToken(){
+    return  JSON.parse(localStorage.getItem('jwt'));
+  }
+
+  public auth(){
+    return { headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.getAccessToken()) };
+  }
+
+  public getAccessToken(){ return JSON.parse(localStorage.getItem('jwt')).access_token; }
+
 }
