@@ -36,12 +36,12 @@ export class HomeComponent implements OnInit {
     private util: UtilService
   ) { 
     
-    if(!this.util.hasLoggedUser)
-      this.util.redirectTo('/login')
-    else{
-      var jwt = JSON.parse(localStorage.getItem('jwt'));
-      this.util.getUserByToken(jwt)
-    }
+    // if(!this.util.hasLoggedUser())
+    //   this.util.redirectTo('/login')
+    // else{
+    //   var jwt = JSON.parse(localStorage.getItem('jwt'));
+    //   this.util.getUserByToken(jwt)
+    // }
 
     }
   

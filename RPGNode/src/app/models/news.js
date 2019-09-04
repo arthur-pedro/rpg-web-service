@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
+      isPublic: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
       expireAt: DataTypes.DATE, 
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,

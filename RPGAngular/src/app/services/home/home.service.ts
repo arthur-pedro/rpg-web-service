@@ -20,11 +20,11 @@ export class HomeService {
   }
 
   public listPublicNews(){
-    return this.http.get(SERVER_URL + "/news/list/public", this.util.auth()).pipe(map((response)=> response));
+    return this.http.get(SERVER_URL + "/api/news/list/public", this.util.auth()).pipe(map((response)=> response));
   }
 
   public listPublicEvent(){
-    return this.http.get(SERVER_URL + "/event/list/public", this.util.auth()).pipe(map((response)=> response));
+    return this.http.get(SERVER_URL + "/api/event/list/public", this.util.auth()).pipe(map((response)=> response));
   }
 
   public getPod(range){

@@ -1,9 +1,9 @@
 'use strict';
 
-const { News, User, Tag } = require('../models');
+const { Event, User, Tag } = require('../models');
 const Util = require('./utilService');
 
-class NewsService{
+class EventService{
 
     createUpdate(obj){
         try{
@@ -32,7 +32,7 @@ class NewsService{
             }else{
                 obj.createdAt = new Date();
                 obj.updatedAt = new Date();
-                return News.create(obj).then((createdModel) => { 
+                return Event.create(obj).then((createdModel) => { 
                     createdModel.addTags(obj.tags);
                     return createdModel;
                 });
@@ -43,7 +43,7 @@ class NewsService{
     }
 
     get(id){ 
-        return News.findOne(
+        return Event.findOne(
         {
             include: [
                  {
@@ -75,11 +75,11 @@ class NewsService{
                 as: 'creator',
             }
         ];
-        return News.findAll({ include: relationships });
+        return Event.findAll({ include: relationships });
     }
 
     listPublic(){
-        return News.findAll({
+        return Event.findAll({
             include: [
                 {
                     model: Tag,
@@ -99,8 +99,8 @@ class NewsService{
     }
 
     delete(id){
-        return News.destroy({where: {id: id}});
+        return Event.destroy({where: {id: id}});
     }
 
 }
-module.exports = new NewsService;
+module.exports = new EventService;

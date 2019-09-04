@@ -2,10 +2,9 @@
 'use strict';
 
 const { Publication, Tag, User } = require('../models');
-const UtilService = require('./utilService');
+const Util = require('./utilService');
 const Sequelize = require('sequelize');
 
-var Util = new UtilService();
 
 class TagService{
     

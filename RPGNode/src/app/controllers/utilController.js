@@ -1,16 +1,13 @@
 'use strict';
 
-const UtilService = require('../service/utilService')
-const UserService = require('../service/userService')
+const utilService = require('../service/utilService')
+const userService = require('../service/userService')
 const verifyJWT = require('../../auth/auth');
 
 var express = require('express');
 const jwt = require('jsonwebtoken');
 
 var router = express.Router();
-
-var utilService = new UtilService();
-var userService = new UserService();
 
 /* authentication */
 router.post('/auth/login',  (req, res) => {

@@ -45,6 +45,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BoardFormComponent } from './pages/board-form/board-form.component';
 import { AlwaysAuthGuard } from './services/guard/AlwaysAuthGuard';
 import { OnlyLoggedInUsersGuard } from './services/guard/onlyLoggedCreator';
+import { NewsManagerComponent } from './pages/news-manager/news-manager.component';
+import { OnlyManagerGuard } from './services/guard/onlyManagerGuard';
+import { PaginationDisplayComponent } from './components/pagination-display/pagination-display.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
    url: SERVER_URL + "/task/upload/img",
@@ -73,14 +76,18 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     NewsComponent,
     BoardComponent,
     RankingComponent,
-    UserDisplayComponent,
     ManagerUserComponent,
     ManagerImportComponent,
     ManagerQuestComponent,
     NewsDetailComponent,
     ClassFormComponent,
     HeaderDisplayComponent,
-    BoardFormComponent
+    BoardFormComponent,
+    NewsManagerComponent,
+    PaginationDisplayComponent,
+
+    UserDisplayComponent,
+    PaginationDisplayComponent
   ],
   imports: [
     DropzoneModule,
@@ -102,7 +109,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       useValue: DEFAULT_DROPZONE_CONFIG,
     },
     AlwaysAuthGuard,
-    OnlyLoggedInUsersGuard
+    OnlyLoggedInUsersGuard,
+    OnlyManagerGuard
   ],
   bootstrap: [AppComponent]
 })

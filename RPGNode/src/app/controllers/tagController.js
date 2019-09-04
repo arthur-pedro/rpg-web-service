@@ -24,7 +24,7 @@ router.get('/get/:id', verifyJWT, function (req, res, next) {
 })
 
 /* Get all publications */
-router.get('/list', function (req, res) {
+router.get('/list', verifyJWT, function (req, res) {
 let filter = req.query.filter;
 let first = null;
 let size = null;

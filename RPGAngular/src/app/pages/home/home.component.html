@@ -98,9 +98,15 @@
                     <i class=" mdi mdi-loading mdi-spin text-muted"></i>
                   </div>
               </div>
-              <div *ngIf="!loading" class="display-3 text-center mt-5 pt-5 text-muted">
-                <span><i class="mdi mdi-flag"></i></span><br>
-                <label for="">Nenhuma notícia</label>
+              <div *ngIf="!loading" class="ticket-card text-center animated fadeIn">
+                <div *ngIf="hasServerError">
+                  <h4 (click)="list()" class="mt-5 text-muted pointer"><i class="mdi mdi-link-variant-off" aria-hidden="true"></i></h4>
+                  <p  (click)="list()" class="text-muted pointer">Tentar reconectar</p>
+                </div>
+                <div *ngIf="!hasServerError">
+                  <h4 class="mt-5 text-muted pointer"><i class="mdi mdi-earth" aria-hidden="true"></i></h4>
+                  <p class="text-muted pointer">Não há nada aqui</p>
+                </div>
               </div>
             </div>
           </div>
@@ -150,22 +156,22 @@
               </div>
             </div>
             <div *ngIf="!loading">  
-              <div *ngIf="newsList.length == 0">
-                <div class="display-3 text-center mt-5 pt-5 text-muted">
-                  <span><i class="mdi mdi-calendar"></i></span><br>
-                  <label for="">Nenhum evento</label>
+              <div *ngIf="newsList.length == 0" class="ticket-card text-center animated fadeIn">
+                <div *ngIf="hasServerError">
+                  <h4 (click)="list()" class="mt-5 text-muted pointer"><i class="mdi mdi-link-variant-off" aria-hidden="true"></i></h4>
+                  <p  (click)="list()" class="text-muted pointer">Tentar reconectar</p>
+                </div>
+                <div *ngIf="!hasServerError">
+                  <h4 class="mt-5 text-muted pointer"><i class="mdi mdi-earth" aria-hidden="true"></i></h4>
+                  <p class="text-muted pointer">Não há nada aqui</p>
                 </div>
               </div>
               <div *ngIf="eventList && eventList.length > 0" class="mb-2">
-                <!-- <ul class="list-group list-group-flush"> -->
-                  <!-- <li *ngFor="let event of eventList" class="text-left p-0 pb-3 pt-3 list-group-item pointer"> -->
-                      <p *ngFor="let event of eventList" class="mb-4 mt-0">  
-                        <span><i class="mdi mdi-calendar-clock"></i> {{event?.title}}</span> 
-                        <span class=""><i class="mdi mdi-map-marker"></i> Poli, Recife PE</span>
-                        <span class="pull-right">12 <i class="mdi mdi-flag"></i> 23 <i class="mdi mdi-eye"></i></span>
-                      </p>     
-                  <!-- </li> -->
-                <!-- </ul> -->
+                <p *ngFor="let event of eventList" class="mb-4 mt-0">  
+                  <span><i class="mdi mdi-calendar-clock"></i> {{event?.title}}</span> 
+                  <span class=""><i class="mdi mdi-map-marker"></i> Poli, Recife PE</span>
+                  <span class="pull-right">12 <i class="mdi mdi-flag"></i> 23 <i class="mdi mdi-eye"></i></span>
+                </p>     
               </div>
             </div>
           </div>
@@ -267,10 +273,14 @@
                     </tr>
                 </tbody>
               </table>
-              <div *ngIf="!loading && ((pod && pod.length == 0) || !pod)">
-                <div class="display-3 text-center mt-4 pt-4 text-muted">
-                  <span><i class="mdi mdi-account-off"></i></span><br>
-                  <label for="">Não há nada aqui</label>
+              <div *ngIf="!loading && ((pod && pod.length == 0) || !pod)" class="ticket-card text-center pb-2 pb-3 mb-3 animated fadeIn">
+                <div *ngIf="hasServerError">
+                  <h4 (click)="list()" class="mt-5 text-muted pointer"><i class="mdi mdi-link-variant-off" aria-hidden="true"></i></h4>
+                  <p  (click)="list()" class="text-muted pointer">Tentar reconectar</p>
+                </div>
+                <div *ngIf="!hasServerError">
+                  <h4 class="mt-5 text-muted pointer"><i class="mdi mdi-earth" aria-hidden="true"></i></h4>
+                  <p class="text-muted pointer">Não há nada aqui</p>
                 </div>
               </div>
             </div>

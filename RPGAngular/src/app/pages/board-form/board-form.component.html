@@ -17,13 +17,14 @@
                 [items]="search$ | async"
                 [addTag]="loggedUser?.manager"
                 bindLabel="title"
+                bindValue="id"
                 [multiple]="true"
                 [hideSelected]="true"
                 [trackByFn]="trackByFn"
                 [loading]="searchLoading"
                 [typeahead]="searchInput$"
                 placeholder="Selecione uma tag"
-                [(ngModel)]="selectedTags">>
+                [(ngModel)]="selectedTags">
               </ng-select>
             </div>
           </div>

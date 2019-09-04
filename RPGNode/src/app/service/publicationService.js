@@ -2,9 +2,8 @@
 'use strict';
 
 const { Publication, Tag, User } = require('../models');
-const UtilService = require('./utilService');
+const Util = require('./utilService');
 
-var Util = new UtilService();
 
 class PublicationService{
     
@@ -91,4 +90,4 @@ class PublicationService{
 
 }
 
-module.exports = PublicationService;
+module.exports = new PublicationService;

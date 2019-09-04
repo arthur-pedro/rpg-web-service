@@ -26,4 +26,4 @@ class UtilService {
     
 }
 
-module.exports = UtilService;
+module.exports = new UtilService;

@@ -66,14 +66,18 @@ export class UtilService {
     this.router.navigate([url]);
   }
 
-  public getToken(){
-    return  JSON.parse(localStorage.getItem('jwt'));
-  }
-
   public auth(){
     return { headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.getAccessToken()) };
   }
-
+  
+  public getToken(){
+    return  JSON.parse(localStorage.getItem('jwt'));
+  }
+  
   public getAccessToken(){ return JSON.parse(localStorage.getItem('jwt')).access_token; }
+
+  public hasValidToken(){
+    return true;
+  }
 
 }

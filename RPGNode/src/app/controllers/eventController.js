@@ -1,6 +1,6 @@
 'use strict';
 
-const  newsService   = require('../service/newsService');
+const  eventService   = require('../service/eventService');
 const { Projection } = require('../util/projection');
 
 const verifyJWT = require('../../auth/auth');
@@ -8,52 +8,50 @@ const verifyJWT = require('../../auth/auth');
 var express = require('express');
 var router = express.Router();
 
-/* Get one news */
+/* Get one event */
 router.get('/get/:id', verifyJWT, function (req, res, next) {
     try{
-      newsService.get(req.params.id).then( news => {
-        if(news)
-          res.json(news);
-        else{
-          res.status(500).send({ error: 'News not found' });
-        }
-      });
+        eventService.get(req.params.id).then( event => {
+            if(event)
+                res.json(event);
+            else
+                res.status(500).send({ error: 'Events not found' });
+        });
     }catch(err){
       res.status(500).send({ error: 'Internal server error' });
     }
 })
 
-/* Get all news */
+/* Get all event */
 router.get('/list', verifyJWT, function (req, res) {
   try{
-    newsService.list().then( news => {
-      if(news)
-        res.json(news);
-      else{
-        res.status(500).send({ error: 'News not found' });
-      }
+    eventService.list().then( events => {
+      if(events)
+        res.json(events);
+      else
+        res.status(500).send({ error: 'Events not found' });
+      
     });
   }catch(err){
     res.status(500).send({ error: 'Internal server error' });
   }
 })
 
-/* Get all public news */
+/* Get all public event */
 router.get('/list/public', verifyJWT, function (req, res) {
   try{
-    newsService.listPublic().then( news => {
-      if(news)
-        res.json(news);
-      else{
-        res.status(500).send({ error: 'News not found' });
-      }
+    eventService.listPublic().then( events => {
+      if(events)
+        res.json(events);
+      else
+        res.status(500).send({ error: 'Events not found' });
     });
   }catch(err){
     res.status(500).send({ error: 'Internal server error' });
   }
 })
 
-/* Create news */
+/* Create event */
 router.post('/create', verifyJWT, function (req, res) {
   try{
     newsService.createUpdate(req.body).then( data => {
@@ -74,19 +72,19 @@ router.put('/update', verifyJWT, function (req, res) {
       if(data)
         res.status(200).send({ message: 'successful' });
       else
-        res.status(200).send({ message: 'Publication already exist' }); 
+        res.status(200).send({ message: 'Event already exist' }); 
     });
   }catch(err){
     res.status(500).send({ error: 'Internal server error' });
   }
 });
 
-/* Delete publcation by id */
+/* Delete event by id */
 router.delete('/delete/:id', verifyJWT, function (req, res) {
   try{
-    newsService.delete(req.params.id).then( deleted => {
+    eventService.delete(req.params.id).then( deleted => {
       if(deleted)
-        res.status(200).send({ message: 'Deleted publication' });
+        res.status(200).send({ message: 'Event deleted' });
       else
         res.status(500).send({ error: 'Internal server error' });
     });

@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
           as: 'news',
           foreignkey:  'tagId'
       });
+      
     };
 
     return Tag;

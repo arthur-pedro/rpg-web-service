@@ -21,74 +21,67 @@ import { ClassFormComponent } from './pages/class-form/class-form.component';
 import { BoardFormComponent } from './pages/board-form/board-form.component';
 import { OnlyLoggedInUsersGuard } from './services/guard/onlyLoggedCreator';
 import { AlwaysAuthGuard } from './services/guard/AlwaysAuthGuard';
+import { NewsManagerComponent } from './pages/news-manager/news-manager.component';
+import { OnlyManagerGuard } from './services/guard/onlyManagerGuard';
 
 const routes: Routes = [
-  { path: 'main', component: NavigationComponent,
-  canActivate: [OnlyLoggedInUsersGuard, AlwaysAuthGuard],
+  { path: 'main', component: NavigationComponent, 
+    canActivate: [OnlyLoggedInUsersGuard, AlwaysAuthGuard],
     children: [
       {
-        path: "",
-        component: HomeComponent
+        path: "", component: HomeComponent
       },
       {
-        path: "profile",
-        component: ProfileComponent
+        path: "profile", component: ProfileComponent
+      },
+      /* CLASS */
+      {
+        path: "class", component: ClassComponent,
       },
       {
-        path: "class", 
-        component: ClassComponent,
+        path: "class/detail/:id", component: ClassDetailComponent
       },
       {
-        path: "class/detail/:id",
-        component: ClassDetailComponent
+        path: "class/form", component: ClassFormComponent,
+      },
+      /* TASK */
+      {
+        path: "task", component: TaskComponent
       },
       {
-        path: "class/form", 
-        component: ClassFormComponent,
-      },
-      {
-        path: "task",
-        component: TaskComponent
-      },
-      {
-        path: "manager",
-        component: ManagerComponent
+        path: "manager", component: ManagerComponent
       },
       {
         path: "manager/user",
         component: ManagerUserComponent
       },
       {
-        path: "manager/quest",
-        component: ManagerQuestComponent
+        path: "manager/quest", component: ManagerQuestComponent
       },
       {
-        path: "manager/user/import",
-        component: ManagerImportComponent
+        path: "manager/user/import", component: ManagerImportComponent
       },
       {
-        path: "achievements",
-        component: AchievementsComponent
+        path: "achievements", component: AchievementsComponent
       },
       {
-        path: "quest",
-        component: QuestComponent
+        path: "quest", component: QuestComponent
+      },
+      /* NEWS */
+      {
+        path: "news", component: NewsComponent
       },
       {
-        path: "news",
-        component: NewsComponent
+        path: "manager/news", component: NewsManagerComponent,
       },
       {
-        path: "board",
-        component: BoardComponent
+        path: "board",  component: BoardComponent
       },
       {
-        path: "board/form",
-        component: BoardFormComponent
+        path: "board/form", component: BoardFormComponent
       },
       {
-        path: "ranking",
-        component: RankingComponent
+        path: "ranking", component: RankingComponent
       },
     ]
   },

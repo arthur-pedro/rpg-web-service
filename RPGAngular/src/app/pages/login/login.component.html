@@ -1,6 +1,6 @@
 <div id="background-login-extern">
     <div id="background-login">
-        <img src="https://i2.wp.com/www.wahoodocks.com/wp-content/uploads/2017/05/custom-login-background.jpg" alt="" />
+        <img src="http://www.webestrategica.com.br/web4/wp-content/uploads/2019/02/background-landing-page.jpg" alt="" />
     </div>
 </div>
 <div class="container-fluid">
@@ -8,24 +8,25 @@
         <div class="row animated fadeInDown" style="padding-top: 50px;">
             <div class="col-lg-4 col-md-4"></div>
             <div class="col-lg-4 col-md-4">
-                <div class="auto-form-wrapper">
+                <div class="auto-form-wrapper theme-font-color">
+                    <h3 class="text-center pb-5">Bem-vindo de volta!</h3>
                     <form [formGroup]="credentials">
                         <div class="form-group">
-                            <label class="label">Login</label>
+                            <label class="text-muted">LOGIN</label>
                             <input formControlName="login" type="text" class="form-control" placeholder="Digite seu email ou nº da matricula" required>
                         </div>
                         <div class="form-group">
-                            <label class="label">Senha</label>
+                            <label class="text-muted">SENHA</label>
                             <input formControlName="password" type="password" class="form-control" placeholder="Digite sua senha" requires>
                         </div>
                         <div class="form-group">
-                            <button [disabled]="loading" (click)="login()" class="btn btn-success submit-btn btn-block">
+                            <button [disabled]="loading" (click)="login()" class="btn btn-primary submit-btn btn-block">
                                 <span *ngIf="!loading">Entrar</span>
                                 <span *ngIf="loading"><i class=" mdi mdi-loading mdi-spin"></i></span>
                             </button>
                         </div>
                         <div class="form-group">
-                            <button [disabled]="loading" class="btn btn-danger submit-btn btn-block"> 
+                            <button [disabled]="true" class="btn btn-danger submit-btn btn-block"> 
                                 <span><i class="mdi mdi-google"></i></span> Entrar com o Google
                             </button>
                         </div>

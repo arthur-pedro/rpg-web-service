@@ -10,6 +10,8 @@ router.use('/tag', require('../app/controllers/tagController'));
 
 router.use('/news', require('../app/controllers/newsController')); 
 
+router.use('/event', require('../app/controllers/eventController')); 
+
 /* AUTHENTICATION */
 router.use('/util', require('../app/controllers/utilController')); 
 

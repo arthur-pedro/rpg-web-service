@@ -3,26 +3,18 @@
   <div class="row content-wrapper">
     <div class="offset-md-1 col-md-10">
       <div class="form-group">
-        <input type="text" class="form-control mr-2" [(ngModel)]="filter" placeholder="Procurar por publicações, dúvidas, vagas de emprego etc...">
+        <input type="text" class="form-control input-search mr-2" [(ngModel)]="filter" placeholder="Procurar por publicações, dúvidas, vagas de emprego etc...">
       </div>
     </div>
-    <!-- <div class="col-md-6 text-right">
-      <div class="btn-group mr-4" role="group" aria-label="Basic example">
-        <button routerLink="/main" type="button" class="btn btn-sm btn-danger"><i class="mdi mdi-chevron-left"></i>  Voltar</button>
-        <button routerLink="/main/board/form" type="button" class="btn btn-sm btn-success"><i class="mdi mdi-plus"></i>  Publicar</button>
-      </div>
-    </div> -->
   </div>
 </div>
-<div class="row content-wrapper animated fadeInDown">
+<div class="row animated fadeInDown">
   <div class="offset-md-1 col-md-10 grid-margin stretch-card">
-    <div class="card  box-shadow">
+    <div class="card box-shadow">
       <div class="card-body">
         <h4 class="card-title">
           <span>Publicações</span>
           <button routerLink="/main/board/form" type="button" class="btn btn-xs btn-success float-right"><i class="mdi mdi-plus"></i>Criar</button>
-          <!-- <span routerLink="/main/board/form"><i class=" mdi mdi-plus text-success pointer float-right">Publicar</i></span> -->
-          <!-- <span (click)="list()"><i class=" mdi mdi-replay text-muted pointer float-right"></i></span> -->
         </h4>
         <p class="card-description text-muted">Você pode publicar um artigo, uma oportunidade, extenções, etc...</p>
         <div class="fluid-container pt-4 scroll">
@@ -52,7 +44,7 @@
                 <div class="col-md-1">
                   <img class="img-sm rounded-circle mb-4 mb-md-0" src="{{profileUrl}}" alt="profile image">
                 </div>
-                <div class="ticket-details col-md-9">
+                <div class="ticket-details col-md-8">
                     <p class="text-dark font-weight-semibold mr-2 mb-0 ellipsis">{{publication?.title}}</p>
                   <p class="text-gray ellipsis mb-0">{{publication?.description}}.</p>
                   <div class="row text-gray d-md-flex d-none">

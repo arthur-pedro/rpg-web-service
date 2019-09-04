@@ -33,7 +33,6 @@ export class BoardFormComponent implements OnInit {
     private boardService: BoardService
   ) { 
 
-    // this.loggedUser = util.getLoggedUser();
   }
 
   ngOnInit() {
@@ -52,6 +51,11 @@ export class BoardFormComponent implements OnInit {
     if(!this.publicationForm.valid){
       this.loading = false;
       return;
+    }
+    if(this.publicationForm.value['tags']){
+      this.publicationForm.value['tags'].forEach(element => {
+        element = element.id;
+      });
     }
     this.publicationForm.disable();
     this.boardService.create(this.publicationForm.getRawValue()).subscribe(data => {

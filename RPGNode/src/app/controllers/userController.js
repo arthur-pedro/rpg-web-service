@@ -1,15 +1,13 @@
 'use strict';
 
 const { User } = require('../models');
-const UserService = require('../service/userService')
+const userService = require('../service/userService')
 
 const verifyJWT = require('../../auth/auth');
 
 var express = require('express');
 var router = express.Router();
 
-
-var userService = new UserService();
 
 /* Get one user */
 router.get('/get/:id', verifyJWT, (req, res, next) => {

@@ -1,12 +1,11 @@
 'use strict';
 
-const PublicationService = require('../service/publicationService');
+const publicationService = require('../service/publicationService');
 const { Projection } = require('../util/projection');
 const verifyJWT = require('../../auth/auth');
 var express = require('express');
 var router = express.Router();
 
-var publicationService = new PublicationService();
 
 /* Get one publication */
 router.get('/get/:id', verifyJWT, function (req, res, next) {
