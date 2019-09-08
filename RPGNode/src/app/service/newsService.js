@@ -3,6 +3,8 @@
 const { News, User, Tag } = require('../models');
 const Util = require('./utilService');
 
+const Sequelize = require('sequelize');
+
 class NewsService{
 
     createUpdate(obj){
@@ -63,19 +65,23 @@ class NewsService{
         );
     }
 
-    list(){
-        var relationships = [
-            {
-                model: Tag,
-                as: 'tags',
-                through: { attributes: [] },
-            },
-            {
-                model: User,
-                as: 'creator',
-            }
-        ];
-        return News.findAll({ include: relationships });
+    list(first, maxResults){
+        return News.findAll({
+            include: [
+                {
+                    model: Tag,
+                    as: 'tags',
+                    through: { attributes: [] },
+                },
+                {
+                    model: User,
+                    as: 'creator',
+                }
+            ], 
+            offset: first,
+            limit: maxResults
+        },
+        );
     }
 
     listPublic(){
@@ -100,6 +106,19 @@ class NewsService{
 
     delete(id){
         return News.destroy({where: {id: id}});
+    }
+
+    async count(){
+        return await News.sequelize.query('SELECT COUNT(id) as count FROM news;', {
+          model: News,
+          mapToModel: false 
+        })
+        .then(res => {
+            if(res && res[0] && res[0].dataValues && res[0].dataValues.count > 0)
+                return res[0].dataValues.count;
+            else
+                return 0;
+        })
     }
 
 }

@@ -29,18 +29,39 @@
     box-shadow: none !important;
 }
 
+.ng-select.ng-select-single .ng-select-container .ng-value-container {
+    padding-top: 0px; 
+    padding-left: 0px;
+}
+
+.ng-select.ng-select-single .ng-select-container {
+    height: 17px !important;
+}
+
+.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+    top: 0px;
+    left: 0;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.ng-select.ng-select-single .ng-select-container:hover{
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.ng-select.ng-select-single .ng-select-container:not(.ng-select-opened){
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
 .header{
     padding-top: 30px;
-    /* background-color: white;
-    border-bottom: #dadada;
-    border-bottom-width: 1px;
-    border-bottom-style: solid; */
 }
 
 .title-header{
     font-size: 24px;
     margin-top: 0px;
-    /* margin-left: 27px; */
     color: #6f6f6f;
 }
 
@@ -65,16 +86,18 @@
     margin-right: 0rem;
 }
 
-.theme-purple{
-    color: white;
-    background-color: #424964!important;
-    box-shadow: 0px 4px 6px 0px #a09f9fd9;
-    -webkit-box-shadow: 0px 4px 6px 0px #a09f9fd9;
-    -moz-box-shadow: 0px 4px 6px 0px #a09f9fd9;
+.header-theme{
+    color: #231f20 !important;
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.header-theme i{
+    color: #919191;
 }
 
 .box-shadow{
-    box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 2px 2px rgba(0,0,0,0.15);
+    border: 1px solid #e6e6e6;
 }
 
 .theme-btn{
@@ -129,11 +152,16 @@
     padding: 2px !important;
 }
 
-.my-side{
-    background-color: #f2f2f2;
-    /* border-width: 1px;
-    border-right-style: solid;
-    border-right-color: #dadada; */
+.side-color{
+    background-color: #2b303b;
+}
+
+.side-top-color{
+    line-height: 60px;
+    background-color: #272b35;
+    border-bottom: 1px solid #232730;
+    color: #fff;
+    padding: 20px;
 }
 
 .text-muted{
@@ -141,8 +169,8 @@
 }
 
 .scroll{
-    max-height: 73vh;
-    min-height: 73vh;
+    max-height: 25rem;
+    min-height: 25rem;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -204,6 +232,7 @@
 
 #background-login img {
     width: 100%; /* com isso imagem ocupará toda a largura da tela. Se colocarmos height: 100% também, a imagem irá distorcer */
+    height: 100%;
     position: absolute;
 }
 
@@ -215,6 +244,20 @@
     z-index: 999;
     right: 0%;
     top: 0px;
+}
+
+.my-alert-form{
+    position: fixed;
+    z-index: 9999;
+    right: 31%;
+    bottom: 0;
+}
+
+.my-alert-login{
+    position: fixed;
+    z-index: 9999;
+    right: 35.5%;
+    bottom: 0;
 }
 
 
@@ -245,4 +288,10 @@
 .input-search:focus{
     border-color: #a9a7ad;
     background-color: transparent;
+}
+
+.ticket-card:hover {
+    background-color: #f5f5f59c;
+    transition-duration: 0.1s;
+    transition-timing-function: linear;
 }

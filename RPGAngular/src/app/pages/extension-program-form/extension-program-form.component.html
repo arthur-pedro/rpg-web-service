@@ -1,0 +1,86 @@
+<app-alert-display *ngIf="isCreated || hasServerError || (formError && submitted)"
+  [created]="isCreated"
+  [serverError]="hasServerError"
+  [formError]="formError"
+  [page]="'form'"
+  (closeType)="closeAlertDisplay($event)">
+</app-alert-display>
+<div class="row animated fadeInDown">
+    <div class="offset-md-2 col-md-8">
+      <div class="card box-shadow">
+        <div class="card-body">
+          <h3 class="mb-4">
+            <span><img src="../../../assets/images/forms/extension-form-icon.png" alt=""> Novo Programa de Extensão<span class="pull-right display-5 pointer text-primary"><p><a routerLink="/main/extension">voltar</a></p></span></span>
+          </h3>
+          <form class="needs-validation" novalidate [formGroup]="extensionForm">
+            <div class="form-row">
+              <div class="col-md-12 mb-3 mt-2">
+                <p>Nome</p>
+                <input placeholder="Escolha um título para sua extensão" formControlName="name" type="text" class="form-control mb-3">
+                <p>Descrição</p>
+                <textarea rows="4" cols="10" placeholder="Escolha um descrição para sua extensão" formControlName="description" type="text" class="form-control mb-2"></textarea>
+              </div>
+            </div>
+            <div class="form-row mb-3">
+              <div class="col-md-12">
+                <p>Campus</p>
+                <ng-select formControlName="campusId" class="form-control form-control-fixed"
+                  [items]="searchCampus$ | async"
+                  [addTag]="loggedUser?.manager"
+                  bindLabel="name"
+                  bindValue="id"
+                  [multiple]="false"
+                  [hideSelected]="true"
+                  [trackByFn]="trackByFn"
+                  [loading]="searchLoadingCampus"
+                  [typeahead]="searchInputCampus$"
+                  placeholder="Selecione um campus"
+                  [(ngModel)]="selectedCampus">
+                </ng-select>
+              </div>
+            </div>
+            <!-- <div class="form-row mb-3">
+              <div class="col-md-12">
+                <p>Área de atuação</p>
+                <ng-select formControlName="expertiseId" class="form-control form-control-fixed"
+                  [items]="searchExpertise$ | async"
+                  [addTag]="loggedUser?.manager"
+                  bindLabel="title"
+                  bindValue="id"
+                  [multiple]="true"
+                  [hideSelected]="true"
+                  [trackByFn]="trackByFn"
+                  [loading]="searchLoading"
+                  [typeahead]="searchInput$"
+                  placeholder="Selecione uma tag"
+                  [(ngModel)]="selectedTags">
+                </ng-select>
+              </div>
+            </div> -->
+            <div class="form-row mb-3">
+              <div class="col-md-12">
+                <p>Tags</p>
+                <ng-select formControlName="tags" class="form-control form-control-fixed"
+                  [items]="search$ | async"
+                  [addTag]="loggedUser?.manager"
+                  bindLabel="title"
+                  bindValue="id"
+                  [multiple]="true"
+                  [hideSelected]="true"
+                  [trackByFn]="trackByFn"
+                  [loading]="searchLoading"
+                  [typeahead]="searchInput$"
+                  placeholder="Selecione uma tag"
+                  [(ngModel)]="selectedTags">
+                </ng-select>
+              </div>
+            </div>
+          </form>
+          <button [disabled]="loading" (click)="create()" class="btn btn-success btn-block mt-3 mb-2">
+            <span *ngIf="!loading">Criar</span>
+            <span *ngIf="loading"><i class=" mdi mdi-loading mdi-spin"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

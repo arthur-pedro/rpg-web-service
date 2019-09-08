@@ -24,6 +24,22 @@ router.get('/get/:id', verifyJWT, (req, res, next) => {
   }
 })
 
+
+/* Get one user */
+router.get('/getByEmail/:email', verifyJWT, (req, res, next) => {
+  try{
+    userService.getUserByEmail(req.params.email).then( user => {
+      if(user){
+        res.json(user);
+      }else{
+        res.status(500).send({ error: 'User not found' });
+      }
+    });
+  }catch(err){
+    res.status(500).send({ error: 'Internal server error' });
+  }
+})
+
 /* Get all user */
 router.get('/list', verifyJWT, (req, res) => {
   try{

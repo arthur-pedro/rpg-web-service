@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      isPublic: {
+        type: DataTypes.BOOLEAN,
+      },
       code: {
         type: DataTypes.STRING,
         allowNull: false,

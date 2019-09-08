@@ -23,6 +23,10 @@ class UtilService {
         return diff.filter(function(este, i) { return diff.indexOf(este) === i; });
     }
 
+    generateCode(){
+        var opt = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','X','Z'];
+        return (new Date().getFullYear() + Math.ceil(Math.random() * (999 - 100) + 100) + opt[Math.ceil(Math.random() * (22 - 0) + 0)]);
+    }
     
 }
 

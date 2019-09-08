@@ -25,11 +25,28 @@ router.get('/get/:id', verifyJWT, function (req, res, next) {
 
 /* Get all news */
 router.get('/list', verifyJWT, function (req, res) {
+  
+  /* PAGINATION */
+  let first = 0;
+  let maxResults = 0;
+  if(req.query.first && req.query.maxResults){
+    first = parseInt(req.query.first, 10);
+    maxResults = parseInt(req.query.maxResults, 10);
+  }
+
+  /* PAGINATION OBJ */
+  const obj = {
+    list: [],
+    totalRecords: 0,
+  }
+
   try{
-    newsService.list().then( news => {
-      if(news)
-        res.json(news);
-      else{
+    newsService.list(first, maxResults).then( async (news) => {
+      if(news){
+        obj.list = news;
+        obj.totalRecords = await newsService.count();
+        res.json(obj);
+      } else{
         res.status(500).send({ error: 'News not found' });
       }
     });

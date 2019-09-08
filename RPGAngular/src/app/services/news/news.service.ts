@@ -12,7 +12,7 @@ export class NewsService {
   constructor(private http: HttpClient, private util: UtilService) { }
 
   public list(first, maxResults){
-    return this.http.get(SERVER_URL + "/api/news/list", this.util.auth()).pipe(map((response)=> response));
+    return this.http.get(SERVER_URL + "/api/news/list?first="+first+"&maxResults="+maxResults, this.util.auth()).pipe(map((response)=> response));
   }
 
   public create(obj: any){
@@ -29,5 +29,9 @@ export class NewsService {
 
   public delete(id: Number){
     return this.http.delete(SERVER_URL + "/api/news/delete/" + id, this.util.auth()).pipe(map((response)=> response));
+  }
+
+  public listUser(first, maxResults){
+    return this.http.get(SERVER_URL + "/api/user/list?first="+first+"&maxResults="+maxResults, this.util.auth()).pipe(map((response)=> response));
   }
 }

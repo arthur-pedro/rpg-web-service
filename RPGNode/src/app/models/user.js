@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       level: DataTypes.INTEGER,
       xp: DataTypes.INTEGER,
       score: DataTypes.INTEGER,
+      photo: DataTypes.STRING,
       manager: DataTypes.BOOLEAN,
       active: DataTypes.BOOLEAN,
       createdAt: DataTypes.DATE,
@@ -41,6 +42,12 @@ module.exports = (sequelize, DataTypes) => {
     User.associate = (models) => {
       User.hasMany(models.Task, {
         as: "createdTasks",
+        sourceKey: 'id',
+        foreignKey: 'creatorId',
+      });
+
+      User.hasMany(models.Extension_Program, {
+        as: "extensionCreated",
         sourceKey: 'id',
         foreignKey: 'creatorId',
       });

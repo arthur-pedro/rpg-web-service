@@ -1,4 +1,4 @@
-<div class="header">
+<!-- <div class="header">
   <div class="row" style="margin-top: -16px">
     <div class="col-md-3"><label class="title-header ml-4">Usuários</label></div>
     <div class="col-md-5">
@@ -186,4 +186,34 @@
     </div>
   </div>    
 </div>
+ -->
 
+<div class="header text-center mt-5">
+  <h1 class="display-3 theme-font-color">Pesquisar</h1>
+  <div class="row">
+    <div class="col-md-12 p-5">
+      <div class="form-group">
+        <input type="text" class="form-control input-search" [(ngModel)]="filter" placeholder="Pesquisar usuários...">
+      </div>
+    </div>
+  </div>
+</div>
+ <div class="">
+  <div class="row grid-margin p-5">
+    <div *ngFor="let user of userList" class="col-lg-3 col-sm-6 mb-3">
+      <div class="card box-shadow hovercard">
+        <div class="cardheader"></div>
+        <div class="avatar">
+            <img *ngIf="user?.photo" alt="" src="{{user?.photo}}">
+            <img *ngIf="!user?.photo" alt="" src="../../../assets/simpleDatabase/default_user.jpg">
+        </div>
+        <div class="card-body">
+          <h6>{{user?.firstName}}</h6>
+          <!-- <p>Enngeharia da Computação - 11º período</p>
+          <p>aplss@ecmip.poli.br</p> -->
+          <button class="btn btn-success btn-xs">visitar</button>
+        </div>
+      </div>
+   </div>
+  </div>
+</div>

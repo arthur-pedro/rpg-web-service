@@ -23,6 +23,14 @@ import { OnlyLoggedInUsersGuard } from './services/guard/onlyLoggedCreator';
 import { AlwaysAuthGuard } from './services/guard/AlwaysAuthGuard';
 import { NewsManagerComponent } from './pages/news-manager/news-manager.component';
 import { OnlyManagerGuard } from './services/guard/onlyManagerGuard';
+import { NewsFormComponent } from './pages/news-form/news-form.component';
+import { EventManagerComponent } from './pages/event-manager/event-manager.component';
+import { EventFormComponent } from './pages/event-form/event-form.component';
+import { EventComponent } from './pages/event/event.component';
+import { NewsDetailComponent } from './pages/news-detail/news-detail.component';
+import { EventDetailComponent } from './pages/event-detail/event-detail.component';
+import { ExtensionProgramComponent } from './pages/extension-program/extension-program.component';
+import { ExtensionProgramFormComponent } from './pages/extension-program-form/extension-program-form.component';
 
 const routes: Routes = [
   { path: 'main', component: NavigationComponent, 
@@ -52,8 +60,7 @@ const routes: Routes = [
         path: "manager", component: ManagerComponent
       },
       {
-        path: "manager/user",
-        component: ManagerUserComponent
+        path: "manager/user", component: ManagerUserComponent
       },
       {
         path: "manager/quest", component: ManagerQuestComponent
@@ -67,19 +74,49 @@ const routes: Routes = [
       {
         path: "quest", component: QuestComponent
       },
+      
       /* NEWS */
       {
         path: "news", component: NewsComponent
       },
       {
+        path: "news/detail/:id", component: NewsDetailComponent,
+      },
+      {
+        path: "news/form", component: NewsFormComponent
+      },
+      {
         path: "manager/news", component: NewsManagerComponent,
       },
+      
+      /* EVENT */
+      {
+        path: "event", component: EventComponent
+      },
+      {
+        path: "event/detail/:id", component: EventDetailComponent
+      },
+      {
+        path: "event/form", component: EventFormComponent
+      },
+      {
+        path: "manager/event", component: EventManagerComponent,
+      },
+      /* PUBLICATION */
       {
         path: "board",  component: BoardComponent
       },
       {
         path: "board/form", component: BoardFormComponent
       },
+      /* EXTENSION PROGRAM */
+      {
+        path: "extension", component: ExtensionProgramComponent
+      },
+      {
+        path: "extension/form", component: ExtensionProgramFormComponent
+      },
+      /* RANKING */
       {
         path: "ranking", component: RankingComponent
       },

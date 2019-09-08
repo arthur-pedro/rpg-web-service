@@ -1,0 +1,111 @@
+<div class="row animated fadeInDown">
+    <div class="col-md-12">
+      <div class="card box-shadow">
+        <div class="card-body">
+            <h4 class="card-title">
+              <span>Gestão de eventos</span>
+              <button routerLink="/main/event/form" type="button" class="btn btn-xs btn-success float-right"><i class="mdi mdi-plus"></i>Criar</button>
+            </h4>
+            <p class="card-description text-muted">Todas os eventos publicados serão listadas aqui. </p>
+            <!-- <app-pagination-display class="float-right"
+              [first]="first" 
+              [maxResults]="maxResults"
+              [totalRecords]="eventList?.totalRecords"
+              (selectedPage)="listEvent($event, maxResults);">
+            </app-pagination-display> -->
+          <div class="table-responsive scroll">
+            <table class="table table-hover">
+              <thead *ngIf="!loading && eventList?.list?.length > 0">
+                <tr>
+                  <th>
+                    Título
+                  </th>
+                  <th>
+                    Descrição
+                  </th>
+                  <th class="text-center">
+                    Expirado
+                  </th>
+                  <th>
+                    Criada em
+                  </th>
+                  <th class="text-center">
+                    Gestão
+                  </th>
+                </tr>
+              </thead>
+              <tbody *ngIf="!loading && eventList?.list?.length > 0">
+                <tr *ngFor="let event of eventList?.list">
+                  <td tyle="max-width: 300px;">
+                    <p class="ellipsis">{{event?.title}}</p>
+                  </td>
+                  <td style="max-width: 300px;">
+                    <p class="ellipsis">{{event?.description}}</p>
+                  </td>
+                  <td class="text-center">
+                    <label *ngIf="event?.expired" class="badge badge-danger">sim</label>
+                    <label *ngIf="!event?.expired" class="badge badge-success">não</label>
+                  </td>
+                  <td>
+                    {{event?.createdAt}}
+                  </td>
+                  <td class="text-center">
+                    <button class="btn btn-xs btn-primary"><i class="mdi mdi-pencil"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="loading">
+                  <tr *ngFor="let skt of [1,2,3,4,5,6,7,8,9,10]">
+                    <td class="font-weight-medium">
+                      <div class="progress">
+                        <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="progress">
+                        <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="progress">
+                        <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="progress">
+                        <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                    <td class="text-success text-center">
+                      <div class="progress">
+                        <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-12 text-right">
+              <app-pagination-display 
+                [first]="first" 
+                [maxResults]="maxResults"
+                [totalRecords]="eventList?.totalRecords"
+                (selectedPage)="listEvent($event, maxResults);">
+              </app-pagination-display>
+            </div>
+          </div>
+          <div *ngIf="!loading && eventList?.list?.length == 0" class="ticket-card text-center pb-2 pb-3 mb-3 animated fadeIn">
+            <div *ngIf="hasServerError">
+              <h4 (click)="list()" class="mt-5 text-muted pointer"><i class="mdi mdi-link-variant-off" aria-hidden="true"></i></h4>
+              <p  (click)="list()" class="text-muted pointer">Tentar reconectar</p>
+            </div>
+            <div *ngIf="!hasServerError">
+              <h4 class="mt-5 text-muted pointer"><i class="mdi mdi-earth" aria-hidden="true"></i></h4>
+              <p class="text-muted pointer">Não há nada aqui</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
+  </div>

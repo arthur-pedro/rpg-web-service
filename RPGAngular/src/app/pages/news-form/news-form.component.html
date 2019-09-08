@@ -1,0 +1,72 @@
+<div class="row animated fadeInDown">
+  <div class="offset-md-2 col-md-8 ">
+    <div class="card box-shadow">
+      <div class="card-body">
+        <h3 class="mb-4">
+          <span><img src="https://cf.quizizz.com/img/gears_icon.png" alt=""> Nova Notícia <span class="pull-right display-5 pointer text-primary"><p><a routerLink="/main/manager/news">voltar</a></p></span></span>
+        </h3>
+        <form class="needs-validation" novalidate [formGroup]="newsForm">
+          <div class="form-row">
+            <div class="col-md-12 mb-3 mt-2">
+              <p>Título</p>
+              <input placeholder="Escolha um título para sua publicação" formControlName="title" type="text" class="form-control mb-3">
+              <textarea formControlName="description" [froalaEditor]='options' [(froalaModel)]="froadaDescription" [froalaEditor] class="mb-3"></textarea>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12">
+                <p>Expira em</p>
+                <input formControlName="expireAt" type="date" placeholder="Selecione a data de expiração" name="bday" max="3000-12-31" min="2019-01-01" class="form-control form-control-fixed mb-3">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12">
+              <p>Tags</p>
+              <ng-select formControlName="tags" class="form-control form-control-fixed"
+                [items]="search$ | async"
+                [addTag]="loggedUser?.manager"
+                bindLabel="title"
+                bindValue="id"
+                [multiple]="true"
+                [hideSelected]="true"
+                [trackByFn]="trackByFn"
+                [loading]="searchLoading"
+                [typeahead]="searchInput$"
+                placeholder="Selecione uma tag"
+                [(ngModel)]="selectedTags">
+              </ng-select>
+            </div>
+          </div>
+        </form>
+        <button [disabled]="loading" (click)="create()" class="btn btn-success btn-block mt-3 mb-2">
+          <span *ngIf="!loading">Criar</span>
+          <span *ngIf="loading"><i class=" mdi mdi-loading mdi-spin"></i></span>
+        </button>
+        <div *ngIf="isCreated" class="my-alert animated bounceInRight pointer">
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="font-size:13px">
+                Sua notícia foi criada com <strong>sucesso</strong> 
+                <button (click)="isCreated = null" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="hasServerError" class="my-alert animated bounceInRight pointer">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size:13px">
+                {{hasServerError?.error?.message}} <strong>Tentar novamente</strong> 
+                <button (click)="hasServerError = null" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="formError && submitted" class="my-alert animated bounceInRight pointer">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" style="font-size:13px">
+                Você deve preencher os <strong>campos obrigatórios</strong> 
+                <button (click)="showErrorAlert = false" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

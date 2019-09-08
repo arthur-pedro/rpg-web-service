@@ -12,6 +12,10 @@ router.use('/news', require('../app/controllers/newsController'));
 
 router.use('/event', require('../app/controllers/eventController')); 
 
+router.use('/campus', require('../app/controllers/campusController')); 
+
+router.use('/extension', require('../app/controllers/extensionProgramController')); 
+
 /* AUTHENTICATION */
 router.use('/util', require('../app/controllers/utilController')); 
 

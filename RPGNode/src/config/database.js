@@ -1,37 +1,17 @@
-// {
-//   "development": {
-//     "username": "root",
-//     "password": "root",
-//     "database": "poli",
-//     "host": "127.0.0.1",
-//     "dialect": "mysql",
-//     "operatorsAliases": false
-//   },
-//   "test": {
-//     "username": "root",
-//     "password": null,
-//     "database": "database_test",
-//     "host": "127.0.0.1",
-//     "dialect": "mysql",
-//     "operatorsAliases": false
-//   },
-//   "production": {
-//     "username": "root",
-//     "password": null,
-//     "database": "database_production",
-//     "host": "127.0.0.1",
-//     "dialect": "mysql",
-//     "operatorsAliases": false
-//   }
-// }
+/* PRODUÇÃO */
+let prod = {
 
-module.exports = {
+}
+
+/* LOCAL */
+let env = {
   username: 'root',
   password: 'root',
   database: 'poli',
   host: '127.0.0.1',
   dialect: 'mysql',
   timezone: '-03:00',
+  logging: false,
   pool: {
     max: 5,
     min: 0,
@@ -47,3 +27,5 @@ module.exports = {
     freezeTableName: true
   },
 }
+
+module.exports = env || prod;

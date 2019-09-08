@@ -14,7 +14,6 @@ export class NavigationComponent implements OnInit {
 
   user: any;
   loggedUser: any;
-  profileUrl: string = profileUrl;
 
   showAchievement: boolean = false;
   hasServerError: boolean = false;

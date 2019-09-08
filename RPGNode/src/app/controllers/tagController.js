@@ -1,12 +1,10 @@
 'use strict';
 
-const TagService = require('../service/tagService');
+const tagService = require('../service/tagService');
 const { Projection } = require('../util/projection');
 const verifyJWT = require('../../auth/auth');
 var express = require('express');
 var router = express.Router();
-
-var tagService = new TagService();
 
 /* Get one tag */
 router.get('/get/:id', verifyJWT, function (req, res, next) {
@@ -23,8 +21,8 @@ router.get('/get/:id', verifyJWT, function (req, res, next) {
     }
 })
 
-/* Get all publications */
-router.get('/list', verifyJWT, function (req, res) {
+/* Get all tags */
+router.get('/list', function (req, res) {
 let filter = req.query.filter;
 let first = null;
 let size = null;

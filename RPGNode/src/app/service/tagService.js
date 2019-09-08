@@ -91,4 +91,4 @@ class TagService{
 
 }
 
-module.exports = TagService;
+module.exports = new TagService;

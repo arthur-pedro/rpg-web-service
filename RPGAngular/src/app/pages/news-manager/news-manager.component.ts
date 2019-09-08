@@ -17,36 +17,37 @@ export class NewsManagerComponent implements OnInit {
   newsList: any = [];
   loggedUser: any = null;
 
-  first: Number = 0;
-  maxResults: Number = 0;
+  first:any  = 0;
+  maxResults:any = 10;
 
   constructor(private util: UtilService, private newsService: NewsService) { 
     this.loading = true;
     this.util.getUserByToken(this.util.getAccessToken).subscribe(data => {
-        if(!data)
-          this.util.redirectTo('./main');
-        this.loggedUser = data;
-        if(!this.loggedUser || (this.loggedUser && !this.loggedUser.manager))
-          this.util.redirectTo('./main');
-        this.loading = false;
-        this.hasServerError = null;
-      },
-      error => {
-        this.hasServerError = error;
-        this.loading = false;
+      if(!data)
         this.util.redirectTo('./main');
-      });
+      this.loggedUser = data;
+      if(!this.loggedUser || (this.loggedUser && !this.loggedUser.manager))
+        this.util.redirectTo('./main');
+      this.loading = false;
+      this.hasServerError = null;
+    },
+    error => {
+      this.hasServerError = error;
+      this.loading = false;
+      this.util.redirectTo('./main');
+    });
   }
 
   ngOnInit() {
-    this.listNews(0,0)
+    this.listNews(0, this.maxResults)
   }
 
   listNews(first, maxResults){
     this.loading = true;
-    this.newsService.list(first, maxResults).subscribe(data => {
-      if(data)
+    this.newsService.list(first, maxResults).subscribe((data: any) => {
+      if(data && data.list){
         this.newsList = data;
+      }
       this.loading = false;
       this.hasServerError = null;
       },
@@ -55,7 +56,5 @@ export class NewsManagerComponent implements OnInit {
         this.loading = false;
     });
   }
-
-
 
 }

@@ -32,6 +32,22 @@ class UserService {
     createUpdate(){
 
     }
+
+    async getUserByEmail(email){
+        return await User.findOne(
+            {
+                include: [
+                    {
+                        model: Task,
+                        as : 'createdTasks',
+                    }
+                ],
+                where: {
+                    email: email,
+                }
+            }
+        );
+    }
 }
 
 module.exports = new UserService;

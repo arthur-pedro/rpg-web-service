@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   hasServerError: boolean = false;
   submitted: boolean = false;
 
-  showErrorAlert: boolean = false;
+  formError: boolean = false;
   
   constructor(
     private formGroup: FormBuilder,
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   login(){
     this.submitted = true;
     if(!this.credentials.valid){
-      this.showErrorAlert = true;
+      this.formError = true;
       return;
     }
     this.loading = true;
@@ -52,5 +52,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
-
+  closeAlertDisplay(event){
+    switch(event){
+      case'serverError': 
+        this.hasServerError = null;
+        break;
+      case 'formError': 
+        this.formError = false;
+        break;
+    }
+  }
 }

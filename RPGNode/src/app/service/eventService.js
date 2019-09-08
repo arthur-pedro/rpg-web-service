@@ -32,6 +32,8 @@ class EventService{
             }else{
                 obj.createdAt = new Date();
                 obj.updatedAt = new Date();
+                obj.code = Util.generateCode();
+                obj.isPublic = true;
                 return Event.create(obj).then((createdModel) => { 
                     createdModel.addTags(obj.tags);
                     return createdModel;
@@ -63,19 +65,22 @@ class EventService{
         );
     }
 
-    list(){
-        var relationships = [
-            {
-                model: Tag,
-                as: 'tags',
-                through: { attributes: [] },
-            },
-            {
-                model: User,
-                as: 'creator',
-            }
-        ];
-        return Event.findAll({ include: relationships });
+    list(first, maxResults){
+        return Event.findAll({
+            include: [
+                {
+                    model: Tag,
+                    as: 'tags',
+                    through: { attributes: [] },
+                },
+                {
+                    model: User,
+                    as: 'creator',
+                }
+            ], 
+            offset: first,
+            limit: maxResults
+        },);
     }
 
     listPublic(){
@@ -100,6 +105,19 @@ class EventService{
 
     delete(id){
         return Event.destroy({where: {id: id}});
+    }
+
+    async count(){
+        return await Event.sequelize.query('SELECT COUNT(id) as count FROM event;', {
+          model: Event,
+          mapToModel: false 
+        })
+        .then(res => {
+            if(res && res[0] && res[0].dataValues && res[0].dataValues.count > 0)
+                return res[0].dataValues.count;
+            else
+                return 0;
+        })
     }
 
 }

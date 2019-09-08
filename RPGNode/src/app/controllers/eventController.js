@@ -24,10 +24,28 @@ router.get('/get/:id', verifyJWT, function (req, res, next) {
 
 /* Get all event */
 router.get('/list', verifyJWT, function (req, res) {
+
+  /* PAGINATION */
+  let first = 0;
+  let maxResults = 0;
+  if(req.query.first && req.query.maxResults){
+    first = parseInt(req.query.first, 10);
+    maxResults = parseInt(req.query.maxResults, 10);
+  }
+
+  /* PAGINATION OBJ */
+  const obj = {
+    list: [],
+    totalRecords: 0,
+  }
+
   try{
-    eventService.list().then( events => {
-      if(events)
-        res.json(events);
+    eventService.list().then( async (events) => {
+      if(events){
+        obj.list = events;
+        obj.totalRecords = await eventService.count();
+        res.json(obj);
+      }
       else
         res.status(500).send({ error: 'Events not found' });
       
@@ -54,7 +72,7 @@ router.get('/list/public', verifyJWT, function (req, res) {
 /* Create event */
 router.post('/create', verifyJWT, function (req, res) {
   try{
-    newsService.createUpdate(req.body).then( data => {
+    eventService.createUpdate(req.body).then( data => {
       if(data)
         res.status(200).send({ message: 'successfull' });
       else
@@ -68,7 +86,7 @@ router.post('/create', verifyJWT, function (req, res) {
 /* Create news */
 router.put('/update', verifyJWT, function (req, res) {
   try{
-    newsService.createUpdate(req.body).then( data => {
+    eventService.createUpdate(req.body).then( data => {
       if(data)
         res.status(200).send({ message: 'successful' });
       else

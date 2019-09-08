@@ -48,6 +48,14 @@ import { OnlyLoggedInUsersGuard } from './services/guard/onlyLoggedCreator';
 import { NewsManagerComponent } from './pages/news-manager/news-manager.component';
 import { OnlyManagerGuard } from './services/guard/onlyManagerGuard';
 import { PaginationDisplayComponent } from './components/pagination-display/pagination-display.component';
+import { NewsFormComponent } from './pages/news-form/news-form.component';
+import { EventManagerComponent } from './pages/event-manager/event-manager.component';
+import { EventFormComponent } from './pages/event-form/event-form.component';
+import { EventDetailComponent } from './pages/event-detail/event-detail.component';
+import { EventComponent } from './pages/event/event.component';
+import { AlertDisplayComponent } from './components/alert-display/alert-display.component';
+import { ExtensionProgramFormComponent } from './pages/extension-program-form/extension-program-form.component';
+import { ExtensionProgramComponent } from './pages/extension-program/extension-program.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
    url: SERVER_URL + "/task/upload/img",
@@ -58,36 +66,56 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 @NgModule({
   declarations: [
     AppComponent,
+    
     HomeComponent,
     NavigationComponent,
     LoginComponent,
     SignupComponent,
     ProfileComponent,
     ClassComponent,
-    FormClassComponent,
     TaskComponent,
-    FormTaskComponent,
-    ClassDetailComponent,
-    FormNewsComponent,
-    FormEventComponent,
-    ManagerComponent,
     AchievementsComponent,
     QuestComponent,
     NewsComponent,
     BoardComponent,
     RankingComponent,
+    EventComponent,
+
+    
+    /* DETAIL */
+    ClassDetailComponent,
+    NewsDetailComponent,
+    EventDetailComponent,
+    
+    /* MANAGER */
+    ManagerComponent,
     ManagerUserComponent,
     ManagerImportComponent,
     ManagerQuestComponent,
-    NewsDetailComponent,
-    ClassFormComponent,
-    HeaderDisplayComponent,
-    BoardFormComponent,
     NewsManagerComponent,
-    PaginationDisplayComponent,
+    EventManagerComponent,
+    ExtensionProgramComponent,
+    
+    /* FORMS */
+    ClassFormComponent,
+    BoardFormComponent,
+    NewsFormComponent,
+    EventFormComponent,
+    ExtensionProgramFormComponent,
 
+    FormClassComponent,
+    FormTaskComponent,
+    FormNewsComponent,
+    FormEventComponent,
+    
+    /* UTIL COMPONENTS */
     UserDisplayComponent,
-    PaginationDisplayComponent
+    PaginationDisplayComponent,
+    HeaderDisplayComponent,
+    PaginationDisplayComponent,
+    AlertDisplayComponent,
+    ExtensionProgramFormComponent,
+    
   ],
   imports: [
     DropzoneModule,
