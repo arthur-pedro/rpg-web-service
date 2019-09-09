@@ -10,7 +10,7 @@ import { profileUrl } from 'src/config';
 export class BoardComponent implements OnInit {
 
   tooltipOpt = {
-    'placement': 'bottom',
+    'placement': 'top',
     'show-delay': 2000,
     'hide-delay': 0,
     'animation-duration': 500,

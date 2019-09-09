@@ -1,27 +1,30 @@
-<a *ngIf="!noLink" routerLink="/main/profile/{{user?.id}}">
+<a *ngIf="!noLink" style="text-decoration: none" routerLink="/main/profile/{{user?.id}}">
   <ng-container *ngTemplateOutlet="internalBlock"></ng-container>
 </a>
 <a *ngIf="noLink">
   <ng-container *ngTemplateOutlet="internalBlock"></ng-container>
 </a>
 <ng-template #internalBlock>
-  <div class="row ticket-card border-bottom">
-    <div class="col-md-1">
-      <img class="img-sm rounded-circle mb-4 mb-md-0" src="../../../assets/simpleDatabase/default_user.jpg" alt="profile image">
+  <div class="row">
+    <div class="col-md-1 pr-0 mr-0">
+      <img *ngIf="!user?.photo" class="img-xs rounded-circle mb-4 mb-md-0" src="../../../assets/simpleDatabase/default_user.jpg" alt="profile image">
+      <img *ngIf="user?.photo" class="img-xs rounded-circle mb-4 mb-md-0" src="{{user?.photo}}" alt="profile image">
     </div>
-    <div class="ticket-details col-md-8">
+    <div class="col-md-8 pl-0 ml-0">
       <div class="d-flex">
-        <p class="text-dark font-weight-semibold mr-2 ml-2 mb-0 no-wrap">{{user?.firstName}} {{user?.lastName}}</p>
+        <small class="text-dark font-weight-semibold mr-2 ml-2 mb-0 no-wrap">{{user?.firstName}} {{user?.lastName}}</small>
       </div>
-      <p class="text-gray ellipsis mb-2 ml-2">{{user?.email}} : {{user?.code}}</p>
+      <small class="text-gray ellipsis mb-2 ml-2">{{user?.email}}</small>
     </div>
-    <div class="ticket-details col-md-3 text-right">
-        <p class="text-success mb-0 ellipsis font-weight-semibold">
-          <span *ngIf="!user?.manager">Aluno</span>
-          <span *ngIf="user?.manager">Gestor</span>
-        </p>
-        <p class="font-weight-semibold" *ngIf="!user?.manager">Level {{user?.level}}</p>
-        <p class="font-weight-semibold" *ngIf="user?.manager">Level Máx</p>
+    <div class="col-md-3 text-right">
+        <small class="font-weight-semibold" *ngIf="!user?.manager">
+          <span>Lv.</span>
+          <span class="font-weight-semibold">{{user?.level}}</span>
+        </small>
+        <small *ngIf="user?.manager">
+          <span>Lv.</span>
+          <span class="font-weight-semibold">Máx</span>
+        </small>
     </div>
   </div>
 </ng-template>

@@ -1,0 +1,39 @@
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card card-transparent">
+        <div class="card-body">
+          <h4>{{publication?.title}}</h4>
+          <p class="text-gray">
+            <span class="weather-date">Publicado em {{publication?.createdAt}}</span>
+          </p>
+          <p [innerHTML]="publication?.description" ></p>
+          <app-user-display [userObject]="publication?.creator"></app-user-display>
+          <button (click)=comment() class="btn btn-xs btn-link ml-0 pl-0"><i class="mdi mdi-reply"></i> Responder</button>
+          <section *ngIf="publication?.comments && publication?.comments.length > 0" id="comments">
+            <p>{{publication?.comments.length}} resposta</p>
+            <div *ngFor="let comment of publication?.comments">
+              <div class="border-top pt-2">
+                <small>{{comment?.body}}</small>
+                <p class="text-gray">
+                  <span class="weather-date">Publicado em {{comment?.createdAt}}</span>
+                </p>
+                <app-user-display [userObject]="comment?.creator"></app-user-display>
+              </div>
+            </div>
+          </section>
+          <section id="my-answer">
+            <div *ngIf="showCommentField" class="form-row animated fadeInDown">
+              <div class="col-md-12 mb-3 mt-2">
+                <textarea rows="4"  placeholder="Escreva um comentário" type="text" class="form-control mb-3"></textarea>
+                <button class="btn btn-xs btn-primary">Enviar</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <button routerLink="/main/board/form" class="btn btn-xs btn-success pull-right">Publicar</button>
+      <button routerLink="/main/board" class="btn btn-xs btn-danger mr-2 pull-right">Voltar</button>
+    </div>
+  </div>

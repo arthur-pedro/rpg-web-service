@@ -1,7 +1,7 @@
 
 'use strict';
 
-const { User, Task } = require('../models');
+const { User, Task, Comment } = require('../models');
 
 class UserService {
    
@@ -12,6 +12,10 @@ class UserService {
                     {
                         model: Task,
                         as : 'createdTasks',
+                    },
+                    {
+                        model: Comment,
+                        as : 'comments',
                     }
                 ],
                 where: {

@@ -31,6 +31,7 @@ import { NewsDetailComponent } from './pages/news-detail/news-detail.component';
 import { EventDetailComponent } from './pages/event-detail/event-detail.component';
 import { ExtensionProgramComponent } from './pages/extension-program/extension-program.component';
 import { ExtensionProgramFormComponent } from './pages/extension-program-form/extension-program-form.component';
+import { BoardDetailComponent } from './pages/board-detail/board-detail.component';
 
 const routes: Routes = [
   { path: 'main', component: NavigationComponent, 
@@ -108,6 +109,9 @@ const routes: Routes = [
       },
       {
         path: "board/form", component: BoardFormComponent
+      },
+      {
+        path: "board/detail/:id", component: BoardDetailComponent
       },
       /* EXTENSION PROGRAM */
       {

@@ -1,7 +1,7 @@
 
 'use strict';
 
-const { Publication, Tag, User } = require('../models');
+const { Publication, Tag, User, Comment } = require('../models');
 const Util = require('./utilService');
 
 
@@ -19,6 +19,12 @@ class PublicationService{
                         model: Tag,
                         as: 'tags',
                         through: { attributes: [] },
+                    },
+                    {
+                        model: Comment,
+                        as: 'comments',
+                        include: { model: User, as: 'creator' },
+                        require: false
                     },
                     {
                         model: User,

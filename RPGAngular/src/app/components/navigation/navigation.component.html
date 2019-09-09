@@ -1,6 +1,6 @@
 <div *ngIf="loggedUser && !loading" lass="container-scroller">
   <div class="container-fluid pl-0">
-    <div class="row">
+    <div class="row fill-height">
       <div class="col-md-2 side-color">
         <nav class="sidebar sidebar-offcanvas" id="sidebar" style="position: fixed">
           <ul class="nav">
@@ -9,8 +9,8 @@
                 <div class="col-8">
                   <span class="mt-1 pointer"><img style="width:55px" src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Logo-upe-site.png" alt=""></span>
                 </div>
-                <div class="col-4 text-white mt-1">
-                  <i class="mdi mdi-menu icon-sm ml-1"></i>
+                <div class="col-4 d-flex text-white mt-1">
+                  <i class="mdi mdi-format-line-weight icon-sm ml-1"></i>
                 </div>
               </div>
             </li>
@@ -18,11 +18,11 @@
               <div class="row" style="margin-left: 0.05rem">
                 <div class="col-7">
                     <a class="nav-link" routerLink="./">
-                      <span class="menu-title font-weight-medium">HOME</span>
+                      <p class="font-weight-medium">Home</p>
                     </a>
                 </div>
                 <div class="col-5">
-                  <button type="button" class="btn btn-icons btn-dark">
+                  <button type="button" class="btn btn-icons btn-success no-border">
                     <i class="menu-icon mdi mdi-home-outline"></i>
                   </button>
                 </div>
@@ -32,11 +32,11 @@
               <div class="row" style="margin-left: 0.05rem">
                 <div class="col-7">
                   <a class="nav-link" routerLink="./board">
-                    <span class="menu-title font-weight-medium">PUBLICAÇÕES</span>
+                    <p class="font-weight-medium">Publicações</p>
                   </a>
                 </div>
                 <div class="col-5">
-                  <button type="button" class="btn btn-icons btn-dark">
+                  <button type="button" class="btn btn-icons btn-dark no-border">
                     <i class="menu-icon mdi mdi-earth"></i>
                   </button>
                 </div>
@@ -46,11 +46,11 @@
               <div class="row" style="margin-left: 0.05rem">
                 <div class="col-7">
                   <a class="nav-link" routerLink="./extension">
-                    <span class="menu-title font-weight-medium">ETENSÃO</span>
+                    <p class="font-weight-medium">Extensão</p>
                   </a>
                 </div>
                 <div class="col-5">
-                  <button type="button" class="btn btn-icons btn-dark">
+                  <button type="button" class="btn btn-icons btn-dark no-border">
                     <i class="menu-icon mdi mdi-account-network"></i>
                   </button>
                 </div>
@@ -60,11 +60,11 @@
               <div class="row" style="margin-left: 0.05rem">
                 <div class="col-7">
                   <a class="nav-link" routerLink="./manager">
-                    <span class="menu-title font-weight-medium">GESTÃO</span>
+                    <p class="font-weight-medium">Gestão</p>
                   </a>
                 </div>
                 <div class="col-5">
-                  <button type="button" class="btn btn-icons btn-dark">
+                  <button type="button" class="btn btn-icons btn-dark no-border">
                     <i class="menu-icon mdi mdi-account-outline"></i>
                   </button>
                 </div>
@@ -74,11 +74,11 @@
               <div class="row" style="margin-left: 0.05rem">
                 <div class="col-7">
                   <a class="nav-link" routerLink="./extension">
-                    <span class="menu-title font-weight-medium">AJUDA</span>
+                    <p class="font-weight-medium">Ajuda</p>
                   </a>
                 </div>
                 <div class="col-5">
-                  <button type="button" class="btn btn-icons btn-dark">
+                  <button type="button" class="btn btn-icons btn-dark no-border">
                     <i class="menu-icon mdi mdi-information-outline"></i>
                   </button>
                 </div>

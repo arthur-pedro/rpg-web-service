@@ -19,6 +19,15 @@ export class ExtensionProgramComponent implements OnInit {
   first:any  = 0;
   maxResults:any = 10;
 
+  tooltipOpt = {
+    'placement': 'top',
+    'show-delay': 2000,
+    'hide-delay': 0,
+    'animation-duration': 500,
+    'theme': 'light',
+    'shadow': true,
+  }
+
   constructor(private extensionService: ExtensionProgramService) { }
 
   ngOnInit() {
@@ -28,7 +37,7 @@ export class ExtensionProgramComponent implements OnInit {
   list(first, maxResults){
     this.loading = true;
     this.extensionService.list(first, maxResults).subscribe((data: any) => {
-      if(data && data.list){
+      if(data){
         this.extensionList = data;
       }
       this.loading = false;

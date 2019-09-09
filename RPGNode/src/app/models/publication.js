@@ -19,16 +19,22 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Publication.associate = (models) => {
-        Publication.belongsToMany(models.Tag, {
-            through: 'publication_tag',
-            as: 'tags',
-            foreignkey:  'publicationId'
+      Publication.belongsToMany(models.Tag, {
+          through: 'publication_tag',
+          as: 'tags',
+          foreignkey:  'publicationId'
       });
 
       Publication.belongsTo(models.User, { 
         as: 'creator',
         foreignkey:  'creatorId', 
         targetKey: 'id',
+      });
+
+      Publication.hasMany(models.Comment, {
+        as: "comments",
+        sourceKey: 'id',
+        foreignKey: 'publicationId',
       });
     };
 

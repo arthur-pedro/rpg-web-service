@@ -295,3 +295,15 @@
     transition-duration: 0.1s;
     transition-timing-function: linear;
 }
+
+.no-border{
+    border-radius: 0px !important;
+}
+
+.fill-height{
+    min-height: -webkit-fill-available;
+}
+
+.card-transparent{
+    background-color: transparent
+}

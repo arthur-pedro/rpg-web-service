@@ -1,7 +1,7 @@
 
 'use strict';
 
-const { Extension_Program } = require('../models');
+const { Extension_Program, Tag, User } = require('../models');
 const Sequelize = require('sequelize');
 
 const util = require('../service/utilService')
@@ -45,7 +45,7 @@ class ExtensionProgramService{
                 obj.code = util.generateCode();
                 return Extension_Program.create(obj).then((createdModel) => { 
                     createdModel.addTags(obj.tags);
-                    createdModel.addCampus(obj.campus);
+                    // createdModel.addCampus(obj.campus);
                     return createdModel;
                 });
             }
@@ -71,6 +71,17 @@ class ExtensionProgramService{
         
         return Extension_Program.findAll(
             {
+                include: [
+                    {
+                        model: Tag,
+                        as: 'tags',
+                        through: { attributes: [] },
+                    },
+                    {
+                        model: User,
+                        as: 'creator',
+                    }
+                ],
                 where: whereFilter
             }
         );

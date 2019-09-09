@@ -2,11 +2,10 @@
   <div class="col-md-12 " style="padding-top: 0px !important">
     <div class="card box-shadow">
       <div class="card-body">
-        <h4 class="card-title">
-          <span>Publicações</span>
+        <span class="card-title">
+          <small>Publicações</small>
           <button routerLink="/main/board/form" type="button" class="btn btn-xs btn-success float-right"><i class="mdi mdi-plus"></i>Criar</button>
-        </h4>
-        <!-- <p class="card-description text-muted">Você pode publicar um artigo, uma oportunidade, dúvidas, etc...</p> -->
+        </span>
         <!-- LOADING -->
         <div *ngIf="loading">
           <div *ngFor="let skt of skeleton" class="row ticket-card pb-3 border-bottom pb-3 mb-3">
@@ -39,14 +38,14 @@
           <p class="text-muted pointer">Não há nada aqui</p>
         </div>
       </div>
-      <div class="fluid-container scroll border-top">
-        <div *ngIf="!loading && publicationList != null && publicationList.length > 0" class="animated fadeIn">
-          <div *ngFor="let publication of publicationList | filter: filter; let i = index" class="row ticket-card border-bottom pointer p-3 align-items-center">
+      <div *ngIf="!loading && publicationList != null && publicationList.length > 0" class="fluid-container scroll">
+        <div class="animated fadeIn">
+          <div routerLink="./detail/{{publication?.id}}" *ngFor="let publication of publicationList | filter: filter; let i = index" class="row ticket-card border-bottom pointer p-3 align-items-center">
             <div class="col-md-1">
               <img class="img-sm rounded-circle mb-4 mb-md-0" src="{{publication?.creator?.photo}}" alt="profile image">
             </div>
             <div class="ticket-details col-md-8">
-                <p class="text-dark font-weight-semibold mr-2 mb-0 ellipsis">{{publication?.title}}</p>
+                <p class="text-dark mr-2 mb-0 ellipsis">{{publication?.title}}</p>
               <p class="text-gray ellipsis mb-0">{{publication?.description}}.</p>
               <div class="row text-gray d-md-flex d-none">
                 <div class="col-12 d-flex">
@@ -64,8 +63,8 @@
                 <span><i class="mdi mdi-star"></i></span> {{publication?.likes}}
               </p>
             </div>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   </div>

@@ -46,6 +46,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'creatorId',
       });
 
+      User.hasMany(models.Comment, {
+        as: "comments",
+        sourceKey: 'id',
+        foreignKey: 'creatorId',
+      });
+
       User.hasMany(models.Extension_Program, {
         as: "extensionCreated",
         sourceKey: 'id',
