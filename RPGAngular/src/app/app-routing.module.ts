@@ -35,7 +35,7 @@ import { BoardDetailComponent } from './pages/board-detail/board-detail.componen
 
 const routes: Routes = [
   { path: 'main', component: NavigationComponent, 
-    canActivate: [OnlyLoggedInUsersGuard],
+    canActivate: [OnlyLoggedInUsersGuard, AlwaysAuthGuard],
     children: [
       {
         path: "", component: HomeComponent
