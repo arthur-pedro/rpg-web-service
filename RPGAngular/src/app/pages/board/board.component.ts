@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BoardService } from 'src/app/services/board/board.service';
 import { profileUrl } from 'src/config';
+import { UtilService } from 'src/app/services/util/util.service';
 
 @Component({
   selector: 'app-board',
@@ -19,6 +20,7 @@ export class BoardComponent implements OnInit {
   }
 
   profileUrl = profileUrl;
+  loggedUser: any;
 
   filter: any;
   skeleton: any = [1,2,3,4,5];
@@ -29,8 +31,22 @@ export class BoardComponent implements OnInit {
   hasServerError: boolean = false;
   
   constructor(
-    private boardService: BoardService
-  ) { }
+    private boardService: BoardService,
+    private util: UtilService,
+  ) {
+    this.loading = true;
+    this.util.getLoggedUser().subscribe((data: any) => {
+      if(!data)
+        this.util.redirectTo('/login');
+      this.loggedUser = data;
+      this.hasServerError = null;
+    },
+    error => {
+      this.hasServerError = error;
+      this.loading = false;
+      this.util.redirectTo('/login');
+    });
+   }
 
   ngOnInit() {
     this.list();

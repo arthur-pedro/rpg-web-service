@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       User.hasMany(models.Extension_Program, {
-        as: "extensionCreated",
+        as: "createdExtensions",
         sourceKey: 'id',
         foreignKey: 'creatorId',
       });

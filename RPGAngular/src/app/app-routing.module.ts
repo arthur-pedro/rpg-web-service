@@ -32,6 +32,7 @@ import { EventDetailComponent } from './pages/event-detail/event-detail.componen
 import { ExtensionProgramComponent } from './pages/extension-program/extension-program.component';
 import { ExtensionProgramFormComponent } from './pages/extension-program-form/extension-program-form.component';
 import { BoardDetailComponent } from './pages/board-detail/board-detail.component';
+import { ExtensionProgramDetailComponent } from './pages/extension-program-detail/extension-program-detail.component';
 
 const routes: Routes = [
   { path: 'main', component: NavigationComponent, 
@@ -41,7 +42,7 @@ const routes: Routes = [
         path: "", component: HomeComponent
       },
       {
-        path: "profile", component: ProfileComponent
+        path: "profile/:id", component: ProfileComponent
       },
       /* CLASS */
       {
@@ -119,6 +120,9 @@ const routes: Routes = [
       },
       {
         path: "extension/form", component: ExtensionProgramFormComponent
+      },
+      {
+        path: "extension/detail/:id", component: ExtensionProgramDetailComponent
       },
       /* RANKING */
       {

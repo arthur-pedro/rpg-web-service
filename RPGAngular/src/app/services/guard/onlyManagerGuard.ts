@@ -15,7 +15,7 @@ export class OnlyManagerGuard implements CanActivate {
         return false;
     }
    
-    this.util.getUserByToken(this.util.getToken().access_token).subscribe(data => {
+    this.util.getLoggedUser().subscribe(data => {
         this.user = data;
         if (this.user && this.user.manager) {
             return true;

@@ -7,6 +7,7 @@ import { debounceTime, distinctUntilChanged, switchMap, tap, catchError } from '
 
 import { loggedUser } from 'src/config';
 import { ExtensionProgramService } from 'src/app/services/extension-program/extension-program.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-extension-program-form',
@@ -57,20 +58,43 @@ export class ExtensionProgramFormComponent implements OnInit {
   constructor(
     private formGroup: FormBuilder,
     private util: UtilService,
-    private extensionService: ExtensionProgramService
+    private extensionService: ExtensionProgramService,
+    private route: ActivatedRoute,
     
-  ) { }
-
-  ngOnInit() {
+  ) { 
     this.extensionForm = this.formGroup.group({
+      id: 0,
       name: ['', Validators.required],
       description: [''],
       tags: ['', Validators.required],
       expertiseId: 1,
       campusId: ['', Validators.required],
       code: null,
-      creatorId: loggedUser.id
-    })
+      creatorId: null
+    });
+
+    this.loading = true;
+    this.util.getLoggedUser().subscribe((data: any) => {
+      if(!data)
+        this.util.redirectTo('/login');
+      this.loggedUser = data;
+      this.hasServerError = null;
+      if(this.route.snapshot.queryParamMap.get('id')){
+        let id = this.route.snapshot.queryParamMap.get('id');
+        this.extensionForm.patchValue({id: id});
+        this.isUpdate(id); 
+      }else
+        this.loading = false;
+    },
+    error => {
+      this.hasServerError = error;
+      this.loading = false;
+      this.util.redirectTo('/login');
+    });
+
+  }
+
+  ngOnInit() {
     this.loadSearch();
     this.loadSearchCampus();
   }
@@ -145,5 +169,41 @@ export class ExtensionProgramFormComponent implements OnInit {
            )) 
         )
     );
+  }
+
+  onUploadSuccess($event){
+    alert("Success: " + $event);
+  }
+
+  onUploadError($event){
+    alert("error: " + $event);
+  }
+
+  isUpdate(id){
+    if(!this.loggedUser.manager)
+      this.util.redirectTo('/main');
+    this.loading = true;
+    this.extensionService.get(id).subscribe((data: any) => {
+      if(!data)
+        this.util.redirectTo('/main');
+      if(this.loggedUser.id == data.creatorId){
+        this.extensionForm.patchValue({
+          id: data.id,
+          name: data.name,
+          description: data.description,
+          expertiseId: data.expertiseId,
+          // campusId: data.campusId,
+          code: data.code,
+        });
+      }else{
+        this.util.redirectTo('/main/extension/form');
+      }
+      this.loading = false;
+      this.hasServerError = null;
+    },
+    error => {
+      this.hasServerError = error;
+      this.loading = false;
+    });
   }
 }

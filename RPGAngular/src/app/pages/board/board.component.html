@@ -1,10 +1,28 @@
+<div class="row">
+  <div class="col-md-6">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/main">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Publicações</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="col-md-6">
+    <button *ngIf="loggedUser?.manager" routerLink="/main/board/form" type="button" class="btn btn-xs btn-success float-right">
+      <i class="mdi mdi-plus"></i> Criar
+    </button>
+    <button routerLink="/main" type="button" class="btn btn-xs btn-danger float-right mr-2">
+      <i class="mdi mdi-chevron-left"></i> Voltar
+    </button>
+  </div>
+</div>
 <div class="row animated fadeInDown">
   <div class="col-md-12 " style="padding-top: 0px !important">
     <div class="card box-shadow">
       <div class="card-body">
         <span class="card-title">
           <small>Publicações</small>
-          <button routerLink="/main/board/form" type="button" class="btn btn-xs btn-success float-right"><i class="mdi mdi-plus"></i>Criar</button>
+          <!-- <button routerLink="/main/board/form" type="button" class="btn btn-xs btn-success float-right"><i class="mdi mdi-plus"></i>Criar</button> -->
         </span>
         <!-- LOADING -->
         <div *ngIf="loading">
@@ -57,7 +75,7 @@
             </div>
             <div class="col-md-3"> 
               <p class="text-primary mr-1 mb-0 pull-right">
-                <span><i class="mdi mdi-flag"></i></span> {{publication?.followers?.length}}
+                <span><i class="mdi mdi-reply"></i></span> {{publication?.comments?.length}}
               </p>
               <p class="text-success mr-1 mb-0 pull-right">
                 <span><i class="mdi mdi-star"></i></span> {{publication?.likes}}

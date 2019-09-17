@@ -12,7 +12,7 @@ export class OnlyLoggedInUsersGuard implements CanActivate {
         return false;
     }
    
-    this.util.getUserByToken(this.util.getToken().access_token).subscribe(data => {
+    this.util.getLoggedUser().subscribe(data => {
         if (data) {
             return true;
         } else {

@@ -18,4 +18,24 @@ export class ExtensionProgramService {
   public list(first, maxResults){
     return this.http.get(SERVER_URL + "/api/extension/list?first="+first+"&maxResults="+maxResults, this.util.auth()).pipe(map((response)=> response));
   }
+
+  public update(obj: any){
+    return this.http.put(SERVER_URL + "/api/pextensionublication/update", obj, this.util.auth()).pipe(map((response)=> response));
+  }
+
+  public get(id: Number){
+    return this.http.get(SERVER_URL + "/api/extension/get/" + id, this.util.auth()).pipe(map((response)=> response));
+  }
+
+  public delete(id: Number){
+    return this.http.delete(SERVER_URL + "/api/extension/delete/" + id, this.util.auth()).pipe(map((response)=> response));
+  }
+
+  public addComment(obj: any){
+    return this.http.post(SERVER_URL + "/api/extension/add/comment", obj, this.util.auth()).pipe(map((response)=> response));
+  }
+
+  public addLike(publication: any, user: any){
+    return this.http.post(SERVER_URL + "/api/extension/add/like", {publication, user}, this.util.auth()).pipe(map((response)=> response));
+  }
 }

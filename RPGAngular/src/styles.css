@@ -1,5 +1,14 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
+
+body{
+    background-color: #fafafa;
+}
+
+#content{
+    padding: 5em 3em 0em 16em;
+}
+
 /* fix ng-select input */
 .ng-select .ng-select-container .ng-value-container {
     align-items: center !important;
@@ -124,12 +133,12 @@
 }
 
 .form-control-fixed{
-    height: 34px !important;
+    height: 41px !important;
 }
 
 .form-control-fixed .ng-placeholder {
     top: 1px !important;
-    color: #808080 !important; 
+    color: #bebebe !important; 
 }
 
 /* BARRA DE ROLAGEM */
@@ -241,15 +250,15 @@
 
 .my-alert{
     position: fixed;
-    z-index: 999;
-    right: 0%;
+    z-index: 99999;
+    right: 1%;
     top: 0px;
 }
 
 .my-alert-form{
     position: fixed;
     z-index: 9999;
-    right: 31%;
+    right: 1%;
     bottom: 0;
 }
 
@@ -306,4 +315,33 @@
 
 .card-transparent{
     background-color: transparent
+}
+
+.no-link-decoration{
+    pointer-events: none; 
+}
+
+.ellipsis-15{
+    max-width: 30ch;
+    max-height: 4ch;
+    min-height: 4ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.form-horizontal-row{
+    border-bottom: 1px solid #e6e6e6;
+    padding-top: 19px;
+    padding-bottom: 19px;
+    margin-bottom: 0;
+}
+
+.form-horizontal-row:hover{
+    color: #888888;
+}
+
+.p-8px{
+    padding: 8px;
 }

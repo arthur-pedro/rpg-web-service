@@ -1,23 +1,32 @@
 
 'use strict';
 
-const { User, Task, Comment } = require('../models');
+const { User, Task, Comment, Publication, Extension_Program } = require('../models');
 
 class UserService {
-   
-    get(id){
+
+    get(id, projection){
+        let include  = [];
+        switch(projection){
+            case "BASIC":
+                break;
+            case "MODERATE":
+                include.push(
+                    {model: Publication, as: "createdPublications"},
+                ); 
+                break;
+            case "FULL":
+                include.push(
+                    {model: Task, as: "createdTasks"},
+                    {model: Comment, as: "comments"},
+                    {model: Publication, as: "createdPublications"},
+                    {model: Extension_Program, as: "createdExtensions"},
+                );
+                break;
+        }
         return User.findOne(
             {
-                include: [
-                    {
-                        model: Task,
-                        as : 'createdTasks',
-                    },
-                    {
-                        model: Comment,
-                        as : 'comments',
-                    }
-                ],
+                include,
                 where: {
                     id: id,
                 }

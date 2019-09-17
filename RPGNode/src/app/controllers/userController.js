@@ -1,6 +1,7 @@
 'use strict';
 
 const { User } = require('../models');
+const Projection = require("../util/projection");
 const userService = require('../service/userService')
 
 const verifyJWT = require('../../auth/auth');
@@ -12,7 +13,7 @@ var router = express.Router();
 /* Get one user */
 router.get('/get/:id', verifyJWT, (req, res, next) => {
   try{
-    userService.get(req.params.id).then( user => {
+    userService.get(req.params.id, Projection.FULL).then( user => {
       if(user){
         res.json(user);
       }else{
