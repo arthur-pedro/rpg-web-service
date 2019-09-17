@@ -68,17 +68,18 @@
 
 .card.hovercard .avatar {
     position: relative;
-    top: -50px;
-    margin-bottom: -50px;
+    top: -45px;
+    margin-bottom: -30px;
+    margin-left: auto;
+    margin-right: 20px;
 }
 
 .card.hovercard .avatar img {
-    width: 100px;
-    height: 100px;
-    max-width: 100px;
-    max-height: 100px;
+    width: 80px;
+    height: 80px;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
-    border-radius: 50%;
-    border: 5px solid rgba(255,255,255,0.5);
 }

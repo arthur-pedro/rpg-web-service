@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { profileUrl, loggedUser } from 'src/config';
 import { HomeService } from 'src/app/services/home/home.service';
+import { UtilService } from 'src/app/services/util/util.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -9,14 +11,9 @@ import { HomeService } from 'src/app/services/home/home.service';
 })
 export class ProfileComponent implements OnInit {
 
-  profileUrl = profileUrl;
-
   submitted: boolean = false;
   reload: boolean = false;
   loading: boolean = false;
-  editingName: boolean = false;
-  editingEmail: boolean = false;
-  editingCourse: boolean = false;
 
   newsList: any = [];
   classList: any = [];
@@ -24,37 +21,45 @@ export class ProfileComponent implements OnInit {
   hasServerError: boolean = false;
 
   selectedClass: any;
-  user: any;
+  selectedUser: any = {};
+
+  loggedUser: any;
 
   constructor(
     private homeService: HomeService,
-  ) { }
-
-  ngOnInit() {
-    this.getUserById(loggedUser.id);
-  }
-
-  getUserById(userId){
+    private util: UtilService,
+    private route: ActivatedRoute,
+  ) {
     this.loading = true;
-    //AQUI IRA PASSAR O ID DO USUÁRIO LOGADO
-    this.homeService.getUser(userId).subscribe(data => {
-      this.user = data[0];
-      this.classList = this.user.teamList;
-      this.loading = false;
+    this.util.getLoggedUser().subscribe((data: any) => {
+      if(!data)
+        this.util.redirectTo('/login');
+      this.loggedUser = data;
       this.hasServerError = null;
     },
     error => {
       this.hasServerError = error;
+      this.util.redirectTo('/login');
+    });
+    
+    this.selectedUser.id = this.route.snapshot.paramMap.get('id');
+    if(!this.selectedUser.id) this.util.redirectTo("/main");
+    this.homeService.getUser(this.selectedUser.id).subscribe((data: any) => {
+      if(!data)
+        this.util.redirectTo('/main');
+      this.selectedUser = data;
       this.loading = false;
+      this.hasServerError = null;
+      },
+      error => {
+        this.util.redirectTo('/main');
+        this.hasServerError = error;
+        this.loading = false;
     });
   }
 
-  editName(name){
-      this.editingName = true;
+  ngOnInit() {
   }
 
-  save(){
-    this.editingName = false;
-  }
 
 }

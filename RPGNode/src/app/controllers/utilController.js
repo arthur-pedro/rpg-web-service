@@ -2,6 +2,7 @@
 
 const utilService = require('../service/utilService')
 const userService = require('../service/userService')
+const Projection = require('../util/projection')
 const verifyJWT = require('../../auth/auth');
 
 var express = require('express');
@@ -36,7 +37,7 @@ router.post('/auth/logout', function(req, res) {
 router.get('/auth/getUserByToken', verifyJWT, function(req, res) {
   try{
     if(req.userId){
-      userService.get(req.userId).then((user)=>{
+      userService.get(req.userId, Projection.BASIC).then((user)=>{
         if(user)
           res.status(200).send(user);
         else
@@ -48,7 +49,23 @@ router.get('/auth/getUserByToken', verifyJWT, function(req, res) {
   }catch(err){
     res.status(500).send({ message: 'Internal server error' });
   }
- 
+});
+
+router.post('/auth/hasOperation', verifyJWT, function(req, res) {
+  try{
+    if(req.body.userId && req.body.operation){
+      utilService.hasOperation(req.body.userId, req.body.operation).then((hasOperation)=>{
+        if(hasOperation)
+          res.status(200).send(true);
+        else
+          res.status(401).send(false);
+        })
+      }else{
+        res.status(500).send({ message: 'Internal server error' });
+    }
+  }catch(err){
+    res.status(500).send({ message: 'Internal server error' });
+  }
 });
 
 module.exports = router;

@@ -1,8 +1,35 @@
-<div *ngIf="loggedUser && !loading" lass="container-scroller">
+<div id="sidebar"  class="sidenav">
+  <a class="nav-link text-right">
+    <i class="mdi mdi-close pointer" onclick="closeNav()"></i>
+  </a>
+  <a class="nav-link" style="padding-top: 10%;">
+    <img width="80px;" src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Logo-upe-site.png" alt="logo">
+  </a>
+  <a class="nav-link pt-3 d-flex" routerLink="./">
+    <p class="font-weight-medium">Home</p>
+    <!-- <button class="btn btn-xs btn-dark" style="position: absolute; right: 2rem;"><i class="mdi mdi-flag pointer"></i></button> -->
+  </a>
+  <a class="nav-link" routerLink="./board">
+    <p class="font-weight-medium">Publicações</p>
+  </a>
+  <a class="nav-link" routerLink="./extension">
+    <p class="font-weight-medium">Extensão</p>
+  </a>
+  <a class="nav-link" routerLink="./board">
+    <p class="font-weight-medium">Monitoria [teste]</p>
+  </a>
+  <a class="nav-link" routerLink="./manager">
+    <p class="font-weight-medium">Gestão</p>
+  </a>
+  <a class="nav-link" routerLink="./extension">
+    <p class="font-weight-medium">Ajuda</p>
+  </a>
+</div>
+<div *ngIf="loggedUser && !loading" class="container-scroller">
   <div class="container-fluid pl-0">
     <div class="row fill-height">
-      <div class="col-md-2 side-color">
-        <nav class="sidebar sidebar-offcanvas" id="sidebar" style="position: fixed">
+      <!-- <div class="col-md-2 side-color" onmousemove="openNav()" onmouseout="closeNav()">
+        <nav class="sidebar sidebar-offcanvas sidenav" id="sidebar" style="position: fixed">
           <ul class="nav">
             <li class="nav-item nav-profile nav-item-hover side-top-color mb-3">
               <div class="row">
@@ -86,28 +113,25 @@
             </li>
           </ul>
         </nav>
-      </div>
-      <div class="col-md-10 p-0">
+      </div> -->
+      <div class="col-md-12 p-0">
         <div class="" >
           <div style="min-height: 90%">
             <nav class="navbar default-layout header-theme col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+              <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+                <i class="mdi mdi-menu icon-md p-2 pointer" onclick="openNav()"></i>
+                <a class="navbar-brand brand-logo" routerLink="/main">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Logo-upe-site.png" alt="logo">
+                </a>
+                <a class="navbar-brand brand-logo-mini" routerLink="/main">
+                  <!-- <img src="../../images/logo-mini.svg" alt="logo"> -->
+                </a>
+              </div>
               <div class="navbar-menu-wrapper d-flex align-items-center header-theme" style="border-bottom: none;">
-                <!-- <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
-                  <li class="nav-item">
-                  </li>
-                  <li class="nav-item">
-                    <a routerLink="./news" class="nav-link">
-                      <i class="mdi mdi-flag"></i><span class="badge badge-success ml-1">Novo</span></a>
-                  </li>
-                  <li class="nav-item">
-                    <a routerLink="./ranking" class="nav-link">
-                      <i class="mdi mdi-bookmark-plus-outline"></i></a>
-                  </li>
-                </ul> -->
                 <ul class="navbar-nav navbar-nav-right">
                   <li class="nav-item dropdown">
                     <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                      <i class="mdi mdi-file-document-box"></i>
+                      <i class="mdi mdi-file-document-box icon-sm"></i>
                       <span class="count">7</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
@@ -162,7 +186,7 @@
                   </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                      <i class="mdi mdi-bell"></i>
+                      <i class="mdi mdi-bell icon-sm"></i>
                       <span class="count">4</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
@@ -236,7 +260,7 @@
                           </div>
                         </div>
                       </a>
-                      <a class="dropdown-item mt-2" routerLink = "./profile">  
+                      <a class="dropdown-item mt-2" routerLink = "./profile/{{loggedUser?.id}}">  
                         Perfil 
                       </a>
                       <a class="dropdown-item">
@@ -256,11 +280,11 @@
                 </button>
               </div>
             </nav>
-            <div class="content-wrapper">
+            <div class="content-wrapper" id="content">
               <router-outlet></router-outlet>
             </div>
-         </div>
-       </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

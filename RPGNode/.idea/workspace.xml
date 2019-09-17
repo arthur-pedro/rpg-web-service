@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="55a79f63-c5bd-401e-b202-80fcd16c6259" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/components/navigation/navigation.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/components/navigation/navigation.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/components/navigation/navigation.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/components/navigation/navigation.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/components/navigation/navigation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/components/navigation/navigation.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/pages/board-detail/board-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/pages/board-detail/board-detail.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/pages/board-detail/board-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/pages/board-detail/board-detail.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/pages/board/board.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/pages/board/board.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/pages/event-manager/event-manager.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/pages/event-manager/event-manager.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/pages/extension-program-form/extension-program-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/pages/extension-program-form/extension-program-form.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/pages/extension-program-form/extension-program-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/pages/extension-program-form/extension-program-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/pages/extension-program/extension-program.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/pages/extension-program/extension-program.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/pages/extension-program/extension-program.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/pages/extension-program/extension-program.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/pages/extension-program/extension-program.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/pages/extension-program/extension-program.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/pages/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/pages/home/home.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/pages/manager-user/manager-user.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/pages/manager-user/manager-user.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/pages/news-manager/news-manager.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/pages/news-manager/news-manager.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/services/board/board.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/services/board/board.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/services/extension-program/extension-program.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/services/extension-program/extension-program.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/services/guard/onlyLoggedCreator.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/services/guard/onlyLoggedCreator.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/services/guard/onlyManagerGuard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/services/guard/onlyManagerGuard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/app/services/util/util.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/app/services/util/util.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/assets/css/core.css" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/assets/css/core.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RPGAngular/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../RPGAngular/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/controllers/publicationController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/controllers/publicationController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/service/extensionProgramService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/service/extensionProgramService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/service/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/service/publicationService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/service/publicationService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/service/utilService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/service/utilService.js" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/RPGNode.iml" />
+        <option value="$PROJECT_DIR$/.idea/modules.xml" />
+        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="676" />
+    <option name="width" value="697" />
+    <option name="height" value="735" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="RPGNode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPGNode" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RPGNode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RPGNode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="55a79f63-c5bd-401e-b202-80fcd16c6259" name="Default Changelist" comment="" />
+      <created>1568340585276</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1568340585276</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13388805" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

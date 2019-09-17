@@ -1,7 +1,7 @@
 
 'use strict';
 
-const { Extension_Program, Tag, User } = require('../models');
+const { Extension_Program, Tag, User, Campus, Expertise } = require('../models');
 const Sequelize = require('sequelize');
 
 const util = require('../service/utilService')
@@ -57,9 +57,28 @@ class ExtensionProgramService{
     get(id){
         return Extension_Program.findOne(
             {
-                where: {
-                    id: id,
-                }
+                include: [
+                    {
+                        model: Tag,
+                        as: 'tags',
+                        through: { attributes: [] },
+                    },
+                    {
+                        model: Campus,
+                        as: 'campus',
+                        require: false
+                    },
+                    {
+                        model: Expertise,
+                        as: 'expertise',
+                        require: false
+                    },
+                    {
+                        model: User,
+                        as: 'creator',
+                    }
+                ],
+                where: {id: id}
             }
         );
     }

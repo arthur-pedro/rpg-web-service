@@ -31,4 +31,15 @@ export class BoardService {
     return this.http.delete(SERVER_URL + "/api/publication/delete/" + id, this.util.auth()).pipe(map((response)=> response));
   }
 
+  public addComment(obj: any){
+    return this.http.post(SERVER_URL + "/api/publication/add/comment", obj, this.util.auth()).pipe(map((response)=> response));
+  }
+
+  public addLike(publication: any, user: any){
+    return this.http.post(SERVER_URL + "/api/publication/add/like", {publication, user}, this.util.auth()).pipe(map((response)=> response));
+  }
+
+  public listByTag(obj: any){
+    return this.http.post(SERVER_URL + "/api/publication/listByTag", obj, this.util.auth()).pipe(map((response)=> response));
+  }
 }

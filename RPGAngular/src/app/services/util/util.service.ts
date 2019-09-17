@@ -10,13 +10,13 @@ import { delay } from 'q';
 import { Router } from '@angular/router';
 
 export interface Tag {
-  id: string;
+  id: Number;
   title: String;
   description: String;
 }
 
 export interface Campus {
-  id: string;
+  id: Number;
   name: String;
 }
 
@@ -43,8 +43,12 @@ export class UtilService {
     return this.http.post(SERVER_URL + "/util/updateStatus/", obj).pipe(map((response)=> response));
   }
 
-  public getUserByToken(token){
+  public getLoggedUser(){
     return this.http.get(SERVER_URL + "/api/util/auth/getUserByToken", this.auth()).pipe(map((response)=> { return response}));
+  }
+
+  public hasManager(userId, operation){
+    return this.http.post(SERVER_URL + "/api/util/auth/hasOperation", {userId: userId, operation: operation}, this.auth()).pipe(map((response)=> { return response}));
   }
 
   public hasLoggedUser(){
@@ -104,6 +108,29 @@ export class UtilService {
     }else{
       return of([]).pipe();
     }
+  }
+
+  getDateNow(){
+    var date = new Date()
+    let dateObj:any = {
+        year: date.getFullYear(),
+        month: (date.getMonth() + 1),
+        day: date.getDay(),
+        hour: date.getHours(),
+        minute: date.getMinutes(),
+        second: date.getSeconds()
+    }
+    if(dateObj.month < 10) 
+        dateObj.month = "0" + (date.getMonth() + 1);
+    if(dateObj.day < 10) 
+        dateObj.day = "0" + dateObj.day
+    if(dateObj.hour < 10) 
+        dateObj.hour = "0" + dateObj.hour
+    if(dateObj.minute < 10) 
+        dateObj.minute = "0" + dateObj.minute
+    if(dateObj.second < 10) 
+        dateObj.second = "0" + dateObj.second
+    return dateObj.year + "-" + dateObj.month + "-" + dateObj.day + " " + dateObj.hour + ":" + dateObj.minute + ":" + dateObj.second; 
   }
 
 }

@@ -1,0 +1,221 @@
+<div class="jumbotron cover-photo" data-social="cover" data-pages="parallax" data-scroll-element=".page-container">
+  <div class=" container">
+    <div class="inner" style="transform: translateY(0px); opacity: 1;">
+      <div class="pull-bottom bottom-left m-b-40 sm-p-l-15">
+        <h5 class="text-white no-margin">{{extension?.expertise?.title}}</h5>
+        <h1 class="text-white no-margin">
+          <span class="font-weight-bold "> {{extension?.name}}</span>
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row animated fadeInDown pb-3">
+  <div class="col-md-8">
+    <!-- <form class="needs-validation" novalidate [formGroup]="commentForm">
+      <div class="form-row">
+        <div class="col-md-12 mb-3 mt-2">
+          <textarea formControlName="body" rows="4" placeholder="No que você está pensando?" type="text" class="form-control mb-3"></textarea>
+          <button (click)="create()" class="btn btn-xs btn-primary">Publicar</button>
+        </div>
+      </div>
+    </!-->
+    <div class="card box-shadow">
+      <div class="card-body">
+        <h4>Olá grupo!</h4>
+        <p class="text-gray">
+          <span class="weather-date">Publicado em 31 de agosto dde 2019, 
+            <span>2</span>
+            <span *ngIf="publication?.likes <=1"> curtida</span>
+            <span *ngIf="publication?.likes > 1"> curtidas</span>
+          </span>
+        </p>
+        <p [innerHTML]="publication?.description" >Descrição da publicação</p>
+        <app-user-display [userObject]="publication?.creator"></app-user-display>
+        <button (click)=like() class="btn btn-xs btn-link ml-0 pl-0 mr-2"><i class="mdi mdi-star"></i> Curtir</button>
+        <button id="btn-comment" class="btn btn-xs btn-link ml-0 pl-0"><a ><i class="mdi mdi-reply"></i> Responder</a></button>
+        <section class="mt-2" *ngIf="publication?.comments && publication?.comments.length > 0" id="comments">
+          <span>
+            <h4 *ngIf="publication?.comments?.length > 1">{{publication?.comments?.length}} respostas</h4>
+            <h4 *ngIf="publication?.comments?.length <= 1">{{publication?.comments?.length}} resposta</h4>
+          </span>
+          <div *ngFor="let comment of publication?.comments">
+            <div class="pt-2 pb-2">
+              <small>{{comment?.body}}</small>
+              <p class="text-gray">
+                <span class="weather-date">Publicado em {{comment?.createdAt}}</span>
+              </p>
+              <app-user-display [userObject]="comment?.creator"></app-user-display>
+            </div>
+          </div>
+        </section>
+        <footer class="pt-4" data-spy="scroll" data-target="#btn-comment">
+          <section class="animated fadeInDown" id="my-answer">
+            <form class="needs-validation" novalidate [formGroup]="commentForm">
+              <div class="form-row">
+                <div class="col-md-12 mb-3 mt-2">
+                  <textarea formControlName="body" rows="4" placeholder="Escreva um comentário" type="text" class="form-control mb-3"></textarea>
+                  <button (click)="create()" class="btn btn-xs btn-primary">Enviar</button>
+                </div>
+              </div>
+            </form>
+          </section>
+        </footer>
+      </div>
+    </div>
+    <div class="card box-shadow mt-2">
+      <div class="card-body">
+        <h4>Olá grupo!</h4>
+        <p class="text-gray">
+          <span class="weather-date">Publicado em 31 de agosto dde 2019, 
+            <span>2</span>
+            <span *ngIf="publication?.likes <=1"> curtida</span>
+            <span *ngIf="publication?.likes > 1"> curtidas</span>
+          </span>
+        </p>
+        <p [innerHTML]="publication?.description" >Descrição da publicação</p>
+        <app-user-display [userObject]="publication?.creator"></app-user-display>
+        <button (click)=like() class="btn btn-xs btn-link ml-0 pl-0 mr-2"><i class="mdi mdi-star"></i> Curtir</button>
+        <button id="btn-comment" class="btn btn-xs btn-link ml-0 pl-0"><a ><i class="mdi mdi-reply"></i> Responder</a></button>
+        <section class="mt-2" *ngIf="publication?.comments && publication?.comments.length > 0" id="comments">
+          <span>
+            <h4 *ngIf="publication?.comments?.length > 1">{{publication?.comments?.length}} respostas</h4>
+            <h4 *ngIf="publication?.comments?.length <= 1">{{publication?.comments?.length}} resposta</h4>
+          </span>
+          <div *ngFor="let comment of publication?.comments">
+            <div class="pt-2 pb-2">
+              <small>{{comment?.body}}</small>
+              <p class="text-gray">
+                <span class="weather-date">Publicado em {{comment?.createdAt}}</span>
+              </p>
+              <app-user-display [userObject]="comment?.creator"></app-user-display>
+            </div>
+          </div>
+        </section>
+        <footer class="pt-4" data-spy="scroll" data-target="#btn-comment">
+          <section class="animated fadeInDown" id="my-answer">
+            <form class="needs-validation" novalidate [formGroup]="commentForm">
+              <div class="form-row">
+                <div class="col-md-12 mb-3 mt-2">
+                  <textarea formControlName="body" rows="4" placeholder="Escreva um comentário" type="text" class="form-control mb-3"></textarea>
+                  <button (click)="create()" class="btn btn-xs btn-primary">Enviar</button>
+                </div>
+              </div>
+            </form>
+          </section>
+        </footer>
+      </div>
+    </div>
+    <div class="card box-shadow mt-2">
+      <div class="card-body">
+        <h4>Olá grupo!</h4>
+        <p class="text-gray">
+          <span class="weather-date">Publicado em 31 de agosto dde 2019, 
+            <span>2</span>
+            <span *ngIf="publication?.likes <=1"> curtida</span>
+            <span *ngIf="publication?.likes > 1"> curtidas</span>
+          </span>
+        </p>
+        <p [innerHTML]="publication?.description" >Descrição da publicação</p>
+        <app-user-display [userObject]="publication?.creator"></app-user-display>
+        <button (click)=like() class="btn btn-xs btn-link ml-0 pl-0 mr-2"><i class="mdi mdi-star"></i> Curtir</button>
+        <button id="btn-comment" class="btn btn-xs btn-link ml-0 pl-0"><a ><i class="mdi mdi-reply"></i> Responder</a></button>
+        <section class="mt-2" *ngIf="publication?.comments && publication?.comments.length > 0" id="comments">
+          <span>
+            <h4 *ngIf="publication?.comments?.length > 1">{{publication?.comments?.length}} respostas</h4>
+            <h4 *ngIf="publication?.comments?.length <= 1">{{publication?.comments?.length}} resposta</h4>
+          </span>
+          <div *ngFor="let comment of publication?.comments">
+            <div class="pt-2 pb-2">
+              <small>{{comment?.body}}</small>
+              <p class="text-gray">
+                <span class="weather-date">Publicado em {{comment?.createdAt}}</span>
+              </p>
+              <app-user-display [userObject]="comment?.creator"></app-user-display>
+            </div>
+          </div>
+        </section>
+        <footer class="pt-4" data-spy="scroll" data-target="#btn-comment">
+          <section class="animated fadeInDown" id="my-answer">
+            <form class="needs-validation" novalidate [formGroup]="commentForm">
+              <div class="form-row">
+                <div class="col-md-12 mb-3 mt-2">
+                  <textarea formControlName="body" rows="4" placeholder="Escreva um comentário" type="text" class="form-control mb-3"></textarea>
+                  <button (click)="create()" class="btn btn-xs btn-primary">Enviar</button>
+                </div>
+              </div>
+            </form>
+          </section>
+        </footer>
+      </div>
+    </div>
+    <div class="card box-shadow mt-2">
+      <div class="card-body">
+        <h4>Olá grupo!</h4>
+        <p class="text-gray">
+          <span class="weather-date">Publicado em 31 de agosto dde 2019, 
+            <span>2</span>
+            <span *ngIf="publication?.likes <=1"> curtida</span>
+            <span *ngIf="publication?.likes > 1"> curtidas</span>
+          </span>
+        </p>
+        <p [innerHTML]="publication?.description" >Descrição da publicação</p>
+        <app-user-display [userObject]="publication?.creator"></app-user-display>
+        <button (click)=like() class="btn btn-xs btn-link ml-0 pl-0 mr-2"><i class="mdi mdi-star"></i> Curtir</button>
+        <button id="btn-comment" class="btn btn-xs btn-link ml-0 pl-0"><a ><i class="mdi mdi-reply"></i> Responder</a></button>
+        <section class="mt-2" *ngIf="publication?.comments && publication?.comments.length > 0" id="comments">
+          <span>
+            <h4 *ngIf="publication?.comments?.length > 1">{{publication?.comments?.length}} respostas</h4>
+            <h4 *ngIf="publication?.comments?.length <= 1">{{publication?.comments?.length}} resposta</h4>
+          </span>
+          <div *ngFor="let comment of publication?.comments">
+            <div class="pt-2 pb-2">
+              <small>{{comment?.body}}</small>
+              <p class="text-gray">
+                <span class="weather-date">Publicado em {{comment?.createdAt}}</span>
+              </p>
+              <app-user-display [userObject]="comment?.creator"></app-user-display>
+            </div>
+          </div>
+        </section>
+        <footer class="pt-4" data-spy="scroll" data-target="#btn-comment">
+          <section class="animated fadeInDown" id="my-answer">
+            <form class="needs-validation" novalidate [formGroup]="commentForm">
+              <div class="form-row">
+                <div class="col-md-12 mb-3 mt-2">
+                  <textarea formControlName="body" rows="4" placeholder="Escreva um comentário" type="text" class="form-control mb-3"></textarea>
+                  <button (click)="create()" class="btn btn-xs btn-primary">Enviar</button>
+                </div>
+              </div>
+            </form>
+          </section>
+        </footer>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card box-shadow">
+        <div class="card-body">
+          <span class="card-title">Eventos</span>
+          <div *ngIf="loading">
+            <div class="display-3 text-center mt-5 pt-5 text-muted">
+              <i class=" mdi mdi-loading mdi-spin text-muted"></i>
+            </div>
+          </div>
+        </div>
+        <div class="fluid-container scroll border-top">
+          <div *ngIf="!loading && eventList && eventList.length > 0" class="animated fadeIn">
+            <div *ngFor="let event of eventList | filter: filter; let i = index" class="row ticket-card border-bottom pointer p-2 align-items-center">
+              <div class="ticket-details col-md-6">
+                  <p class="text-dark mr-2 mb-0 ellipsis">{{event?.title}}</p>
+                <p class="text-gray ellipsis mb-0">{{event?.local}}</p>
+              </div>
+              <div class="col-md-6 text-right"> 
+                <p class="text-gray ellipsis">{{event?.startDate}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

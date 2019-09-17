@@ -1,0 +1,26 @@
+.cover-photo{
+    background-image: url(../../../assets/images/login_1.jpg); 
+    transform: translateY(10px);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    margin-top: -26px;
+    margin-left: -57px;
+    margin-right: -57px;
+    height: 20rem;
+    /* -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%; */
+}
+
+.pull-bottom{
+    position: absolute;
+    bottom: 2rem;
+}

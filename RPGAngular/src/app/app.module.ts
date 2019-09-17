@@ -57,6 +57,7 @@ import { AlertDisplayComponent } from './components/alert-display/alert-display.
 import { ExtensionProgramFormComponent } from './pages/extension-program-form/extension-program-form.component';
 import { ExtensionProgramComponent } from './pages/extension-program/extension-program.component';
 import { BoardDetailComponent } from './pages/board-detail/board-detail.component';
+import { ExtensionProgramDetailComponent } from './pages/extension-program-detail/extension-program-detail.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
    url: SERVER_URL + "/task/upload/img",
@@ -88,7 +89,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     NewsDetailComponent,
     EventDetailComponent,
     BoardDetailComponent,
-    
+    ExtensionProgramDetailComponent,
+
     /* MANAGER */
     ManagerComponent,
     ManagerUserComponent,

@@ -29,8 +29,7 @@
               "./node_modules/jquery/dist/jquery.js",
               "./node_modules/jquery/dist/jquery.min.js",
               "node_modules/select2/dist/js/select2.min.js",
-              "./node_modules/froala-editor/js/froala_editor.pkgd.min.js",
-              "src/assets/js/chart.js"
+              "./node_modules/froala-editor/js/froala_editor.pkgd.min.js"
             ]
           },
           "configurations": {
@@ -94,8 +93,7 @@
               "./node_modules/jquery/dist/jquery.js",
               "./node_modules/jquery/dist/jquery.min.js",
               "./assets/froala-editor/js/froala_editor.pkgd.min.js",
-              "./node_modules/select2/dist/js/select2.min.js",
-              "src/assets/js/chart.js"
+              "./node_modules/select2/dist/js/select2.min.js"
             ],
             "assets": [
               "src/favicon.ico",

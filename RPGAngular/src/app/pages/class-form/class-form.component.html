@@ -1,57 +1,110 @@
-<div class="row content-wrapper animated fadeInDown">
-    <div class="offset-md-3 col-md-6 grid-margin stretch-card">
-      <div class="card box-shadow">
-        <div class="card-body">
-          <h3 class="mb-4">
-            <span><img src="https://cf.quizizz.com/img/gears_icon.png" alt=""> Nova turma</span>
-          </h3>
-          <form class="needs-validation" novalidate [formGroup]="classForm">
-              <div class="form-row">
-                <div class="col-md-12">
-                  <p>Nome da turma</p>
-                  <input formControlName="name" type="text" class="form-control" placeholder="Nome da turma" required>
-                </div>
-                <div class="col-md-12 mt-2">
-                  <p>Descrição</p>
-                  <input formControlName="description" type="text" class="form-control" placeholder="Descrição da turma" required>
-                </div>
-                <div class="col-md-12 mt-2">
-                  <p>Tags</p>
-                  <ng-select formControlName="tags" class="form-control form-control-fixed"
-                    [items]="search$ | async"
-                    [addTag]="true"
-                    bindLabel="title"
-                    [multiple]="true"
-                    [hideSelected]="true"
-                    [trackByFn]="trackByFn"
-                    [loading]="searchLoading"
-                    [typeahead]="searchInput$"
-                    placeholder="Selecione uma tag"
-                    [(ngModel)]="selectedTags">>
-                  </ng-select>
-                </div>
-              </div>
-              <button [disabled]="loading" (click)="create()" class="btn btn-success btn-block mt-3 mb-2">
-                <span *ngIf="!loading">Criar</span>
-                <span *ngIf="loading"><i class=" mdi mdi-loading mdi-spin"></i></span>
-              </button>
-              <div *ngIf="isCreated" class="alert alert-success alert-dismissible fade show" role="alert" style="font-size: 13px">
-                <strong>Sucesso!</strong> Sua turma foi criada com sucesso. O código da sua turma é: {{createdClass?.code}}
-                <button (click)="isCreated = false" type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div *ngIf="hasServerError" class="alert alert-danger alert-dismissible fade show" role="alert"  style="font-size:13px">
-                <strong>Erro!</strong> Erro inesperado no servidor: <i>{{hasServerError?.name}}</i>
-                <button (click)="hasServerError = null" type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div *ngIf="classForm.invalid && submitted" class="alert alert-danger fade show" role="alert" style="font-size:13px">
-                <strong>Erro!</strong> Campos obrigatórios
-              </div>
-            </form>
+<!-- <div class="row content-wrapper animated fadeInDown">
+<div class="offset-md-3 col-md-6 grid-margin stretch-card">
+  <div class="card box-shadow">
+    <div class="card-body">
+      <h3 class="mb-4">
+        <span><img src="https://cf.quizizz.com/img/gears_icon.png" alt=""> Nova turma</span>
+      </h3>
+      <form class="needs-validation" novalidate [formGroup]="classForm">
+          <div class="form-row">
+            <div class="col-md-12">
+              <p>Nome da turma</p>
+              <input formControlName="name" type="text" class="form-control" placeholder="Nome da turma" required>
+            </div>
+            <div class="col-md-12 mt-2">
+              <p>Descrição</p>
+              <input formControlName="description" type="text" class="form-control" placeholder="Descrição da turma" required>
+            </div>
+            <div class="col-md-12 mt-2">
+              <p>Tags</p>
+              <ng-select formControlName="tags" class="form-control form-control-fixed"
+                [items]="search$ | async"
+                [addTag]="true"
+                bindLabel="title"
+                [multiple]="true"
+                [hideSelected]="true"
+                [trackByFn]="trackByFn"
+                [loading]="searchLoading"
+                [typeahead]="searchInput$"
+                placeholder="Selecione uma tag"
+                [(ngModel)]="selectedTags">>
+              </ng-select>
+            </div>
           </div>
+          <button [disabled]="loading" (click)="create()" class="btn btn-success btn-block mt-3 mb-2">
+            <span *ngIf="!loading">Criar</span>
+            <span *ngIf="loading"><i class=" mdi mdi-loading mdi-spin"></i></span>
+          </button>
+          <div *ngIf="isCreated" class="alert alert-success alert-dismissible fade show" role="alert" style="font-size: 13px">
+            <strong>Sucesso!</strong> Sua turma foi criada com sucesso. O código da sua turma é: {{createdClass?.code}}
+            <button (click)="isCreated = false" type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div *ngIf="hasServerError" class="alert alert-danger alert-dismissible fade show" role="alert"  style="font-size:13px">
+            <strong>Erro!</strong> Erro inesperado no servidor: <i>{{hasServerError?.name}}</i>
+            <button (click)="hasServerError = null" type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div *ngIf="classForm.invalid && submitted" class="alert alert-danger fade show" role="alert" style="font-size:13px">
+            <strong>Erro!</strong> Campos obrigatórios
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+<p class="pt-2">Formulário de turma</p>
+<form class="form-sample">
+  <p class="card-description">
+    Uma breve descrição sobre o que é uma turma, suas qualidades e vantagens...
+  </p>
+  <div class="row">
+    <div class="col-md-10 form-horizontal-row">
+      <div class="row">
+        <p class="col-sm-3 p-8px text-muted">Nome</p>
+        <div class="col-sm-9">
+          <input type="text" placeholder="Informe o nome da turma" class="form-control">
         </div>
       </div>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 form-horizontal-row">
+      <div class="form-row">
+        <p class="col-sm-3 p-8px text-muted">Descrição</p>
+        <div class="col-sm-9">
+          <textarea rows="4" type="text" placeholder="Informe uma descrição para turma" class="form-control"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 form-horizontal-row">
+      <div class="row">
+        <p class="col-sm-2 col-md-3 col-lg-3 p-8px text-muted">Tags</p>
+        <div class="col-sm-9 col-md-9 col-lg-9">
+          <ng-select formControlName="tags" class="form-control form-control-fixed"
+            [items]="search$ | async"
+            [addTag]="true"
+            bindLabel="title"
+            [multiple]="true"
+            [hideSelected]="true"
+            [trackByFn]="trackByFn"
+            [loading]="searchLoading"
+            [typeahead]="searchInput$"
+            placeholder="Selecione uma tag"
+            [(ngModel)]="selectedTags">>
+          </ng-select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-md-6 d-flex">
+      <button class="btn btn-sm btn-success mr-2">Criar</button>
+      <button class="btn btn-sm btn-light">Voltar</button>
+    </div>
+  </div>
+</form>

@@ -22,7 +22,7 @@ export class NewsManagerComponent implements OnInit {
 
   constructor(private util: UtilService, private newsService: NewsService) { 
     this.loading = true;
-    this.util.getUserByToken(this.util.getAccessToken).subscribe(data => {
+    this.util.getLoggedUser().subscribe(data => {
       if(!data)
         this.util.redirectTo('./main');
       this.loggedUser = data;

@@ -1,6 +1,7 @@
 'use strict';
 
 const publicationService = require('../service/publicationService');
+const commentService = require('../service/commentService');
 const { Projection } = require('../util/projection');
 const verifyJWT = require('../../auth/auth');
 var express = require('express');
@@ -73,6 +74,53 @@ router.delete('/delete/:id', function (req, res) {
         res.status(200).send({ message: 'Deleted publication' });
       else
         res.status(500).send({ error: 'Internal server error' });
+    });
+  }catch(err){
+    res.status(500).send({ error: 'Internal server error' });
+  }
+})
+
+/* Add comment */
+router.post('/add/comment', verifyJWT, function (req, res) {
+  try{
+    commentService.createUpdate(req.body).then( data => {
+      if(data)
+        res.status(200).send({ message: 'successfull' });
+      else
+        res.status(200).send({ message: 'Inespered error' }); 
+    });
+  }catch(err){
+    res.status(500).send({ error: 'Internal server error' });
+  }
+});
+
+/* Add Like */
+router.post('/add/like', verifyJWT, function (req, res) {
+  try{
+    let publcation = req.body.publication;
+    
+    let user = req.body.user;
+    publicationService.addLike(publcation, user).then( data => {
+      if(data)
+        res.status(200).send({ message: 'successfull', data: data });
+      else
+        res.status(200).send({ message: 'already liked' }); 
+    });
+  }catch(err){
+    res.status(500).send({ error: 'Internal server error' });
+  }
+});
+
+/* Get publications by tag [id list] */
+router.post('/listByTag', verifyJWT, function (req, res) {
+  try{
+    let tagList = req.body;
+    publicationService.listByTag(tagList).then( publications => {
+      if(publications)
+        res.json(publications);
+      else{
+        res.status(404).send({ error: 'Publications not found' });
+      }
     });
   }catch(err){
     res.status(500).send({ error: 'Internal server error' });

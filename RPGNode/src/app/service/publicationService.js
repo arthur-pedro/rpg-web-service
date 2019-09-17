@@ -4,6 +4,7 @@
 const { Publication, Tag, User, Comment } = require('../models');
 const Util = require('./utilService');
 
+const Sequelize = require('sequelize');
 
 class PublicationService{
     
@@ -46,11 +47,46 @@ class PublicationService{
                 through: { attributes: [] },
             },
             {
+                model: Comment,
+                as: 'comments',
+                attributes: ['id'],
+                require: false
+            },
+            {
                 model: User,
                 as: 'creator',
             }
         ];
         return Publication.findAll({ include: relationships });
+    }
+
+    listByTag(idList){    
+
+        let query = " SELECT publicationId AS id FROM publication_tag WHERE tagId IN(:idList) ";
+
+        return Publication.sequelize.query(query, 
+            { replacements: { idList: idList }, type: Sequelize.QueryTypes.SELECT }
+        ).then(res => {
+            if(res){
+                let publicationIds = [];
+                res.forEach(element =>{
+                    publicationIds.push(element.id);
+                });
+                var relationships = [
+                    {
+                        model: Tag,
+                        as: 'tags',
+                        through: { attributes: [] },
+                    },
+                    {
+                        model: User,
+                        as: 'creator',
+                    }
+                ];
+                return Publication.findAll({ include: relationships, where: { id: { [Sequelize.Op.in] : publicationIds} } });
+            }else
+                return [];
+        });
     }
 
     delete(id){
@@ -59,7 +95,7 @@ class PublicationService{
 
     createUpdate(obj){
         try{
-            if(obj.id || obj.id == 0){
+            if(obj.id || obj.id != 0){
                 return this.get(obj.id).then((model) => {
                     if(model){
                         obj.updatedAt = new Date();
@@ -94,6 +130,31 @@ class PublicationService{
         }
     }
 
+    addLike(publication, user){ 
+        let query = "INSERT IGNORE INTO publication_like_user (`publicationId`, `userId`, `createdAt`, `updatedAt`) VALUES (:pubId, :userId, :createdAt, :updatedAt)";
+        let date = Util.getDateNow().toString();
+        return Publication.sequelize.query(
+            query, 
+            { replacements: { 
+                userId: user.id, 
+                pubId: publication.id,
+                createdAt: date, 
+                updatedAt: date 
+            }, type: Sequelize.QueryTypes.INSERT 
+        }).then((res)=>{
+            if(res[1]){
+                publication.likes++;
+                return Publication.sequelize.query("UPDATE publication SET `likes` = :likes WHERE `id` = :id", 
+                { replacements: { 
+                    id: publication.id, 
+                    likes: publication.likes,
+                }, type: Sequelize.QueryTypes.UPDATE 
+                }).then(([results, metadata]) => {
+                    return metadata;
+                });
+            }
+        });
+    }
 }
 
 module.exports = new PublicationService;

@@ -6,7 +6,7 @@
   (closeType)="closeAlertDisplay($event)">
 </app-alert-display>
 <div class="row animated fadeInDown">
-    <div class="offset-md-2 col-md-8">
+    <div class="offset-md-2 col-md-6">
       <div class="card box-shadow">
         <div class="card-body">
           <h3 class="mb-4">
@@ -74,6 +74,9 @@
                   [(ngModel)]="selectedTags">
                 </ng-select>
               </div>
+            </div>
+            <div class="form-row">
+              <dropzone id="dropzone" [config]="config" [message]="'Clique ou arraste para importar usuários'" (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></dropzone>
             </div>
           </form>
           <button [disabled]="loading" (click)="create()" class="btn btn-success btn-block mt-3 mb-2">

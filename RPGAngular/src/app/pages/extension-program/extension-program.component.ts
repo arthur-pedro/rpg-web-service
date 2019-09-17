@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExtensionProgramService } from 'src/app/services/extension-program/extension-program.service';
+import { UtilService } from 'src/app/services/util/util.service';
 
 @Component({
   selector: 'app-extension-program',
@@ -19,6 +20,10 @@ export class ExtensionProgramComponent implements OnInit {
   first:any  = 0;
   maxResults:any = 10;
 
+  loggedUser: any;
+
+  joined: boolean = false;
+
   tooltipOpt = {
     'placement': 'top',
     'show-delay': 2000,
@@ -28,7 +33,25 @@ export class ExtensionProgramComponent implements OnInit {
     'shadow': true,
   }
 
-  constructor(private extensionService: ExtensionProgramService) { }
+  constructor(
+    private extensionService: ExtensionProgramService,
+    private  util: UtilService,
+  ){
+
+    this.loading = true;
+    this.util.getLoggedUser().subscribe(data => {
+        if(!data)
+          this.util.redirectTo('/login');
+        this.loggedUser = data;
+        this.loading = false;
+        this.hasServerError = null;
+      },
+      error => {
+        this.hasServerError = error;
+        this.loading = false;
+        this.util.redirectTo('/login');
+      });
+   }
 
   ngOnInit() {
     this.list(0, this.maxResults)
@@ -47,5 +70,20 @@ export class ExtensionProgramComponent implements OnInit {
         this.hasServerError = error;
         this.loading = false;
     });
+  }
+
+  join(extension){
+    this.joined = true;
+  }
+
+  closeAlertDisplay(event){
+    switch(event){
+      case 'created': 
+        this.joined = false;
+        break;
+      case'serverError': 
+        this.hasServerError = null;
+        break;
+    }
   }
 }

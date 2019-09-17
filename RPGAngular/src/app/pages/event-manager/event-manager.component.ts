@@ -26,7 +26,7 @@ export class EventManagerComponent implements OnInit {
     ){
 
     this.loading = true;
-    this.util.getUserByToken(this.util.getAccessToken).subscribe(data => {
+    this.util.getLoggedUser().subscribe(data => {
         if(!data)
           this.util.redirectTo('./main');
         this.loggedUser = data;
@@ -39,7 +39,7 @@ export class EventManagerComponent implements OnInit {
         this.hasServerError = error;
         this.loading = false;
         this.util.redirectTo('./main');
-      });
+    });
    }
 
   ngOnInit() {

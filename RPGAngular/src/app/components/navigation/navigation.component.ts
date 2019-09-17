@@ -24,9 +24,11 @@ export class NavigationComponent implements OnInit {
     private util: UtilService,
     ) {
 
+      // this.util.hasManager(1, "DIRECTOR").subscribe(data => { alert(data) });
+
       this.loading = true;
-      if(this.util.hasLoggedUser){
-        this.util.getUserByToken(this.util.getToken().access_token).subscribe(data => {
+      if(this.util.hasLoggedUser()){
+        this.util.getLoggedUser().subscribe(data => {
           this.loggedUser = data;
           this.loading = false;
           this.hasServerError = null;

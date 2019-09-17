@@ -1,13 +1,13 @@
-<div class="row animated fadeInDown">
+<!-- <div class="row animated fadeInDown">
   <div class="col-md-8" style="padding-top: 0px !important">
     <div class="card box-shadow">
       <div class="card-body">
         <span class="card-title">
           <small>Extensões</small>
           <button routerLink="/main/extension/form" type="button" class="btn btn-xs btn-success float-right"><i class="mdi mdi-plus"></i>Criar</button>
-        </span>
+        </span> -->
         <!-- LOADING -->
-        <div *ngIf="loading">
+        <!-- <div *ngIf="loading">
           <div *ngFor="let skt of skeleton" class="row ticket-card pb-2 border-bottom pb-3 mb-3">
             <div class="col-md-1 mb-3"> 
               <div class="progress">
@@ -26,9 +26,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- LOADING -->
-      <div *ngIf="!loading && extensionList?.length == 0" class="fluid-container scroll text-center animated fadeIn p-5">
+      <!-- <div *ngIf="!loading && extensionList?.length == 0" class="fluid-container scroll text-center animated fadeIn p-5">
         <div *ngIf="hasServerError">
           <h4 (click)="list()" class="mt-5 text-muted pointer"><i class="mdi mdi-link-variant-off" aria-hidden="true"></i></h4>
           <p  (click)="list()" class="text-muted pointer">Tentar reconectar</p>
@@ -53,9 +53,9 @@
               </div>
             </div>
             <div class="col-md-1"> 
-              <p class="text-primary mr-1 mb-0 pull-right">
+              <p class="text-primary mr-1 mb-0 pull-right"> -->
                 <!-- <span><i class="mdi mdi-flag"></i>{{publication?.followers?.length}}</span>  -->
-                <span><i class="mdi mdi-flag"></i>0</span>
+                <!-- <span><i class="mdi mdi-flag"></i>0</span>
               </p>
             </div>
           </div>
@@ -69,8 +69,8 @@
         <span class="card-title">
           <small>Seguindo</small>
         </span>
-        <!-- LOADING -->
-        <div *ngIf="loading">
+        LOADING -->
+        <!-- <div *ngIf="loading">
           <div *ngFor="let skt of skeleton" class="row ticket-card pb-2 border-bottom pb-3 mb-3">
             <div class="col-md-1 mb-3"> 
               <div class="progress">
@@ -89,9 +89,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- LOADING -->
-      <div *ngIf="!loading && extensionList?.length == 0" class="fluid-container scroll text-center animated fadeIn p-5">
+      <!-- <div *ngIf="!loading && extensionList?.length == 0" class="fluid-container scroll text-center animated fadeIn p-5">
         <div *ngIf="hasServerError">
           <h4 (click)="list()" class="mt-5 text-muted pointer"><i class="mdi mdi-link-variant-off" aria-hidden="true"></i></h4>
           <p  (click)="list()" class="text-muted pointer">Tentar reconectar</p>
@@ -116,9 +116,9 @@
               </div>
             </div>
             <div class="col-md-1"> 
-              <p class="text-primary mr-1 mb-0 pull-right">
+              <p class="text-primary mr-1 mb-0 pull-right"> -->
                 <!-- <span><i class="mdi mdi-flag"></i>{{publication?.followers?.length}}</span>  -->
-                <span><i class="mdi mdi-flag"></i>0</span>
+                <!-- <span><i class="mdi mdi-flag"></i>0</span>
               </p>
             </div>
           </div>
@@ -126,5 +126,47 @@
       </div>
     </div>
   </div>
+</div> -->
+<div class="row">
+  <div class="col-md-6">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/main">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Extensão</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="col-md-6">
+    <button *ngIf="loggedUser?.manager" routerLink="/main/extension/form" type="button" class="btn btn-xs btn-success float-right">
+      <i class="mdi mdi-plus"></i> Criar
+    </button>
+    <button routerLink="/main" type="button" class="btn btn-xs btn-danger float-right mr-2">
+      <i class="mdi mdi-chevron-left"></i> Voltar
+    </button>
+  </div>
 </div>
-  
+<div class="row animated fadeInDown">
+  <div *ngFor="let extension of extensionList" class="col-lg-3 col-sm-6 mb-3">
+    <div class="card box-shadow hovercard">
+      <div class="cardheader"></div>
+      <div class="card-body">
+        <p class="font-weight-bold display-5">{{extension?.name}}</p>
+        <p class="ellipsis-15">{{extension?.description}}</p>
+      </div>
+      <div class="card-footer text-right">
+        <!-- <button routerLink="./form" [queryParams]="{id: extension?.id}" *ngIf="extension?.creator?.id == loggedUser?.id" class="btn btn-primary btn-xs mr-2">Editar</button> -->
+        <!-- <button routerLink="./detail/{{extension?.id}}" class="btn btn-success btn-xs">visitar</button> -->
+        <!-- <button (click)="join(extension)"  class="btn btn-success btn-xs">Candidatar-se</button> -->
+        <button (click)="join(extension)" disabled class="btn btn-warning btn-xs">Pedido enviado</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-alert-display
+  [created]="joined"
+  [serverError]="hasServerError"
+  [formError]="formError"
+  [page]="'form'"
+  [message]="'Pedido enviado'"
+  (closeType)="closeAlertDisplay($event)">
+</app-alert-display>
