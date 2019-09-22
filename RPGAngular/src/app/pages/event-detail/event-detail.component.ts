@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-event-detail',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public modal: NgxSmartModalService
+  ) { }
 
   ngOnInit() {
   }

@@ -62,7 +62,7 @@ router.get('/list/public', verifyJWT, function (req, res) {
       if(news)
         res.json(news);
       else{
-        res.status(500).send({ error: 'News not found' });
+        res.status(404).send({ error: 'News not found' });
       }
     });
   }catch(err){

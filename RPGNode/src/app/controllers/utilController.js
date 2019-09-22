@@ -22,7 +22,7 @@ router.post('/auth/login',  (req, res) => {
     if(user){
       const id = user.id;
       var token = jwt.sign({ id }, process.env.SECRET, {
-        expiresIn: 3600 /*  3600 =  1h */
+        expiresIn: 3600 * 24 /*  3600 =  1h -> expira em um dia*/
       });
       return res.status(200).send({ auth: true, userId: id, access_token: token });
     }

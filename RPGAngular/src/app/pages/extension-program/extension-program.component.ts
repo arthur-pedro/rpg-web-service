@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ExtensionProgramService } from 'src/app/services/extension-program/extension-program.service';
 import { UtilService } from 'src/app/services/util/util.service';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-extension-program',
@@ -21,8 +22,13 @@ export class ExtensionProgramComponent implements OnInit {
   maxResults:any = 10;
 
   loggedUser: any;
+  selectedExtension: any;
 
   joined: boolean = false;
+  sendedRequest: boolean = false;
+  isMember:boolean = false;
+  mouseHover: boolean = false;
+  hoverOption: 0;
 
   tooltipOpt = {
     'placement': 'top',
@@ -36,6 +42,7 @@ export class ExtensionProgramComponent implements OnInit {
   constructor(
     private extensionService: ExtensionProgramService,
     private  util: UtilService,
+    public modal: NgxSmartModalService,
   ){
 
     this.loading = true;
@@ -45,16 +52,16 @@ export class ExtensionProgramComponent implements OnInit {
         this.loggedUser = data;
         this.loading = false;
         this.hasServerError = null;
+        this.list(0, this.maxResults)
       },
       error => {
         this.hasServerError = error;
         this.loading = false;
         this.util.redirectTo('/login');
-      });
+    });
    }
 
   ngOnInit() {
-    this.list(0, this.maxResults)
   }
 
   list(first, maxResults){
@@ -62,6 +69,16 @@ export class ExtensionProgramComponent implements OnInit {
     this.extensionService.list(first, maxResults).subscribe((data: any) => {
       if(data){
         this.extensionList = data;
+        this.extensionList.forEach(extension => {
+          extension.requests.forEach(user => {
+            if(user.id == this.loggedUser.id)
+              extension.sendedRequest = true;
+          });
+          extension.members.forEach(user => {
+            if(user.id == this.loggedUser.id)
+              extension.isMember = true;
+          });
+        });
       }
       this.loading = false;
       this.hasServerError = null;
@@ -73,17 +90,23 @@ export class ExtensionProgramComponent implements OnInit {
   }
 
   join(extension){
-    this.joined = true;
+    this.loading = true;
+    this.selectedExtension = extension;
+    this.extensionService.doMemberRequest(this.loggedUser.id, extension.id).subscribe(data => {
+      this.joined = true;
+      extension.sendedRequest = true;
+      this.loading = false;
+    },
+    error => {
+      if(error && error.status == "304")
+        this.modal.getModal('rejectedModal').open()
+      this.hasServerError = error;
+      this.loading = false;
+    });
   }
 
-  closeAlertDisplay(event){
-    switch(event){
-      case 'created': 
-        this.joined = false;
-        break;
-      case'serverError': 
-        this.hasServerError = null;
-        break;
-    }
+  showDetailModal(extension){
+    this.selectedExtension = extension;
+    this.modal.getModal('detailModal').open()
   }
 }

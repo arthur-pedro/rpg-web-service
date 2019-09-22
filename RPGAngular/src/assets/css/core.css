@@ -12424,6 +12424,18 @@ button.bg-dark:focus {
 .p-5 {
   padding: 3rem !important; }
 
+.p-6 {
+  padding: 6rem !important; }
+
+.p-7 {
+  padding: 7rem !important; }
+
+.p-8 {
+  padding: 8rem !important; }
+
+.p-9 {
+  padding: 9rem !important; }
+
 .pt-5,
 .py-5 {
   padding-top: 3rem !important; }

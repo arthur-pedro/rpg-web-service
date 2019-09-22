@@ -38,4 +38,16 @@ export class ExtensionProgramService {
   public addLike(publication: any, user: any){
     return this.http.post(SERVER_URL + "/api/extension/add/like", {publication, user}, this.util.auth()).pipe(map((response)=> response));
   }
+
+  public listPublications(extensionId){
+    return this.http.get(SERVER_URL + "/api/extension/list/publications?extensionId="+ extensionId, this.util.auth()).pipe(map((response)=> response));
+  }
+
+  public answerMemberRequest(userId: any, extensinoId: any, status: any){
+    return this.http.post(SERVER_URL + "/api/extension/answerMemberRequest?userId="+userId+"&extensionId="+extensinoId+"&status="+status, null, this.util.auth()).pipe(map((response)=> response));
+  }
+  
+  public doMemberRequest(userId: any, extensinoId: any){
+    return this.http.post(SERVER_URL + "/api/extension/doMemberRequest?userId="+userId+"&extensionId="+extensinoId, null, this.util.auth()).pipe(map((response)=> response));
+  }
 }

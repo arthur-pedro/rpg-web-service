@@ -59,6 +59,10 @@ import { ExtensionProgramComponent } from './pages/extension-program/extension-p
 import { BoardDetailComponent } from './pages/board-detail/board-detail.component';
 import { ExtensionProgramDetailComponent } from './pages/extension-program-detail/extension-program-detail.component';
 
+import { ChartsModule } from 'ng2-charts';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
    url: SERVER_URL + "/task/upload/img",
    maxFilesize: 10000,
@@ -119,6 +123,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     PaginationDisplayComponent,
     AlertDisplayComponent,
     ExtensionProgramFormComponent,
+    NotFoundComponent,
     
   ],
   imports: [
@@ -133,7 +138,9 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     ReactiveFormsModule,
     TooltipModule,
     NgCircleProgressModule.forRoot(),
-    NgSelectModule
+    NgSelectModule,
+    ChartsModule,
+    NgxSmartModalModule.forRoot()
   ],
   providers: [
     {

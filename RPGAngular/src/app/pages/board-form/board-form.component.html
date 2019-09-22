@@ -1,54 +1,68 @@
 <div class="row animated fadeInDown">
-  <div class="offset-md-3 col-md-6">
-    <div class="card box-shadow">
-      <div class="card-body">
-        <h3 class="mb-4">
-          <span><img src="https://cf.quizizz.com/img/gears_icon.png" alt=""> Nova Publicação <span class="pull-right display-5 pointer text-primary"><p><a routerLink="/main/board">voltar</a></p></span></span>
-        </h3>
-        <form class="needs-validation" novalidate [formGroup]="publicationForm">
-          <div class="form-row">
-            <div class="col-md-12 mb-3 mt-2">
-              <p>Título</p>
-              <input placeholder="Escolha um título para sua publicação" formControlName="title" type="text" class="form-control mb-3">
-              <p>Descrição</p>
-              <textarea rows="4"  placeholder="Escolha uma descrição para sua publicação" formControlName="description" type="text" class="form-control mb-3"></textarea>
-              <p>Tags</p>
-              <ng-select formControlName="tags" class="form-control form-control-fixed"
-                [items]="search$ | async"
-                [addTag]="loggedUser?.manager"
-                bindLabel="title"
-                bindValue="id"
-                [multiple]="true"
-                [hideSelected]="true"
-                [trackByFn]="trackByFn"
-                [loading]="searchLoading"
-                [typeahead]="searchInput$"
-                placeholder="Selecione uma tag"
-                [(ngModel)]="selectedTags">
-              </ng-select>
+  <div class="col-md-12 pb-3">
+    <p class="pt-2">Formulário de publicações</p>
+      <form class="needs-validation" [formGroup]="publicationForm">
+        <p class="card-description">
+          Uma breve descrição sobre o que é uma publicação, suas qualidades e vantagens...
+        </p>
+        <div class="row">
+          <div class="col-md-10 form-horizontal-row">
+            <div class="row">
+              <p class="col-sm-3 p-12px text-muted">Título</p>
+              <div class="col-sm-9">
+                <input placeholder="Escolha um título para seu evento" formControlName="title" type="text" class="form-control">
+              </div>
             </div>
           </div>
-        </form>
-        <button [disabled]="loading" (click)="create()" class="btn btn-success btn-block mt-3 mb-2">
-          <span *ngIf="!loading">Criar</span>
-          <span *ngIf="loading"><i class=" mdi mdi-loading mdi-spin"></i></span>
-        </button>
-        <div *ngIf="isCreated" class="alert alert-success alert-dismissible fade show" role="alert" style="font-size: 13px">
-          <strong>Sucesso!</strong> Sua publicação foi criada com sucesso.
-          <button (click)="isCreated = false" type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
-        <div *ngIf="hasServerError" class="alert alert-danger alert-dismissible fade show" role="alert"  style="font-size:13px">
-          <strong>Erro!</strong> Erro inesperado no servidor: <i>{{hasServerError?.name}}</i>
-          <button (click)="hasServerError = null" type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="row">
+          <div class="col-md-10 form-horizontal-row">
+            <div class="row">
+              <p class="col-sm-3 p-12px text-muted">Descrição</p>
+              <div class="col-sm-9">
+                <textarea rows="5" placeholder="O que você deseja publicar" formControlName="description" type="text" class="form-control"></textarea>
+              </div>
+            </div>
+          </div>
         </div>
-        <div *ngIf="publicationForm.invalid && submitted" class="alert alert-danger fade show" role="alert" style="font-size:13px">
-          <strong>Cuidado!</strong> Campos obrigatórios
+        <div class="row">
+          <div class="col-md-10 form-horizontal-row">
+            <div class="row">
+              <p class="col-sm-2 col-md-3 col-lg-3 p-12px text-muted">Tags</p>
+              <div class="col-sm-9 col-md-9 col-lg-9">
+                <ng-select formControlName="tags" class="form-control form-control-fixed"
+                  [items]="search$ | async"
+                  [addTag]="loggedUser?.manager"
+                  bindLabel="title"
+                  bindValue="id"
+                  [multiple]="true"
+                  [hideSelected]="true"
+                  [trackByFn]="trackByFn"
+                  [loading]="searchLoading"
+                  [typeahead]="searchInput$"
+                  placeholder="Selecione uma tag"
+                  [(ngModel)]="selectedTags">
+                </ng-select>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+        <div class="row pt-3">
+          <div class="col-md-6 d-flex">
+            <button [disabled]="loading" (click)="create()" class="btn btn-success btn-sm mr-3">
+              <span *ngIf="!loading">Criar</span>
+              <span *ngIf="loading"><i class=" mdi mdi-loading mdi-spin"></i></span>
+            </button>
+            <button routerLink="/main/board"  class="btn btn-sm btn-light">Voltar</button>
+          </div>
+        </div>
+      </form>
   </div>
 </div>
+<app-alert-display *ngIf="isCreated || hasServerError || (formError && submitted)"
+  [created]="isCreated"
+  [serverError]="hasServerError"
+  [formError]="formError"
+  [page]="'form'"
+  (closeType)="closeAlertDisplay($event)">
+</app-alert-display>

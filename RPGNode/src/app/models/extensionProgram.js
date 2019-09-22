@@ -41,14 +41,26 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       ExtensionProgram.belongsTo(models.Expertise, { 
-            as: 'expertise',
-            foreignkey:  'expertiseId', 
-            targetKey: 'id',
-        });
+          as: 'expertise',
+          foreignkey:  'expertiseId', 
+          targetKey: 'id',
+      });
 
       ExtensionProgram.belongsToMany(models.Tag, {
         through: 'extension_program_tag',
         as: 'tags',
+        foreignkey:  'extensionProgramId'
+      });  
+     
+      ExtensionProgram.belongsToMany(models.User, {
+        through: 'user_extension_program',
+        as: 'members',
+        foreignkey:  'extensionProgramId'
+      });  
+      
+      ExtensionProgram.belongsToMany(models.User, {
+        through: 'user_extension_program',
+        as: 'requests',
         foreignkey:  'extensionProgramId'
       });  
     };

@@ -85,6 +85,7 @@ class NewsService{
     }
 
     listPublic(){
+        console.log(Util.getDateNow())
         return News.findAll({
             include: [
                 {
@@ -99,7 +100,14 @@ class NewsService{
             ],
             where: {
                 isPublic: true,
-                expired: false
+                [Sequelize.Op.and]: 
+                [
+                    {expired: false},
+                    {expireAt: {
+                        [Sequelize.Op.gte]: Util.getDateNow(),
+                      }
+                    }
+                ]
             }
         });
     }

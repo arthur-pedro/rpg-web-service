@@ -19,6 +19,7 @@ export class BoardFormComponent implements OnInit {
   submitted: boolean = false;
   loading: boolean = false;
   hasServerError: boolean = false;
+  formError: boolean = false;
 
   search$: Observable<Tag[]>;
   searchLoading = false;
@@ -49,6 +50,7 @@ export class BoardFormComponent implements OnInit {
     this.loading = true;
     this.submitted = true;
     if(!this.publicationForm.valid){
+      this.formError = true;
       this.loading = false;
       return;
     }
@@ -61,6 +63,7 @@ export class BoardFormComponent implements OnInit {
     this.boardService.create(this.publicationForm.getRawValue()).subscribe(data => {
       this.publicationForm.enable();
       this.publicationForm.reset();
+      this.formError = false;
       this.submitted = false;
       this.loading = false;
       this.hasServerError = null;
@@ -90,5 +93,19 @@ export class BoardFormComponent implements OnInit {
            )) 
         )
     );
+  }
+
+  closeAlertDisplay(event){
+    switch(event){
+      case 'created': 
+        this.isCreated = false;
+        break;
+      case'serverError': 
+        this.hasServerError = null;
+        break;
+      case 'formError': 
+        this.formError = false;
+        break;
+    }
   }
 }

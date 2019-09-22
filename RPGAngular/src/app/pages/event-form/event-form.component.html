@@ -1,38 +1,46 @@
-<app-alert-display *ngIf="isCreated || hasServerError || (formError && submitted)"
-  [created]="isCreated"
-  [serverError]="hasServerError"
-  [formError]="formError"
-  [page]="'form'"
-  (closeType)="closeAlertDisplay($event)">
-</app-alert-display>
 <div class="row animated fadeInDown">
-    <div class="offset-md-2 col-md-8">
-      <div class="card box-shadow">
-        <div class="card-body">
-          <h3 class="mb-4">
-            <span><img src="../../../assets/images/forms/event-form-icon.png" alt=""> Novo Evento<span class="pull-right display-5 pointer text-primary"><p><a routerLink="/main/manager/event">voltar</a></p></span></span>
-          </h3>
-          <form class="needs-validation" novalidate [formGroup]="eventForm">
-            <div class="form-row">
-              <div class="col-md-12 mb-3 mt-2">
-                <p>Título</p>
-                <input placeholder="Escolha um título para sua publicação" formControlName="title" type="text" class="form-control mb-3">
-                <textarea formControlName="description" [froalaEditor]='options' [(froalaModel)]="froadaDescription" [froalaEditor] class="mb-3"></textarea>
+  <div class="col-md-12 pb-3">
+    <p class="pt-2">Formulário de eventos</p>
+      <form class="needs-validation" [formGroup]="eventForm">
+        <p class="card-description">
+          Uma breve descrição sobre o que é um evento, suas qualidades e vantagens...
+        </p>
+        <div class="row">
+          <div class="col-md-10 form-horizontal-row">
+            <div class="row">
+              <p class="col-sm-3 p-12px text-muted">Título</p>
+              <div class="col-sm-9">
+                <input placeholder="Escolha um título para seu evento" formControlName="title" type="text" class="form-control mb-2">
+                <textarea formControlName="description" [froalaEditor]='options' [(froalaModel)]="froadaDescription" [froalaEditor]></textarea>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10 form-horizontal-row">
             <div class="form-row">
-              <div class="col-md-6">
-                <p>Começa em</p>
-                <input formControlName="startDate" type="date" placeholder="Seu evento começa em" name="bday" max="3000-12-31" min="2019-01-01" class="form-control form-control-fixed mb-3">
-              </div>
-              <div class="col-md-6">
-                <p>Termina em</p>
-                <input formControlName="endDate" type="date" placeholder="Seu evento termina em" name="bday" max="3000-12-31" min="2019-01-01" class="form-control form-control-fixed mb-3">
+              <p class="col-sm-3 p-12px text-muted">Data inicio</p>
+              <div class="col-sm-9">
+                <input formControlName="startDate" type="date" placeholder="Seu evento começa em" name="bday" max="3000-12-31" min="2019-01-01" class="form-control form-control-fixed">
               </div>
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10 form-horizontal-row">
             <div class="form-row">
-              <div class="col-md-12">
-                <p>Tags</p>
+              <p class="col-sm-3 p-12px text-muted">Data fim</p>
+              <div class="col-sm-9">
+                <input formControlName="endDate" type="date" placeholder="Seu evento começa em" name="bday" max="3000-12-31" min="2019-01-01" class="form-control form-control-fixed">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10 form-horizontal-row">
+            <div class="row">
+              <p class="col-sm-2 col-md-3 col-lg-3 p-12px text-muted">Tags</p>
+              <div class="col-sm-9 col-md-9 col-lg-9">
                 <ng-select formControlName="tags" class="form-control form-control-fixed"
                   [items]="search$ | async"
                   [addTag]="loggedUser?.manager"
@@ -48,12 +56,24 @@
                 </ng-select>
               </div>
             </div>
-          </form>
-          <button [disabled]="loading" (click)="create()" class="btn btn-success btn-block mt-3 mb-2">
-            <span *ngIf="!loading">Criar</span>
-            <span *ngIf="loading"><i class=" mdi mdi-loading mdi-spin"></i></span>
-          </button>
+          </div>
         </div>
-      </div>
-    </div>
+        <div class="row pt-3">
+          <div class="col-md-6 d-flex">
+            <button [disabled]="loading" (click)="create()" class="btn btn-success btn-sm mr-3">
+              <span *ngIf="!loading">Criar</span>
+              <span *ngIf="loading"><i class=" mdi mdi-loading mdi-spin"></i></span>
+            </button>
+            <button routerLink="/main/manager/event"  class="btn btn-sm btn-light">Voltar</button>
+          </div>
+        </div>
+      </form>
   </div>
+</div>
+<app-alert-display *ngIf="isCreated || hasServerError || (formError && submitted)"
+  [created]="isCreated"
+  [serverError]="hasServerError"
+  [formError]="formError"
+  [page]="'form'"
+  (closeType)="closeAlertDisplay($event)">
+</app-alert-display>

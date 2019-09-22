@@ -1,5 +1,5 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
-
+@import "~ngx-smart-modal/ngx-smart-modal";
 
 body{
     background-color: #fafafa;
@@ -178,8 +178,15 @@ body{
 }
 
 .scroll{
-    max-height: 25rem;
-    min-height: 25rem;
+    max-height: 30rem;
+    min-height: 30rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.scroll-20{
+    max-height: 20rem;
+    min-height: 20rem;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -198,7 +205,7 @@ body{
     text-shadow: 0 0 10px #00ce68;
     transition: 0.1s;
     filter: blur(2px); /* Standard */
--webkit-filter: blur(2px); /* Standard */
+    -webkit-filter: blur(2px); /* Standard */
 }
 
 .btn-warning-zoom:hover{  
@@ -305,6 +312,12 @@ body{
     transition-timing-function: linear;
 }
 
+.row-hover:hover {
+    background-color: #f5f5f59c;
+    transition-duration: 0.1s;
+    transition-timing-function: linear;
+}
+
 .no-border{
     border-radius: 0px !important;
 }
@@ -344,4 +357,27 @@ body{
 
 .p-8px{
     padding: 8px;
+}
+
+.p-12px{
+    padding: 12px;
+}
+
+.hover-detail{
+    opacity: 1;
+    transition-duration: .6s;
+}
+
+.hover-detail:hover{
+    opacity: .8;
+    transition-duration: .6s;
+}
+
+.mdi-middle{
+    position: absolute;
+    top: 35%;
+}
+
+.full-content{
+    min-height: 100vh;
 }

@@ -140,33 +140,81 @@
     <button *ngIf="loggedUser?.manager" routerLink="/main/extension/form" type="button" class="btn btn-xs btn-success float-right">
       <i class="mdi mdi-plus"></i> Criar
     </button>
-    <button routerLink="/main" type="button" class="btn btn-xs btn-danger float-right mr-2">
+    <!-- <button routerLink="/main" type="button" class="btn btn-xs btn-danger float-right mr-2">
       <i class="mdi mdi-chevron-left"></i> Voltar
-    </button>
+    </button> -->
   </div>
 </div>
 <div class="row animated fadeInDown">
-  <div *ngFor="let extension of extensionList" class="col-lg-3 col-sm-6 mb-3">
-    <div class="card box-shadow hovercard">
+  <div *ngFor="let extension of extensionList; let i = index" (mouseover)="mouseHover = true; hoverOption = i" class="col-lg-3 col-sm-6 mb-3">
+    <div class="card box-shadow pointer">
+      <!-- <i *ngIf="mouseHover && hoverOption == i" class="mdi text-muted mdi mdi-36px mdi-help-circle-outline mdi-middle animated slideInLeft faster"></i> -->
       <div class="cardheader"></div>
       <div class="card-body">
         <p class="font-weight-bold display-5">{{extension?.name}}</p>
         <p class="ellipsis-15">{{extension?.description}}</p>
       </div>
       <div class="card-footer text-right">
-        <!-- <button routerLink="./form" [queryParams]="{id: extension?.id}" *ngIf="extension?.creator?.id == loggedUser?.id" class="btn btn-primary btn-xs mr-2">Editar</button> -->
-        <!-- <button routerLink="./detail/{{extension?.id}}" class="btn btn-success btn-xs">visitar</button> -->
-        <!-- <button (click)="join(extension)"  class="btn btn-success btn-xs">Candidatar-se</button> -->
-        <button (click)="join(extension)" disabled class="btn btn-warning btn-xs">Pedido enviado</button>
+        <!-- <button routerLink="./form" [queryParams]="{id: extension?.id}" *ngIf="extension?.creator?.id == loggedUser?.id" class="btn btn-primary btn-xs mr-2">
+          Editar
+        </button> -->
+        <button [disabled]="loading" (click)="showDetailModal(extension)" class="btn btn-primary btn-xs mr-2">
+          Detalhe
+        </button>
+        <button [disabled]="loading" *ngIf="!extension?.sendedRequest && !extension?.isMember" (click)="join(extension)"  class="btn btn-secondary btn-xs mr-2">
+          <span *ngIf="!loading">Candidatar-se</span>
+          <span *ngIf="loading"><i class=" mdi mdi-loading mdi-spin"></i></span>
+        </button>
+        <button [disabled]="loading" *ngIf="extension?.isMember" routerLink="./detail/{{extension?.id}}" class="btn btn-success btn-xs">
+          Entrar
+        </button>
+        <button [disabled]="loading" *ngIf="extension?.sendedRequest && !extension?.isMember" disabled class="btn btn-warning btn-xs">
+          Pedido enviado
+        </button>
       </div>
     </div>
   </div>
 </div>
-<app-alert-display
-  [created]="joined"
-  [serverError]="hasServerError"
-  [formError]="formError"
-  [page]="'form'"
-  [message]="'Pedido enviado'"
-  (closeType)="closeAlertDisplay($event)">
-</app-alert-display>
+<ngx-smart-modal #detailModal identifier="detailModal" [closable]="false" [dismissable]="false" [customClass]=""> 
+  <div class="modal-header">
+    <h5 class="modal-title">{{selectedExtension?.name}}</h5>
+    <small class="text-muted">{{selectedExtension?.expertise?.title}}</small>
+  </div>
+  <div class="modal-body">
+    <p class="font-weight-bold text-gray">Campus</p>
+    <p>{{selectedExtension?.campus?.name}} - {{selectedExtension?.campus?.local}}</p>
+    <p class="font-weight-bold text-gray">Descrição</p>
+    <p>{{selectedExtension?.description}}</p>
+    <p class="font-weight-bold text-gray">Criado em</p>
+    <p>{{selectedExtension?.createdAt | date:'dd/MM/yyyy'}}</p>
+    <p class="font-weight-bold text-gray  ">Administrador</p>
+    <app-user-display 
+      [userObject]="selectedExtension?.creator" 
+      [simpleLayout]="true" 
+      [noAction]="true"
+      [noLink]="false">
+    </app-user-display>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-sm btn-secondary" (click)="modal.getModal('detailModal').close()">fechar</button>
+  </div>
+</ngx-smart-modal>
+<ngx-smart-modal #rejectedModal identifier="rejectedModal" [closable]="false" [dismissable]="false" [customClass]=""> 
+  <div class="modal-header">
+    <h5 class="modal-title">Pedido não aceito</h5>
+  </div>
+  <div class="modal-body">
+    <p>Você já tentou entrar nesse projeto, mas foi recusado. 
+      Por favor, entrar em contato com o administrador do projeto.
+    </p>
+    <app-user-display 
+      [userObject]="selectedExtension?.creator" 
+      [simpleLayout]="true" 
+      [noAction]="true"
+      [noLink]="false">
+    </app-user-display>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-sm btn-secondary" (click)="modal.getModal('rejectedModal').close()">fechar</button>
+  </div>
+</ngx-smart-modal>

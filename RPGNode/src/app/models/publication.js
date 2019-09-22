@@ -7,11 +7,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       title: DataTypes.STRING,
       description: DataTypes.STRING,
+      isPublic: DataTypes.BOOLEAN,
       likes: {
         type: DataTypes.INTEGER,
         defaultValue: 0
       },
       creatorId: {
+        type: DataTypes.INTEGER,
+      },
+      extensionId: {
         type: DataTypes.INTEGER,
       },
       createdAt: DataTypes.DATE,

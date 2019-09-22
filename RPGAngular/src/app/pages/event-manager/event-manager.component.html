@@ -40,7 +40,7 @@
                     <p class="ellipsis">{{event?.title}}</p>
                   </td>
                   <td style="max-width: 300px;">
-                    <p class="ellipsis">{{event?.description}}</p>
+                    <span class="ellipsis" [innerHTML]="event?.description"></span>
                   </td>
                   <td class="text-center">
                     <label *ngIf="event?.expired" class="badge badge-danger">sim</label>

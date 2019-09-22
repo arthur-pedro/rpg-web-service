@@ -1,6 +1,6 @@
 import { loggedUser } from './../../../config';
 import { HomeService } from './../../services/home/home.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
 import { profileUrl } from 'src/config';
 import { UtilService } from 'src/app/services/util/util.service';
 
@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   loadingTask: boolean = false;
   loadingNews: boolean = false;
   loadingClass: boolean = false;
+  loadingEvents: boolean = false;
 
   pod: any = [];
   newsList: any = [];
@@ -31,25 +32,31 @@ export class HomeComponent implements OnInit {
   selectedClass: any;
   user: any;
 
+
+  public barChartOptions = {
+    scaleShowVerticalLines: false,
+    responsive: true
+  };
+
+  public barChartLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartType = 'bar';
+  public barChartLegend = true;
+
+  public barChartData = [
+    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
+    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
+  ];
+
   constructor(
     private homeService: HomeService,
-    private util: UtilService
+    private util: UtilService,
+    private elementRef: ElementRef
   ) { 
-    
-    // if(!this.util.hasLoggedUser())
-    //   this.util.redirectTo('/login')
-    // else{
-    //   var jwt = JSON.parse(localStorage.getItem('jwt'));
-    //   this.util.getUserByToken(jwt)
-    // }
-
-    }
-  
-
-  ngOnInit() {
+      
+  }
+ngOnInit() {
     this.listEvents();
     this.listNews();
-    this.getPod();
     this.getUserById(loggedUser.id);
   }
 
@@ -61,22 +68,8 @@ export class HomeComponent implements OnInit {
     this.selectedClass = obj;
   }
 
-  getPod(){
-    this.loading = true;
-    this.homeService.getPod(5).subscribe(data => {
-      this.pod = data;
-      this.loading = false;
-      this.hasServerError = null;
-    },
-    error => {
-      this.hasServerError = error;
-      this.loading = false;
-    });
-  }
-
   getUserById(userId){
     this.loading = true;
-    //AQUI IRA PASSAR O ID DO USUÁRIO LOGADO
     this.homeService.getFullUser(userId).subscribe(data => {
       this.user = data;
       this.classList = this.user.teamList;
@@ -91,44 +84,33 @@ export class HomeComponent implements OnInit {
 
   listNews(){
     this.loadingNews = true;
-    if(!this.reload){
-      this.loading = true;
-    }
     this.homeService.listPublicNews().subscribe(data => {
       this.newsList = data;
-      this.loading = false;
       this.reload = false;
-      setTimeout(() => {
-        this.loadingNews = false;
-      }, 1500);
+      this.loadingNews = false;
       this.hasServerError = null;
     },
     error => {
       this.hasServerError = error;
       this.loadingNews = false;
-      this.loading = false;
       this.reload = false;
     });
   }
 
   listEvents(){
-    // this.loadingNews = true;
+    this.loadingEvents = true;
     // if(!this.reload){
     //   this.loading = true;
     // }
     this.homeService.listPublicEvent().subscribe(data => {
       this.eventList = data;
-      this.loading = false;
       this.reload = false;
-      setTimeout(() => {
-        // this.loadingNews = false;
-      }, 1500);
+      this.loadingEvents = false;
       this.hasServerError = null;
     },
     error => {
       this.hasServerError = error;
-      // this.loadingNews = false;
-      this.loading = false;
+      this.loadingEvents = false;
       this.reload = false;
     });
 

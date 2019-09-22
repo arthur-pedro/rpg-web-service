@@ -18,4 +18,4 @@ app.use('/api', require('./routes'));
 
 module.exports = app;
           
-app.listen(3000, () => console.log("Serer runing..."));
+app.listen(3000, () => console.log("Server runing..."));

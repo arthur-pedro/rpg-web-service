@@ -1,30 +1,37 @@
-<a *ngIf="!noLink" style="text-decoration: none" routerLink="/main/profile/{{user?.id}}">
+<a *ngIf="!_noLink" style="text-decoration: none" routerLink="/main/profile/{{user?.id}}">
   <ng-container *ngTemplateOutlet="internalBlock"></ng-container>
 </a>
-<a *ngIf="noLink">
+<a *ngIf="_noLink">
   <ng-container *ngTemplateOutlet="internalBlock"></ng-container>
 </a>
 <ng-template #internalBlock>
-  <div class="row">
+  <div *ngIf="!simpleLayout" class="row">
     <div class="col-md-1 pr-0 mr-0">
       <img *ngIf="!user?.photo" class="img-xs rounded-circle mb-4 mb-md-0" src="../../../assets/simpleDatabase/default_user.jpg" alt="profile image">
       <img *ngIf="user?.photo" class="img-xs rounded-circle mb-4 mb-md-0" src="{{user?.photo}}" alt="profile image">
     </div>
-    <div class="col-md-8 pl-0 ml-0">
+    <div class="col-md-11 pl-0 ml-0">
       <div class="d-flex">
         <small class="text-dark font-weight-semibold mr-2 ml-2 mb-0 no-wrap">{{user?.firstName}} {{user?.lastName}}</small>
       </div>
       <small class="text-gray ellipsis mb-2 ml-2">{{user?.email}}</small>
     </div>
-    <div class="col-md-3 text-right">
-        <small class="font-weight-semibold" *ngIf="!user?.manager">
-          <span>Lv.</span>
-          <span class="font-weight-semibold">{{user?.level}}</span>
-        </small>
-        <small *ngIf="user?.manager">
-          <span>Lv.</span>
-          <span class="font-weight-semibold">Máx</span>
-        </small>
+    <!-- <div class="col-md-3 text-right">
+      <i class="mdi mdi-open-in-new"></i>
+    </div> -->
+  </div>
+  <div *ngIf="simpleLayout" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img *ngIf="!user?.photo" class="img-xs rounded-circle mb-4 mb-md-0" src="../../../assets/simpleDatabase/default_user.jpg" alt="profile image">
+      <img *ngIf="user?.photo" class="img-xs rounded-circle mb-4 mb-md-0" src="{{user?.photo}}" alt="profile image">
+      <small class="text-dark font-weight-semibold mr-2 ml-2 mb-0 no-wrap">{{user?.firstName}} {{user?.lastName}}</small>
+      <small class="text-primary">- {{user?.email}}</small>
+      <button (click)="action('decline')" *ngIf="!_noAction" type="button" class="ml-2 mb-1 close">
+        <i class="mdi mdi-close mdi-18px text-danger"></i>
+      </button>
+      <button (click)="action('accept')" *ngIf="!_noAction" type="button" class="ml-2 mb-1 close">
+        <i class="mdi mdi-check mdi-18px text-success"></i>
+      </button>
     </div>
   </div>
 </ng-template>

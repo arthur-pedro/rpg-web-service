@@ -105,4 +105,18 @@ export class NewsFormComponent implements OnInit {
         )
     );
   }
+
+  closeAlertDisplay(event){
+    switch(event){
+      case 'created': 
+        this.isCreated = false;
+        break;
+      case'serverError': 
+        this.hasServerError = null;
+        break;
+      case 'formError': 
+        this.formError = false;
+        break;
+    }
+  }
 }
