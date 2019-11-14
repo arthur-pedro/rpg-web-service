@@ -5,6 +5,7 @@ import { UtilService } from 'src/app/services/util/util.service';
 import { ExtensionProgramService } from 'src/app/services/extension-program/extension-program.service';
 import { BoardService } from 'src/app/services/board/board.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-extension-program-detail',
@@ -28,6 +29,7 @@ export class ExtensionProgramDetailComponent implements OnInit {
   loadingPublication: boolean = false;
   loadingEvents: boolean = false;
   showComment: boolean = false
+  isMember: boolean = false;
 
   publicationList: any = [];
   members: any [];
@@ -49,8 +51,14 @@ export class ExtensionProgramDetailComponent implements OnInit {
     this.extensionService.get(this.extension.id).subscribe((data: any) => {
       this.extension = data;
       if(this.extension && this.extension.members){
-        this.members = this.extension.members
+        this.members = this.extension.members;
+        this.members.forEach(user => {
+          if(user.id == this.loggedUser.id)
+            this.isMember = true;
+        });
       }
+      if(!this.isMember)
+        this.util.redirectTo('/main/extension')
       this.loading = false;
       this.hasServerError = null;
     },

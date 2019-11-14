@@ -14,20 +14,20 @@ import { NewsService } from 'src/app/services/news/news.service';
 })
 export class NewsFormComponent implements OnInit {
 
-  newsForm: FormGroup;
+    newsForm: FormGroup;
 
-  isCreated: boolean = false;
-  submitted: boolean = false;
-  loading: boolean = false;
-  hasServerError: boolean = false;
-  formError:boolean = false;
+    isCreated: boolean = false;
+    submitted: boolean = false;
+    loading: boolean = false;
+    hasServerError: boolean = false;
+    formError:boolean = false;
 
-  search$: Observable<Tag[]>;
-  searchLoading = false;
-  searchInput$ = new Subject<string>();
-  selectedTags:  Tag[] = <any>[];
+    search$: Observable<Tag[]>;
+    searchLoading = false;
+    searchInput$ = new Subject<string>();
+    selectedTags:  Tag[] = <any>[];
 
-  loggedUser: any;
+    loggedUser: any;
 
 
   froadaDescription: any;

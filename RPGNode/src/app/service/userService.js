@@ -1,7 +1,7 @@
 
 'use strict';
 
-const { User, Task, Comment, Publication, Extension_Program } = require('../models');
+const { User, Task, Comment, Publication, Extension_Program, sequelize } = require('../models');
 
 class UserService {
 
@@ -60,6 +60,18 @@ class UserService {
                 }
             }
         );
+    }
+
+    getInfo(userId){
+        let query = '' +
+        ' SELECT COUNT(creatorId) as publications,  FROM publication where creatorId = :userId UNION ' +
+        ' SELECT COUNT(creatorId) as comments FROM comment where creatorId = :userId UNION ' +
+        ' SELECT COUNT(userId) as likes FROM publication_like_user where userId = :userId UNION ' +
+        ' SELECT COUNT(userId) as receivedLikes FROM publication_like_user WHERE publicationId in (SELECT id  FROM publication WHERE creatorId = :userId) ';
+        return sequelize.query(query,
+        { replacements: { userId: userId }, type: sequelize.QueryTypes.SELECT }).then(res => {
+            return res;
+        });
     }
 }
 

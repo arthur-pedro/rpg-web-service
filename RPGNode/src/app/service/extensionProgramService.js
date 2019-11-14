@@ -163,8 +163,6 @@ class ExtensionProgramService{
     }
 
     doMemberRequest(userId, extensionId){ 
-        // userId = parseInt(userId);
-        // extensionId = parseInt(extensionId);
         let query = "INSERT IGNORE INTO user_extension_program (`extensionProgramId`, `userId`, `status`, `createdAt`, `updatedAt`) VALUES (:extensionId, :userId, 'PENDENT' , :createdAt, :updatedAt)";
         let date = Util.getDateNow().toString();
         return Publication.sequelize.query(
